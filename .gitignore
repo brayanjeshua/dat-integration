@@ -6,7 +6,6 @@
 
 # Eclipse
 .project
-.classpath
 .settings
 
 # Idea
@@ -31,6 +30,7 @@ out
 build
 bin
 
+!lib/*.jar
 
 # Other
 *.log
