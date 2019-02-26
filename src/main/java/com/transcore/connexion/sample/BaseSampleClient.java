@@ -10,7 +10,7 @@ import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
 
 import cltool4j.BaseCommandlineTool;
-import cltool4j.GlobalConfigProperties;
+//import cltool4j.GlobalConfigProperties;
 
 import com.tcore.tcoreHeaders.SessionHeaderDocument;
 import com.tcore.tcoreTypes.EquipmentType;
@@ -42,24 +42,26 @@ import com.tcore.tfmiFreightMatching.Shipment;
 import com.tcore.tfmiFreightMatching.TfmiFreightMatchingServiceStub;
 
 /**
- * This class provides functionality that is common to all sample clients, including login and cleanup
- * (deleting assets).
+ * This class provides functionality that is common to all sample clients,
+ * including login and cleanup (deleting assets).
  * 
- * For clarity, this sample code does minimal error handling. When developing a production application, we
- * strongly recommend implementing full error handling as demonstrated in {@link ErrorHandling}.
+ * For clarity, this sample code does minimal error handling. When developing a
+ * production application, we strongly recommend implementing full error
+ * handling as demonstrated in {@link ErrorHandling}.
  * 
- * Note that all sample applications make use of the cltool4j command-line framework available at
- * http://code.google.com/p/cltool4j/.
+ * Note that all sample applications make use of the cltool4j command-line
+ * framework available at http://code.google.com/p/cltool4j/.
  */
 public abstract class BaseSampleClient extends BaseCommandlineTool {
 
-    protected String endpointUrl;
+    protected final String endpointUrl = "http://cnx.test.dat.com:9280/TfmiRequest";
 
     protected final Random random = new Random();
 
     @Override
     public void setup() {
-        endpointUrl = GlobalConfigProperties.singleton().getProperty("url");
+        // endpointUrl = GlobalConfigProperties.singleton().getProperty("ur
+        // endpointUrl = this.env.getProperty("url");
     }
 
     protected SessionToken login(final String loginId, final String password) throws RemoteException {
@@ -73,30 +75,15 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
         validate(loginRequestDoc);
 
         final TfmiFreightMatchingServiceStub stub = new TfmiFreightMatchingServiceStub(endpointUrl);
+
         final LoginResponseDocument responseDoc = stub.login(loginRequestDoc, null, null, null);
 
         final LoginResult result = responseDoc.getLoginResponse().getLoginResult();
 
         if (!result.isSetLoginSuccessData()) {
-            throw new IllegalArgumentException("Authenticaton failure using credentials: " + loginId + ","
-                    + password);
+            throw new IllegalArgumentException("Authenticaton failure using credentials: " + loginId + "," + password);
         }
         return result.getLoginSuccessData().getToken();
-    }
-
-    protected SessionToken loginUser1() throws RemoteException {
-        return login(GlobalConfigProperties.singleton().getProperty("loginId1"), GlobalConfigProperties
-                .singleton().getProperty("password1"));
-    }
-
-    protected SessionToken loginUser2() throws RemoteException {
-        return login(GlobalConfigProperties.singleton().getProperty("loginId2"), GlobalConfigProperties
-                .singleton().getProperty("password2"));
-    }
-
-    protected SessionToken loginDob() throws RemoteException {
-        return login(GlobalConfigProperties.singleton().getProperty("loginDob"), GlobalConfigProperties
-                .singleton().getProperty("passwordDob"));
     }
 
     protected SessionHeaderDocument sessionHeaderDocument(final SessionToken sessionToken) {
@@ -106,7 +93,8 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
     }
 
     /**
-     * Validates an XMLBeans object (generally a request document) and throws an AxisFault if validation fails
+     * Validates an XMLBeans object (generally a request document) and throws an
+     * AxisFault if validation fails
      * 
      * @param xmlObject
      * @throws AxisFault
@@ -122,8 +110,7 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
                 final StringBuffer sb = new StringBuffer(256);
 
                 for (final XmlError error : errorList) {
-                    sb.append("Line: " + error.getCursorLocation().xmlText() + " : " + error.getMessage()
-                            + "\n");
+                    sb.append("Line: " + error.getCursorLocation().xmlText() + " : " + error.getMessage() + "\n");
                 }
 
                 throw new AxisFault("Invalid Object: \n" + sb.toString());
@@ -135,15 +122,15 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
     }
 
     /**
-     * Deletes all assets owned by the user. Note that deleting an asset also deletes the alarm associated
-     * with that asset (if any) and that searches do not need to be deleted.
+     * Deletes all assets owned by the user. Note that deleting an asset also
+     * deletes the alarm associated with that asset (if any) and that searches do
+     * not need to be deleted.
      * 
      * @throws Exception
      */
     protected void deleteAllAssets(final SessionToken sessionToken) throws RemoteException {
         final DeleteAssetRequestDocument deleteRequestDoc = DeleteAssetRequestDocument.Factory.newInstance();
-        final DeleteAssetOperation operation = deleteRequestDoc.addNewDeleteAssetRequest()
-                .addNewDeleteAssetOperation();
+        final DeleteAssetOperation operation = deleteRequestDoc.addNewDeleteAssetRequest().addNewDeleteAssetOperation();
 
         // Delete all the user's assets. If so desired, we could delete by
         // AssetId or PostersReferenceId or delete all assets owned by the
@@ -171,8 +158,8 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
         final DeleteAssetResult result = responseDoc.getDeleteAssetResponse().getDeleteAssetResult();
 
         if (!result.isSetDeleteAssetSuccessData()) {
-            throw new RemoteException("Delete Request Failed: " + result.getServiceError().getMessage()
-                    + " : " + result.getServiceError().getDetailedMessage());
+            throw new RemoteException("Delete Request Failed: " + result.getServiceError().getMessage() + " : "
+                    + result.getServiceError().getDetailedMessage());
         }
     }
 
@@ -183,8 +170,8 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
      * @return Simple summary of the asset
      */
     public static String summaryString(final Asset asset) {
-        final Place originPlace = asset.isSetShipment() ? asset.getShipment().getOrigin() : asset
-                .getEquipment().getOrigin();
+        final Place originPlace = asset.isSetShipment() ? asset.getShipment().getOrigin()
+                : asset.getEquipment().getOrigin();
         final String originString = originPlace.getNamedCoordinates().getCity() + ","
                 + originPlace.getNamedCoordinates().getStateProvince().toString();
 
@@ -226,12 +213,13 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
      * @return Simple summary of the match
      */
     public static String summaryString(final MatchingAsset match) {
-        final String originDeadhead = match.isSetOriginDeadhead() ? Integer.toString(match
-                .getOriginDeadhead().getMiles()) : "-";
-        final String destinationDeadhead = match.isSetDestinationDeadhead() ? Integer.toString(match
-                .getDestinationDeadhead().getMiles()) : "-";
-        return String.format("%s (%s, %s)", summaryString(match.getAsset()), originDeadhead,
-                destinationDeadhead);
+        final String originDeadhead = match.isSetOriginDeadhead()
+                ? Integer.toString(match.getOriginDeadhead().getMiles())
+                : "-";
+        final String destinationDeadhead = match.isSetDestinationDeadhead()
+                ? Integer.toString(match.getDestinationDeadhead().getMiles())
+                : "-";
+        return String.format("%s (%s, %s)", summaryString(match.getAsset()), originDeadhead, destinationDeadhead);
     }
 
     /**
@@ -243,8 +231,7 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
             final float destinationLongitude) throws RemoteException {
 
         final PostAssetRequestDocument postRequestDoc = PostAssetRequestDocument.Factory.newInstance();
-        final PostAssetOperation operation = postRequestDoc.addNewPostAssetRequest()
-                .addNewPostAssetOperations();
+        final PostAssetOperation operation = postRequestDoc.addNewPostAssetRequest().addNewPostAssetOperations();
 
         final Shipment shipment = operation.addNewShipment();
         shipment.setEquipmentType(EquipmentType.AUTO_CARRIER);
@@ -274,10 +261,11 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
                 sessionHeaderDocument(sessionToken));
         final PostAssetResult result = responseDoc.getPostAssetResponse().getPostAssetResultsArray(0);
 
-        // Check for errors (note - some more severe errors will result in an AxisFault instead)
+        // Check for errors (note - some more severe errors will result in an AxisFault
+        // instead)
         if (!result.isSetPostAssetSuccessData()) {
-            throw new RemoteException("Post Asset Request Failed: " + result.getServiceError().getMessage()
-                    + " : " + result.getServiceError().getDetailedMessage());
+            throw new RemoteException("Post Asset Request Failed: " + result.getServiceError().getMessage() + " : "
+                    + result.getServiceError().getDetailedMessage());
         }
         return result;
     }
@@ -291,8 +279,7 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
             final float destinationLongitude, final boolean setAlarm) throws RemoteException {
 
         final PostAssetRequestDocument postRequestDoc = PostAssetRequestDocument.Factory.newInstance();
-        final PostAssetOperation operation = postRequestDoc.addNewPostAssetRequest()
-                .addNewPostAssetOperations();
+        final PostAssetOperation operation = postRequestDoc.addNewPostAssetRequest().addNewPostAssetOperations();
 
         final Equipment equipment = operation.addNewEquipment();
         equipment.setEquipmentType(EquipmentType.AUTO_CARRIER);
@@ -333,10 +320,11 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
                 sessionHeaderDocument(sessionToken));
         final PostAssetResult result = responseDoc.getPostAssetResponse().getPostAssetResultsArray(0);
 
-        // Check for errors (note - some more severe errors will result in an AxisFault instead)
+        // Check for errors (note - some more severe errors will result in an AxisFault
+        // instead)
         if (!result.isSetPostAssetSuccessData()) {
-            throw new RemoteException("Post Asset Request Failed: " + result.getServiceError().getMessage()
-                    + " : " + result.getServiceError().getDetailedMessage());
+            throw new RemoteException("Post Asset Request Failed: " + result.getServiceError().getMessage() + " : "
+                    + result.getServiceError().getDetailedMessage());
         }
     }
 }
