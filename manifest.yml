@@ -1,8 +1,11 @@
 ---
 applications:
-- name: gs-rest-service
+- name: rest-service-guides
   memory: 256M
   instances: 1
-  host: rest-service
-  domain: guides.spring.io
-  path: build/libs/gs-rest-service-0.1.0.jar
+  random-route: true
+  domain: cfapps.io
+  timeout: 180
+  buildpack: java_buildpack
+# For Maven target/gs-rest-service-cors-0.1.0.jar
+  path: build/libs/gs-rest-service-cors-0.1.0.jar
