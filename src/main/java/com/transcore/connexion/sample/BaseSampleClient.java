@@ -53,13 +53,14 @@ import com.tcore.tfmiFreightMatching.TfmiFreightMatchingServiceStub;
  */
 public abstract class BaseSampleClient extends BaseCommandlineTool {
 
-    protected String endpointUrl;
+	protected final String endpointUrl = "http://cnx.test.dat.com:9280/TfmiRequest";
 
     protected final Random random = new Random();
 
     @Override
     public void setup() {
-        endpointUrl = GlobalConfigProperties.singleton().getProperty("url");
+        // endpointUrl = GlobalConfigProperties.singleton().getProperty("ur
+        // endpointUrl = this.env.getProperty("url");
     }
 
     protected SessionToken login(final String loginId, final String password) throws RemoteException {
