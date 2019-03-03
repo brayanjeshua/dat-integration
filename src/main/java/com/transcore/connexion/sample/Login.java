@@ -2,13 +2,14 @@ package com.transcore.connexion.sample;
 
 import java.rmi.RemoteException;
 
-import cltool4j.GlobalConfigProperties;
+//import cltool4j.GlobalConfigProperties;
 
 /**
  * Demonstrates a simple user login.
  * 
- * For clarity, this sample code does minimal error handling. When developing a production application, we
- * strongly recommend implementing full error handling as demonstrated in {@link ErrorHandling}.
+ * For clarity, this sample code does minimal error handling. When developing a
+ * production application, we strongly recommend implementing full error
+ * handling as demonstrated in {@link ErrorHandling}.
  * 
  */
 public class Login extends BaseSampleClient {
@@ -16,8 +17,8 @@ public class Login extends BaseSampleClient {
     @Override
     public void run() throws RemoteException {
         final String loginId = "tradexcnx";
-        //GlobalConfigProperties.singleton().getProperty("loginId1");
-        final String password = "logistics";//GlobalConfigProperties.singleton().getProperty("password1");
+        // GlobalConfigProperties.singleton().getProperty("loginId1");
+        final String password = "logistics";// GlobalConfigProperties.singleton().getProperty("password1");
 
         System.out.println("Logging in with loginId " + loginId);
         login(loginId, password);
