@@ -27,11 +27,12 @@ public class Asset extends BaseSampleClient {
     public Asset(SessionToken sessionToken, String originCity, StateProvince.Enum originState, String destinationCity,
             StateProvince.Enum destinationState, float destinationLatitude, float destinationLongitude)
             throws RemoteException {
-        this.postShipmentResult = this.postShipment(sessionToken, destinationCity, destinationState, destinationCity,
+        this.postShipmentResult = this.postShipment(sessionToken, originCity, originState, destinationCity,
                 destinationState, destinationLongitude, destinationLongitude);
     }
 
     public PostAssetResult getContent() {
+    	System.out.println(this.postShipmentResult);
         return this.postShipmentResult;
     }
 
