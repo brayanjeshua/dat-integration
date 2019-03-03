@@ -24,6 +24,6 @@ public class AssetController {
         System.out.println(StateProvince.Enum.forString(originState));
 
         return new Asset(session.getToken(), originCity, StateProvince.Enum.forString(originState), destinationCity,
-                StateProvince.Enum.forString(destinationState), destinationLongitude, destinationLongitude);
+                StateProvince.Enum.forString(destinationState), destinationLatitude, destinationLongitude);
     }
 }

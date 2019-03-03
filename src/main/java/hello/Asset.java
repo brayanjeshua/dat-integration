@@ -28,7 +28,7 @@ public class Asset extends BaseSampleClient {
             StateProvince.Enum destinationState, float destinationLatitude, float destinationLongitude)
             throws RemoteException {
         this.postShipmentResult = this.postShipment(sessionToken, originCity, originState, destinationCity,
-                destinationState, destinationLongitude, destinationLongitude);
+                destinationState, destinationLatitude, destinationLongitude);
     }
 
     public PostAssetResult getContent() {
