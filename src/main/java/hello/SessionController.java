@@ -18,7 +18,7 @@ import org.bson.types.ObjectId;
 public class SessionController {
   @Autowired
   private SessionRepository repository;
-  
+
   @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
   public List<Session> getAllSession() {
     return repository.findAll();
@@ -28,20 +28,20 @@ public class SessionController {
   public Session getSessionById(@PathVariable("id") ObjectId id) {
     return repository.findBy_id(id);
   }
-  
+
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public void modifySessionById(@PathVariable("id") ObjectId id, @Valid @RequestBody Session Session) {
     Session.set_id(id);
     repository.save(Session);
   }
-  
+
   @RequestMapping(value = "/", method = RequestMethod.POST)
   public Session createSession(@Valid @RequestBody Session Session) {
     Session.set_id(ObjectId.get());
     repository.save(Session);
     return Session;
   }
-  
+
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public void deleteSession(@PathVariable ObjectId id) {
     repository.delete(repository.findBy_id(id));
