@@ -34,7 +34,7 @@ public class Login extends BaseSampleClient {
 	}
 
 	public String getContent() {
-		return this.primary;
+		return this.token.toString();
 	}
 
 	public SessionToken getToken() {
