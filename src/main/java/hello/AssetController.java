@@ -3,6 +3,7 @@ package hello;
 import java.rmi.RemoteException;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,7 @@ import com.tcore.tcoreTypes.StateProvince;
 
 @RestController
 public class AssetController {
-    @PostMapping(value = "/asset/shipment")
+    @RequestMapping(value = "/asset/shipment")
     public AssetShipment assetShipment(@RequestParam(value = "email") String email,
             @RequestParam(value = "password") String password,
             @RequestParam(value = "equipmentType") String equipmentType,
