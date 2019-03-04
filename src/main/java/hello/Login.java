@@ -2,11 +2,15 @@ package hello;
 
 import java.rmi.RemoteException;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.tcore.tcoreTypes.SessionToken;
 import com.transcore.connexion.sample.BaseSampleClient;
 
 public class Login extends BaseSampleClient {
 
+    @Value("${sessionToken.Id}")
+    private String sessionTokenId;
     private final String email;
     private final String password;
     private final SessionToken token;
