@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-	@PostMapping("/login")
+	@PostMapping(value = "/login")
 	public Login login(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password,
 			@RequestParam(value = "name", defaultValue = "World") String name) throws RemoteException {
 

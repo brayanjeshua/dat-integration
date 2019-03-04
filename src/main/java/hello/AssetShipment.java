@@ -24,10 +24,10 @@ public class AssetShipment extends BaseSampleClient {
 
     final PostAssetResult postShipmentResult;
 
-    public PostAssetResult getContent() {
+    public String getContent() {
         System.out.println(this.postShipmentResult);
 
-        return this.postShipmentResult;
+        return this.postShipmentResult.toString();
     }
 
     public AssetShipment(final SessionToken sessionToken, final EquipmentType.Enum equipmentType,
