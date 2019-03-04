@@ -18,7 +18,7 @@ public class Session {
   }
   
   // ObjectId needs to be converted to string
-  public String get_id() { return _id.toHexString(); }
+  public String get_id() { return _id.toString(); }
   public void set_id(ObjectId _id) { this._id = _id; }
   
   public String getToken() { return token; }
