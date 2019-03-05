@@ -14,19 +14,19 @@ import hello.repositories.SessionRepository;
 import hello.models.*;
 import org.bson.types.ObjectId;
 
-
 @RestController
 public class LoginController {
     @Autowired
     private SessionRepository repository;
 
-	@RequestMapping(value = "/login")
-	public Session login(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password,
-			@RequestParam(value = "name", defaultValue = "World") String name) throws RemoteException {
+    @RequestMapping(value = "/login")
+    public Session login(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password)
+            throws RemoteException {
+        SessionToken token = new Login(email, password).sessionToken;
 
-        SessionToken login = new Login(email, password).getToken();
         Session session = repository.findBy_id(new ObjectId("5c7c7b01030b7432c5b23e9b"));
-        session.setToken(login.toString());
+        session.setToken(token.toString());
+
         return repository.save(session);
-	}
+    }
 }
