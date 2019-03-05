@@ -8,12 +8,10 @@ import com.tcore.tcoreTypes.SessionToken;
 import com.transcore.connexion.sample.BaseSampleClient;
 
 public class Login extends BaseSampleClient {
-
-	@Value("${sessionToken.Id}")
-	private String sessionTokenId;
+	public static SessionToken sessionToken;
 	private final String email;
 	private final String password;
-	private final SessionToken token;
+	final SessionToken token;
 
 	private final String primary;
 	// private final String secondary;
@@ -24,7 +22,7 @@ public class Login extends BaseSampleClient {
 		this.token = login(this.email, this.password);
 		this.primary = this.token.xgetPrimary().getStringValue();
 		// this.secondary = this.token.xgetSecondary().getStringValue();
-
+		this.sessionToken = this.token;
 		System.out.println(this.token);
 	}
 

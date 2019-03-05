@@ -25,11 +25,9 @@ public class AssetController {
             @RequestParam(value = "destinationLatitude") float destinationLatitude,
             @RequestParam(value = "destinationLongitude") float destinationLongitude) throws RemoteException {
 
-        final Login session = new Login(email, password);
-
         System.out.println(EquipmentType.Enum.forString(equipmentType));
 
-        return new AssetShipment(session.getToken(), EquipmentType.Enum.forString(equipmentType), lengthFeet,
+        return new AssetShipment(Login.sessionToken, EquipmentType.Enum.forString(equipmentType), lengthFeet,
                 weightPounds, originCity, StateProvince.Enum.forString(originState), destinationCity,
                 StateProvince.Enum.forString(destinationState), destinationLatitude, destinationLongitude);
     }
