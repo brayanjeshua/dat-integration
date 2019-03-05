@@ -13,9 +13,7 @@ import com.tcore.tcoreTypes.StateProvince;
 @RestController
 public class AssetController {
     @RequestMapping(value = "/asset/shipment")
-    public AssetShipment assetShipment(@RequestParam(value = "email") String email,
-            @RequestParam(value = "password") String password,
-            @RequestParam(value = "equipmentType") String equipmentType,
+    public AssetShipment assetShipment(@RequestParam(value = "equipmentType") String equipmentType,
             @RequestParam(value = "lengthFeet") Integer lengthFeet,
             @RequestParam(value = "weightPounds") Integer weightPounds,
             @RequestParam(value = "originCity") String originCity,
