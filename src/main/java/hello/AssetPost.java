@@ -187,15 +187,13 @@ public class AssetPost extends BaseSampleClient {
                 d.setVolumeCubicFeet(this.volumeCubicFeet);
         }
 
-        operation.setStops(stops);
+        operation.setStops(this.stops);
 
         // availability
 
         // alarm
 
-        operation.setIncludeAsset(includeAsset);
-
-        System.out.println(postRequestDoc);
+        operation.setIncludeAsset(this.includeAsset);
 
         // Validate the request document before executing the operation
         validate(postRequestDoc);
@@ -246,12 +244,14 @@ public class AssetPost extends BaseSampleClient {
             final CityAndState csOrigin = place.addNewCityAndState();
             csOrigin.setCity(city);
             csOrigin.setStateProvince(StateProvince.Enum.forString(stateProvince));
+            // if (!county.isEmpty())
             csOrigin.setCounty(county);
             break;
         case "namedPostalCode":
             final NamedPostalCode npcOrigin = place.addNewNamedPostalCode();
             npcOrigin.setCity(city);
             npcOrigin.setStateProvince(StateProvince.Enum.forString(stateProvince));
+            // if (!county.isEmpty())
             npcOrigin.setCounty(county);
             final com.tcore.tcoreTypes.PostalCode npcOriginPC = npcOrigin.addNewPostalCode();
             npcOriginPC.setCountry(CountryCode.Enum.forString(country));

@@ -58,10 +58,10 @@ public class AssetController {
             @RequestParam(value = "comments", required = false, defaultValue = "") String[] comments,
             @RequestParam(value = "count", required = false, defaultValue = "1") Integer count,
             // * Optional dimensions parameters *
-            @RequestParam(value = "lengthFeet", required = false, defaultValue = "1") Integer lengthFeet,
-            @RequestParam(value = "weightPounds", required = false, defaultValue = "1") Integer weightPounds,
-            @RequestParam(value = "heightInches", required = false, defaultValue = "1") Integer heightInches,
-            @RequestParam(value = "volumeCubicFeet", required = false, defaultValue = "1") Integer volumeCubicFeet,
+            @RequestParam(value = "lengthFeet", required = false, defaultValue = "0") Integer lengthFeet,
+            @RequestParam(value = "weightPounds", required = false, defaultValue = "0") Integer weightPounds,
+            @RequestParam(value = "heightInches", required = false, defaultValue = "0") Integer heightInches,
+            @RequestParam(value = "volumeCubicFeet", required = false, defaultValue = "0") Integer volumeCubicFeet,
             @RequestParam(value = "stops", required = false, defaultValue = "1") Integer stops,
             // * Optional availability parameters *
             // @RequestParam(value = "earliest", required=false) Date earliest,
@@ -70,6 +70,10 @@ public class AssetController {
             @RequestParam(value = "includeAsset", required = false, defaultValue = "false") Boolean includeAsset
 
     ) throws RemoteException {
+
+        if (comments == null) {
+            comments = new String[] {};
+        }
 
         return new AssetPost(assetType, equipmentType,
 
