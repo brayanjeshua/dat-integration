@@ -50,7 +50,6 @@ public class Search extends BaseSampleClient {
 
         @Override
         public void run() throws RemoteException {
-
                 try {
                         // Login two users
                         final SessionToken sessionToken1 = loginUser1();
@@ -63,39 +62,35 @@ public class Search extends BaseSampleClient {
                         System.out.println("======= Posting =======");
                         postShipment(sessionToken1, "Salina", StateProvince.KS, "Nome", StateProvince.AK, 64.5f,
                                         -165.404f);
-
-                        /*
-                         * postShipment(sessionToken1, "Manhattan", StateProvince.KS, "Teller",
-                         * StateProvince.AK, 65.25f, -166.35f); postShipment(sessionToken1, "Wichita",
-                         * StateProvince.KS, "White Mountain", StateProvince.AK, 64.681f, -163.44f);
-                         * postShipment(sessionToken1, "Kansas City", StateProvince.KS, "Nome",
-                         * StateProvince.AK, 64.5f, -165.404f);
-                         */
+                        postShipment(sessionToken1, "Manhattan", StateProvince.KS, "Teller", StateProvince.AK, 65.25f,
+                                        -166.35f);
+                        postShipment(sessionToken1, "Wichita", StateProvince.KS, "White Mountain", StateProvince.AK,
+                                        64.681f, -163.44f);
+                        postShipment(sessionToken1, "Kansas City", StateProvince.KS, "Nome", StateProvince.AK, 64.5f,
+                                        -165.404f);
 
                         System.out.println("\n======= Searching for shipments (postal code -> city/state) =======");
                         shipmentSearchPostalCode2CityState(sessionToken2);
 
-                        /*
-                         * 
-                         * System.out.println("\n======= Searching for shipments (state -> zone ======="
-                         * ); shipmentSearchState2Zone(sessionToken2);
-                         * 
-                         * System.out.println("\n\n\n======= Equipment Search =======");
-                         * System.out.println("======= Posting ======="); postEquipment(sessionToken1,
-                         * "Salina", StateProvince.KS, "Nome", StateProvince.AK, 64.5f, -165.404f,
-                         * false); postEquipment(sessionToken1, "Manhattan", StateProvince.KS, "Teller",
-                         * StateProvince.AK, 65.25f, -166.35f, false); postEquipment(sessionToken1,
-                         * "Wichita", StateProvince.KS, "White Mountain", StateProvince.AK, 64.681f,
-                         * -163.44f, false); postEquipment(sessionToken1, "Kansas City",
-                         * StateProvince.KS, "Nome", StateProvince.AK, 64.5f, -165.404f, false);
-                         * 
-                         * System.out.
-                         * println("\n======= Searching for equipment (postal code -> city/state) ======="
-                         * ); equipmentSearchPostalCode2CityState(sessionToken2);
-                         * 
-                         * System.out.println("\n======= Searching for equipment (state -> zone ======="
-                         * ); equipmentSearchState2Zone(sessionToken2);
-                         */
+                        System.out.println("\n======= Searching for shipments (state -> zone =======");
+                        shipmentSearchState2Zone(sessionToken2);
+
+                        System.out.println("\n\n\n======= Equipment Search =======");
+                        System.out.println("======= Posting =======");
+                        postEquipment(sessionToken1, "Salina", StateProvince.KS, "Nome", StateProvince.AK, 64.5f,
+                                        -165.404f, false);
+                        postEquipment(sessionToken1, "Manhattan", StateProvince.KS, "Teller", StateProvince.AK, 65.25f,
+                                        -166.35f, false);
+                        postEquipment(sessionToken1, "Wichita", StateProvince.KS, "White Mountain", StateProvince.AK,
+                                        64.681f, -163.44f, false);
+                        postEquipment(sessionToken1, "Kansas City", StateProvince.KS, "Nome", StateProvince.AK, 64.5f,
+                                        -165.404f, false);
+
+                        System.out.println("\n======= Searching for equipment (postal code -> city/state) =======");
+                        equipmentSearchPostalCode2CityState(sessionToken2);
+
+                        System.out.println("\n======= Searching for equipment (state -> zone =======");
+                        equipmentSearchState2Zone(sessionToken2);
 
                         // Clean up - delete all assets.
                         //
@@ -114,12 +109,13 @@ public class Search extends BaseSampleClient {
         /**
          * Searches for shipments, specifying origin by postal code and destination by
          * city/state.
-         * @return 
+         * 
+         * @return
          * 
          * @throws RemoteException
          */
-        protected CreateSearchSuccessData shipmentSearchPostalCode2CityState(final SessionToken sessionToken) throws RemoteException {
-
+        protected CreateSearchSuccessData shipmentSearchPostalCode2CityState(final SessionToken sessionToken)
+                        throws RemoteException {
                 final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory.newInstance();
                 final CreateSearchOperation operation = searchRequestDoc.addNewCreateSearchRequest()
                                 .addNewCreateSearchOperation();
@@ -197,15 +193,14 @@ public class Search extends BaseSampleClient {
                                         + " : " + result.getServiceError().getDetailedMessage());
                 }
 
-                return result.getCreateSearchSuccessData();
-                
-                /*
-
                 // Output match count and summaries
                 System.out.println(result.getCreateSearchSuccessData().getTotalMatches() + " matches found");
                 for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
                         System.out.println(summaryString(match));
-                } */
+                }
+
+                return result.getCreateSearchSuccessData();
+
         }
 
         /**
@@ -213,7 +208,8 @@ public class Search extends BaseSampleClient {
          * 
          * @throws Exception
          */
-        protected void shipmentSearchState2Zone(final SessionToken sessionToken) throws RemoteException {
+        protected CreateSearchSuccessData shipmentSearchState2Zone(final SessionToken sessionToken)
+                        throws RemoteException {
 
                 final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory.newInstance();
                 final CreateSearchOperation operation = searchRequestDoc.addNewCreateSearchRequest()
@@ -282,6 +278,7 @@ public class Search extends BaseSampleClient {
                 for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
                         System.out.println(summaryString(match));
                 }
+                return result.getCreateSearchSuccessData();
         }
 
         /**
@@ -290,7 +287,8 @@ public class Search extends BaseSampleClient {
          * 
          * @throws Exception
          */
-        protected void equipmentSearchPostalCode2CityState(final SessionToken sessionToken) throws RemoteException {
+        protected CreateSearchSuccessData equipmentSearchPostalCode2CityState(final SessionToken sessionToken)
+                        throws RemoteException {
 
                 final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory.newInstance();
                 final CreateSearchOperation operation = searchRequestDoc.addNewCreateSearchRequest()
@@ -374,6 +372,8 @@ public class Search extends BaseSampleClient {
                 for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
                         System.out.println(summaryString(match));
                 }
+
+                return result.getCreateSearchSuccessData();
         }
 
         /**
@@ -381,7 +381,8 @@ public class Search extends BaseSampleClient {
          * 
          * @throws RemoteException
          */
-        protected void equipmentSearchState2Zone(final SessionToken sessionToken) throws RemoteException {
+        protected CreateSearchSuccessData equipmentSearchState2Zone(final SessionToken sessionToken)
+                        throws RemoteException {
 
                 final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory.newInstance();
                 final CreateSearchOperation operation = searchRequestDoc.addNewCreateSearchRequest()
@@ -450,6 +451,8 @@ public class Search extends BaseSampleClient {
                 for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
                         System.out.println(summaryString(match));
                 }
+
+                return result.getCreateSearchSuccessData();
         }
 
         public static void main(final String[] args) {

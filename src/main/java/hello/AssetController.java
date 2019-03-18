@@ -22,24 +22,26 @@ class User {
 public class AssetController {
     @GetMapping(value = "/asset/shipment/postalcode2citystate")
     public String shipmentSearchPostalCode2CityState() throws RemoteException {
-        return new Search().shipmentSearchPostalCode2CityState(Login.sessionToken).toString();
-    }
-
-    @GetMapping(value = "/asset/shipment/searchstate2zone")
-    public String shipmentSearchState2Zone() throws RemoteException {
-        new Search().shipmentSearchState2Zone(Login.sessionToken).toString();
+        new Search().run();
         return "hola";
+        // return new
+        // Search().shipmentSearchPostalCode2CityState(Login.sessionToken).toString();
     }
-
-    @GetMapping(value = "/asset/equipment/searchpostalcode2citystate")
-    public String equipmentSearchPostalCode2CityState() throws RemoteException {
-        return new Search().equipmentSearchPostalCode2CityState(Login.sessionToken).toString();
-    }
-
-    @GetMapping(value = "/asset/equipment/searchstate2zone")
-    public String equipmentSearchState2Zone() throws RemoteException {
-        return new Search().equipmentSearchState2Zone(Login.sessionToken).toString();
-    }
+    /*
+     * @GetMapping(value = "/asset/shipment/searchstate2zone") public String
+     * shipmentSearchState2Zone() throws RemoteException { return new
+     * Search().shipmentSearchState2Zone(Login.sessionToken).toString(); }
+     * 
+     * @GetMapping(value = "/asset/equipment/searchpostalcode2citystate") public
+     * String equipmentSearchPostalCode2CityState() throws RemoteException { return
+     * new
+     * Search().equipmentSearchPostalCode2CityState(Login.sessionToken).toString();
+     * }
+     * 
+     * @GetMapping(value = "/asset/equipment/searchstate2zone") public String
+     * equipmentSearchState2Zone() throws RemoteException { return new
+     * Search().equipmentSearchState2Zone(Login.sessionToken).toString(); }
+     */
 
     @PostMapping(value = "/asset")
     public String postAsset(@RequestBody AssetPostModel props) throws RemoteException {
