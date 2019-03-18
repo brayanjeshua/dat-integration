@@ -20,8 +20,8 @@ class User {
 @RestController
 public class AssetController {
     @GetMapping(value = "/asset/shipment")
-    public CreateSearchSuccessData assetShipmentGet(@RequestBody User user) throws RemoteException {
-        return new Search().shipmentSearchPostalCode2CityState(Login.sessionToken);
+    public String assetShipmentGet(@RequestBody User user) throws RemoteException {
+        return new Search().shipmentSearchPostalCode2CityState(Login.sessionToken).toString();
         // return user;
     }
 
