@@ -13,7 +13,6 @@ import com.transcore.connexion.sample.BaseSampleClient;
 import com.tcore.tcoreTypes.StateProvince;
 import com.tcore.tcoreTypes.Zone;
 import com.tcore.tfmiFreightMatching.CityAndState;
-import com.tcore.tfmiFreightMatching.Dimensions;
 import com.tcore.tfmiFreightMatching.Equipment;
 import com.tcore.tfmiFreightMatching.EquipmentDestination;
 import com.tcore.tfmiFreightMatching.FmPostalCode;
@@ -25,10 +24,9 @@ import com.tcore.tfmiFreightMatching.PostAssetOperation;
 import com.tcore.tfmiFreightMatching.PostAssetRequestDocument;
 import com.tcore.tfmiFreightMatching.PostAssetResponseDocument;
 import com.tcore.tfmiFreightMatching.PostAssetResult;
-import com.tcore.tfmiFreightMatching.RateBasedOnType;
-import com.tcore.tfmiFreightMatching.Shipment;
-import com.tcore.tfmiFreightMatching.ShipmentRate;
 import com.tcore.tfmiFreightMatching.TfmiFreightMatchingServiceStub;
+
+import hello.models.AssetPostModel;
 
 public class AssetPost extends BaseSampleClient {
 
@@ -52,53 +50,21 @@ public class AssetPost extends BaseSampleClient {
         final PostAssetRequestDocument postRequestDoc = PostAssetRequestDocument.Factory.newInstance();
         final PostAssetOperation operation = postRequestDoc.addNewPostAssetRequest().addNewPostAssetOperations();
 
+        props.fill(operation);
+
         if (props.assetType.equals("shipment")) {
-            final Shipment shipment = operation.addNewShipment();
-            this.builShipment(shipment);
+            // final Shipment shipment = operation.addNewShipment();
+            // this.builShipment(shipment);
         } else if (props.assetType.equals("equipment")) {
             final Equipment equipment = operation.addNewEquipment();
             this.builEquipment(equipment);
         } else
             throw new RemoteException("Asset Type: \"" + props.assetType + "\" is not valid. Request Failed.");
 
-        // Optional information
-
-        if (!props.postersReferenceId.isEmpty()) {
-            operation.setPostersReferenceId(props.postersReferenceId);
-        }
-
-        operation.setLtl(props.ltl);
-
-        for (String comment : props.comments)
-            operation.addComments(comment);
-
-        operation.setCount(props.count);
-
-        if (!props.lengthFeet.equals(0) || !props.weightPounds.equals(0) || !props.heightInches.equals(0)
-                || !props.volumeCubicFeet.equals(0)) {
-            final Dimensions d = operation.addNewDimensions();
-
-            if (!props.lengthFeet.equals(0))
-                d.setLengthFeet(props.lengthFeet);
-            if (!props.weightPounds.equals(0))
-                d.setWeightPounds(props.weightPounds);
-            if (!props.heightInches.equals(0))
-                d.setHeightInches(props.heightInches);
-            if (!props.volumeCubicFeet.equals(0))
-                d.setVolumeCubicFeet(props.volumeCubicFeet);
-        }
-
-        operation.setStops(props.stops);
-
-        // availability
-
-        // alarm
-
-        operation.setIncludeAsset(props.includeAsset);
-
         // Validate the request document before executing the operation
         validate(postRequestDoc);
 
+        System.out.println(postRequestDoc.toString());
         // Post
         final TfmiFreightMatchingServiceStub stub = new TfmiFreightMatchingServiceStub(endpointUrl);
         final PostAssetResponseDocument responseDoc = stub.postAsset(postRequestDoc, null, null,
@@ -112,37 +78,7 @@ public class AssetPost extends BaseSampleClient {
                     + " : " + result.getServiceError().getDetailedMessage());
         }
 
-        System.out.println(postRequestDoc.toString());
-
         return result.toString();
-    }
-
-    public void builShipment(Shipment shipment) throws RemoteException {
-        shipment.setEquipmentType(EquipmentType.Enum.forString(props.equipmentType));
-
-        if (!props.originType.equals("place") || !props.destinationType.equals("place")) {
-            throw new RemoteException("Origin and Destination must be of Place type. Request Failed.");
-        }
-
-        Place originPlace = shipment.addNewOrigin();
-        this.buildPlace(originPlace, props.secondaryOriginType, props.originCountry, props.originCode, props.originCity,
-                props.originStateProvince, props.originCounty, props.originLatitude, props.originLongitude);
-
-        Place destinationPlace = shipment.addNewDestination();
-        this.buildPlace(destinationPlace, props.secondaryDestinationType, props.destinationCountry,
-                props.destinationCode, props.destinationCity, props.destinationStateProvince, props.destinationCounty,
-                props.destinationLatitude, props.destinationLongitude);
-
-        if (!props.baseRateDollars.equals(-1.0f) || RATE_BASE_TYPES.contains(props.rateBasedOn)) {
-            ShipmentRate rate = shipment.addNewRate();
-
-            rate.setBaseRateDollars(props.baseRateDollars);
-            rate.setRateBasedOn(RateBasedOnType.Enum.forString(props.rateBasedOn));
-
-            if (!props.rateMiles.equals(-1)) {
-                rate.setRateMiles(props.rateMiles);
-            }
-        }
     }
 
     public void builEquipment(Equipment equipment) throws RemoteException {
