@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tcore.tfmiFreightMatching.CreateSearchSuccessData;
 
+import hello.models.AssetPostModel;
+
 class User {
     public String firstName;
     public String lastName;
