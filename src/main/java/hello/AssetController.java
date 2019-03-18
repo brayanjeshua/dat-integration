@@ -27,91 +27,14 @@ public class AssetController {
     }
 
     @PostMapping(value = "/asset")
-    public String postAsset(@RequestParam(value = "assetType") String assetType,
-            @RequestParam(value = "equipmentType") String equipmentType,
-            @RequestParam(value = "originType") String originType,
-            @RequestParam(value = "secondaryOriginType", required = false, defaultValue = "") String secondaryOriginType,
-            @RequestParam(value = "originCountry", required = false, defaultValue = "") String originCountry,
-            @RequestParam(value = "originCode", required = false, defaultValue = "") String originCode,
-            @RequestParam(value = "originCity", required = false, defaultValue = "") String originCity,
-            @RequestParam(value = "originStateProvince", required = false, defaultValue = "") String originStateProvince,
-            @RequestParam(value = "originCounty", required = false, defaultValue = "") String originCounty,
-            @RequestParam(value = "originLatitude", required = false, defaultValue = "0.0") Float originLatitude,
-            @RequestParam(value = "originLongitude", required = false, defaultValue = "0.0") Float originLongitude,
-            @RequestParam(value = "destinationType") String destinationType,
-            @RequestParam(value = "secondaryDestinationType", required = false, defaultValue = "") String secondaryDestinationType,
-            @RequestParam(value = "destinationCountry", required = false, defaultValue = "") String destinationCountry,
-            @RequestParam(value = "destinationCode", required = false, defaultValue = "") String destinationCode,
-            @RequestParam(value = "destinationCity", required = false, defaultValue = "") String destinationCity,
-            @RequestParam(value = "destinationStateProvince", required = false, defaultValue = "") String destinationStateProvince,
-            @RequestParam(value = "destinationCounty", required = false, defaultValue = "") String destinationCounty,
-            @RequestParam(value = "destinationLatitude", required = false, defaultValue = "0.0") Float destinationLatitude,
-            @RequestParam(value = "destinationLongitude", required = false, defaultValue = "0.0") Float destinationLongitude,
-
-            @RequestParam(value = "baseRateDollars", required = false, defaultValue = "-1") Float baseRateDollars,
-            @RequestParam(value = "rateBasedOn", required = false, defaultValue = "") String rateBasedOn,
-            @RequestParam(value = "rateMiles", required = false, defaultValue = "-1") Integer rateMiles,
-
-            @RequestParam(value = "destAreaStateProvinces", required = false, defaultValue = "") String[] destAreaStateProvinces,
-            @RequestParam(value = "destAreaZones", required = false, defaultValue = "") String[] destAreaZones,
-
-            // ** Optional parameters **
-            @RequestParam(value = "postersReferenceId", required = false, defaultValue = "") String postersReferenceId,
-            @RequestParam(value = "ltl", required = false, defaultValue = "false") Boolean ltl,
-            @RequestParam(value = "comments", required = false, defaultValue = "") String[] comments,
-            @RequestParam(value = "count", required = false, defaultValue = "1") Integer count,
-            // * Optional dimensions parameters *
-            @RequestParam(value = "lengthFeet", required = false, defaultValue = "0") Integer lengthFeet,
-            @RequestParam(value = "weightPounds", required = false, defaultValue = "0") Integer weightPounds,
-            @RequestParam(value = "heightInches", required = false, defaultValue = "0") Integer heightInches,
-            @RequestParam(value = "volumeCubicFeet", required = false, defaultValue = "0") Integer volumeCubicFeet,
-            @RequestParam(value = "stops", required = false, defaultValue = "1") Integer stops,
-            // * Optional availability parameters *
-            // @RequestParam(value = "earliest", required=false) Date earliest,
-            // @RequestParam(value = "latest", required=false) Date latest,
-            // @RequestParam(value = "alarm", required=false) Boolean alarm,
-            @RequestParam(value = "includeAsset", required = false, defaultValue = "false") Boolean includeAsset
-
-    ) throws RemoteException {
-
-        if (comments == null) {
-            comments = new String[] {};
-        }
-
-        return new AssetPost(assetType, equipmentType,
-
-                originType, secondaryOriginType, originCountry, originCode, originCity, originStateProvince,
-                originCounty, originLatitude, originLongitude,
-
-                destinationType, secondaryDestinationType, destinationCountry, destinationCode, destinationCity,
-                destinationStateProvince, destinationCounty, destinationLatitude, destinationLongitude,
-
-                baseRateDollars, rateBasedOn, rateMiles,
-
-                destAreaStateProvinces, destAreaZones,
-
-                // ** Optional parameters **
-                postersReferenceId, ltl, comments, count,
-
-                // * Optional dimensions parameters *
-                lengthFeet, weightPounds, heightInches, volumeCubicFeet,
-
-                stops,
-
-                // * Optional availability parameters *
-                // earliest,
-                // latest,
-
-                // alarm,
-                includeAsset
-
-        ).process();
+    public String postAsset(@RequestBody AssetPostModel props) throws RemoteException {
+        return new AssetPost(props).process();
     }
 
     @PatchMapping(value = "/asset")
-    public String updateAsset(@RequestBody AssetUpdateModel model) throws RemoteException {
+    public String updateAsset(@RequestBody AssetUpdateModel props) throws RemoteException {
 
-        return new AssetUpdate(model).process();
+        return new AssetUpdate(props).process();
     }
 
     @DeleteMapping(value = "/asset")

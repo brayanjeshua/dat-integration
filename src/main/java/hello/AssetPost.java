@@ -32,149 +32,15 @@ import com.tcore.tfmiFreightMatching.TfmiFreightMatchingServiceStub;
 
 public class AssetPost extends BaseSampleClient {
 
-    private String assetType;
-
-    private String equipmentType;
-
-    private String originType; // [place,]
-    private String secondaryOriginType;
-    private String originCountry;
-    private String originCode;
-    private String originCity;
-    private String originStateProvince;
-    private String originCounty;
-    private Float originLatitude;
-    private Float originLongitude;
-
-    private String destinationType; // [place,]
-
-    private String secondaryDestinationType;
-    private String destinationCountry;
-    private String destinationCode;
-    private String destinationCity;
-    private String destinationStateProvince;
-    private String destinationCounty;
-    private Float destinationLatitude;
-    private Float destinationLongitude;
-
-    private Float baseRateDollars;
-    private String rateBasedOn;
-    private Integer rateMiles;
-
-    private String[] destAreaStateProvinces;
-    private String[] destAreaZones;
-
-    //
-
-    // ** Optional parameters **
-    private String postersReferenceId;
-    private Boolean ltl;
-    private String[] comments;
-    private Integer count;
-
-    // * Optional dimensions parameters *
-    private Integer lengthFeet;
-    private Integer weightPounds;
-    private Integer heightInches;
-    private Integer volumeCubicFeet;
-
-    private Integer stops;
-
-    // * Optional availability parameters *
-    // private Date earliest;
-    // private Date latest;
-
-    // private Boolean alarm;
-    private Boolean includeAsset = false;
+    final private AssetPostModel props;
 
     private static final Set<String> PLACE_TYPES = new HashSet<String>(
             Arrays.asList(new String[] { "place", "area", "open" }));
     private static final Set<String> RATE_BASE_TYPES = new HashSet<String>(
             Arrays.asList(new String[] { "Flat", "PerMile" }));
 
-    public AssetPost(final String assetType, final String equipmentType,
-
-            final String originType, final String secondaryOriginType, final String originCountry,
-            final String originCode, final String originCity, final String originStateProvince,
-            final String originCounty, final Float originLatitude, final Float originLongitude,
-
-            final String destinationType, final String secondaryDestinationType, final String destinationCountry,
-            final String destinationCode, final String destinationCity, final String destinationStateProvince,
-            final String destinationCounty, final Float destinationLatitude, final Float destinationLongitude,
-
-            final Float baseRateDollars, final String rateBasedOn, final Integer rateMiles,
-
-            final String[] destAreaStateProvinces, final String[] destAreaZones,
-
-            // ** Optional parameters **
-            final String postersReferenceId, final Boolean ltl, final String[] comments, final Integer count,
-
-            // * Optional dimensions parameters *
-            final Integer lengthFeet, final Integer weightPounds, final Integer heightInches,
-            final Integer volumeCubicFeet,
-
-            final Integer stops,
-
-            // * Optional availability parameters *
-            // final Date earliest,
-            // final Date latest,
-
-            // final Boolean alarm,
-            final Boolean includeAsset
-
-    ) throws RemoteException {
-        this.assetType = assetType;
-        this.equipmentType = equipmentType;
-
-        this.originType = originType;
-        this.secondaryOriginType = secondaryOriginType;
-        this.originCountry = originCountry;
-        this.originCode = originCode;
-        this.originCity = originCity;
-        this.originStateProvince = originStateProvince;
-        this.originCounty = originCounty;
-        this.originLatitude = originLatitude;
-        this.originLongitude = originLongitude;
-
-        this.destinationType = destinationType;
-        this.secondaryDestinationType = secondaryDestinationType;
-        this.destinationCountry = destinationCountry;
-        this.destinationCode = destinationCode;
-        this.destinationCity = destinationCity;
-        this.destinationStateProvince = destinationStateProvince;
-        this.destinationCounty = destinationCounty;
-        this.destinationLatitude = destinationLatitude;
-        this.destinationLongitude = destinationLongitude;
-
-        this.baseRateDollars = baseRateDollars;
-        this.rateBasedOn = rateBasedOn;
-        this.rateMiles = rateMiles;
-
-        this.destAreaStateProvinces = destAreaStateProvinces;
-        this.destAreaZones = destAreaZones;
-
-        //
-
-        // ** Optional parameters **
-        this.postersReferenceId = postersReferenceId;
-        this.ltl = ltl;
-        this.comments = comments;
-        this.count = count;
-
-        // * Optional dimensions parameters *
-        this.lengthFeet = lengthFeet;
-        this.weightPounds = weightPounds;
-        this.heightInches = heightInches;
-        this.volumeCubicFeet = volumeCubicFeet;
-
-        this.stops = stops;
-
-        // * Optional availability parameters *
-        // this.earliest = earliest;
-        // this.latest = latest;
-
-        // this.alarm = alarm;
-        this.includeAsset = includeAsset;
+    public AssetPost(final AssetPostModel props) throws RemoteException {
+        this.props = props;
     }
 
     @Override
@@ -186,49 +52,49 @@ public class AssetPost extends BaseSampleClient {
         final PostAssetRequestDocument postRequestDoc = PostAssetRequestDocument.Factory.newInstance();
         final PostAssetOperation operation = postRequestDoc.addNewPostAssetRequest().addNewPostAssetOperations();
 
-        if (this.assetType.equals("shipment")) {
+        if (props.assetType.equals("shipment")) {
             final Shipment shipment = operation.addNewShipment();
             this.builShipment(shipment);
-        } else if (this.assetType.equals("equipment")) {
+        } else if (props.assetType.equals("equipment")) {
             final Equipment equipment = operation.addNewEquipment();
             this.builEquipment(equipment);
         } else
-            throw new RemoteException("Asset Type: \"" + this.assetType + "\" is not valid. Request Failed.");
+            throw new RemoteException("Asset Type: \"" + props.assetType + "\" is not valid. Request Failed.");
 
         // Optional information
 
-        if (!this.postersReferenceId.isEmpty()) {
-            operation.setPostersReferenceId(this.postersReferenceId);
+        if (!props.postersReferenceId.isEmpty()) {
+            operation.setPostersReferenceId(props.postersReferenceId);
         }
 
-        operation.setLtl(this.ltl);
+        operation.setLtl(props.ltl);
 
-        for (String comment : this.comments)
+        for (String comment : props.comments)
             operation.addComments(comment);
 
-        operation.setCount(this.count);
+        operation.setCount(props.count);
 
-        if (!this.lengthFeet.equals(0) || !this.weightPounds.equals(0) || !this.heightInches.equals(0)
-                || !this.volumeCubicFeet.equals(0)) {
+        if (!props.lengthFeet.equals(0) || !props.weightPounds.equals(0) || !props.heightInches.equals(0)
+                || !props.volumeCubicFeet.equals(0)) {
             final Dimensions d = operation.addNewDimensions();
 
-            if (!this.lengthFeet.equals(0))
-                d.setLengthFeet(this.lengthFeet);
-            if (!this.weightPounds.equals(0))
-                d.setWeightPounds(this.weightPounds);
-            if (!this.heightInches.equals(0))
-                d.setHeightInches(this.heightInches);
-            if (!this.volumeCubicFeet.equals(0))
-                d.setVolumeCubicFeet(this.volumeCubicFeet);
+            if (!props.lengthFeet.equals(0))
+                d.setLengthFeet(props.lengthFeet);
+            if (!props.weightPounds.equals(0))
+                d.setWeightPounds(props.weightPounds);
+            if (!props.heightInches.equals(0))
+                d.setHeightInches(props.heightInches);
+            if (!props.volumeCubicFeet.equals(0))
+                d.setVolumeCubicFeet(props.volumeCubicFeet);
         }
 
-        operation.setStops(this.stops);
+        operation.setStops(props.stops);
 
         // availability
 
         // alarm
 
-        operation.setIncludeAsset(this.includeAsset);
+        operation.setIncludeAsset(props.includeAsset);
 
         // Validate the request document before executing the operation
         validate(postRequestDoc);
@@ -246,64 +112,66 @@ public class AssetPost extends BaseSampleClient {
                     + " : " + result.getServiceError().getDetailedMessage());
         }
 
+        System.out.println(postRequestDoc.toString());
+
         return result.toString();
     }
 
     public void builShipment(Shipment shipment) throws RemoteException {
-        shipment.setEquipmentType(EquipmentType.Enum.forString(this.equipmentType));
+        shipment.setEquipmentType(EquipmentType.Enum.forString(props.equipmentType));
 
-        if (!this.originType.equals("place") || !this.destinationType.equals("place")) {
+        if (!props.originType.equals("place") || !props.destinationType.equals("place")) {
             throw new RemoteException("Origin and Destination must be of Place type. Request Failed.");
         }
 
         Place originPlace = shipment.addNewOrigin();
-        this.buildPlace(originPlace, this.secondaryOriginType, this.originCountry, this.originCode, this.originCity,
-                this.originStateProvince, this.originCounty, this.originLatitude, this.originLongitude);
+        this.buildPlace(originPlace, props.secondaryOriginType, props.originCountry, props.originCode, props.originCity,
+                props.originStateProvince, props.originCounty, props.originLatitude, props.originLongitude);
 
         Place destinationPlace = shipment.addNewDestination();
-        this.buildPlace(destinationPlace, this.secondaryDestinationType, this.destinationCountry, this.destinationCode,
-                this.destinationCity, this.destinationStateProvince, this.destinationCounty, this.destinationLatitude,
-                this.destinationLongitude);
+        this.buildPlace(destinationPlace, props.secondaryDestinationType, props.destinationCountry,
+                props.destinationCode, props.destinationCity, props.destinationStateProvince, props.destinationCounty,
+                props.destinationLatitude, props.destinationLongitude);
 
-        if (!this.baseRateDollars.equals(-1.0f) || RATE_BASE_TYPES.contains(this.rateBasedOn)) {
+        if (!props.baseRateDollars.equals(-1.0f) || RATE_BASE_TYPES.contains(props.rateBasedOn)) {
             ShipmentRate rate = shipment.addNewRate();
 
-            rate.setBaseRateDollars(this.baseRateDollars);
-            rate.setRateBasedOn(RateBasedOnType.Enum.forString(this.rateBasedOn));
+            rate.setBaseRateDollars(props.baseRateDollars);
+            rate.setRateBasedOn(RateBasedOnType.Enum.forString(props.rateBasedOn));
 
-            if (!this.rateMiles.equals(-1)) {
-                rate.setRateMiles(this.rateMiles);
+            if (!props.rateMiles.equals(-1)) {
+                rate.setRateMiles(props.rateMiles);
             }
         }
     }
 
     public void builEquipment(Equipment equipment) throws RemoteException {
-        equipment.setEquipmentType(EquipmentType.Enum.forString(this.equipmentType));
+        equipment.setEquipmentType(EquipmentType.Enum.forString(props.equipmentType));
 
-        if (!this.originType.equals("place") || !PLACE_TYPES.contains(this.destinationType)) {
+        if (!props.originType.equals("place") || !PLACE_TYPES.contains(props.destinationType)) {
             throw new RemoteException("Origin and Destination must be given. Request Failed.");
         }
 
         Place originPlace = equipment.addNewOrigin();
-        this.buildPlace(originPlace, this.secondaryOriginType, this.originCountry, this.originCode, this.originCity,
-                this.originStateProvince, this.originCounty, this.originLatitude, this.originLongitude);
+        this.buildPlace(originPlace, props.secondaryOriginType, props.originCountry, props.originCode, props.originCity,
+                props.originStateProvince, props.originCounty, props.originLatitude, props.originLongitude);
 
         EquipmentDestination destination = equipment.addNewDestination();
 
-        switch (this.destinationType) {
+        switch (props.destinationType) {
 
         case "place":
             Place destinationPlace = destination.addNewPlace();
-            this.buildPlace(destinationPlace, this.secondaryDestinationType, this.destinationCountry,
-                    this.destinationCode, this.destinationCity, this.destinationStateProvince, this.destinationCounty,
-                    this.destinationLatitude, this.destinationLongitude);
+            this.buildPlace(destinationPlace, props.secondaryDestinationType, props.destinationCountry,
+                    props.destinationCode, props.destinationCity, props.destinationStateProvince,
+                    props.destinationCounty, props.destinationLatitude, props.destinationLongitude);
             break;
 
         case "area":
             Area destinationArea = destination.addNewArea();
-            for (String province : this.destAreaStateProvinces)
+            for (String province : props.destAreaStateProvinces)
                 destinationArea.addStateProvinces(StateProvince.Enum.forString(province));
-            for (String zone : this.destAreaZones)
+            for (String zone : props.destAreaZones)
                 destinationArea.addZones(Zone.Enum.forString(zone));
             break;
 
