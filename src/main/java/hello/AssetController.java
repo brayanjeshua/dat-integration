@@ -19,10 +19,25 @@ class User {
 
 @RestController
 public class AssetController {
-    @GetMapping(value = "/asset/shipment")
-    public String assetShipmentGet(@RequestBody User user) throws RemoteException {
+    @GetMapping(value = "/asset/shipment/postalcode2citystate")
+    public String shipmentSearchPostalCode2CityState() throws RemoteException {
         return new Search().shipmentSearchPostalCode2CityState(Login.sessionToken).toString();
-        // return user;
+    }
+
+    @GetMapping(value = "/asset/shipment/searchstate2zone")
+    public String shipmentSearchState2Zone() throws RemoteException {
+        new Search().shipmentSearchState2Zone(Login.sessionToken).toString();
+        return "hola";
+    }
+
+    @GetMapping(value = "/asset/equipment/searchpostalcode2citystate")
+    public String equipmentSearchPostalCode2CityState() throws RemoteException {
+        return new Search().equipmentSearchPostalCode2CityState(Login.sessionToken).toString();
+    }
+
+    @GetMapping(value = "/asset/equipment/searchstate2zone")
+    public String equipmentSearchState2Zone() throws RemoteException {
+        return new Search().equipmentSearchState2Zone(Login.sessionToken).toString();
     }
 
     @PostMapping(value = "/asset")

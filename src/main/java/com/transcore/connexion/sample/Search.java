@@ -18,6 +18,7 @@ import com.tcore.tfmiFreightMatching.CreateSearchOperation;
 import com.tcore.tfmiFreightMatching.CreateSearchRequestDocument;
 import com.tcore.tfmiFreightMatching.CreateSearchResponseDocument;
 import com.tcore.tfmiFreightMatching.CreateSearchResult;
+import com.tcore.tfmiFreightMatching.CreateSearchSuccessData;
 import com.tcore.tfmiFreightMatching.Dimensions;
 import com.tcore.tfmiFreightMatching.FmPostalCode;
 import com.tcore.tfmiFreightMatching.MatchingAsset;
@@ -104,10 +105,11 @@ public class Search extends BaseSampleClient {
 
     /**
      * Searches for shipments, specifying origin by postal code and destination by city/state.
+     * @return 
      * 
      * @throws RemoteException
      */
-    protected void shipmentSearchPostalCode2CityState(final SessionToken sessionToken) throws RemoteException {
+    protected CreateSearchSuccessData shipmentSearchPostalCode2CityState(final SessionToken sessionToken) throws RemoteException {
 
         final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory
                 .newInstance();
@@ -185,20 +187,23 @@ public class Search extends BaseSampleClient {
             throw new RemoteException("Search Request Failed: " + result.getServiceError().getMessage()
                     + " : " + result.getServiceError().getDetailedMessage());
         }
+        
+        return result.getCreateSearchSuccessData();
 
-        // Output match count and summaries
-        System.out.println(result.getCreateSearchSuccessData().getTotalMatches() + " matches found");
-        for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
-            System.out.println(summaryString(match));
-        }
+//        // Output match count and summaries
+//        System.out.println(result.getCreateSearchSuccessData().getTotalMatches() + " matches found");
+//        for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
+//            System.out.println(summaryString(match));
+//        }
     }
 
     /**
      * Searches for shipments, specifying origin by state and destination by zone.
+     * @return 
      * 
      * @throws Exception
      */
-    protected void shipmentSearchState2Zone(final SessionToken sessionToken) throws RemoteException {
+    protected CreateSearchSuccessData shipmentSearchState2Zone(final SessionToken sessionToken) throws RemoteException {
 
         final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory
                 .newInstance();
@@ -261,20 +266,27 @@ public class Search extends BaseSampleClient {
             throw new RemoteException("Search Request Failed: " + result.getServiceError().getMessage()
                     + " : " + result.getServiceError().getDetailedMessage());
         }
+        
+        
 
         // Output match count and summaries
         System.out.println(result.getCreateSearchSuccessData().getTotalMatches() + " matches found");
         for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
             System.out.println(summaryString(match));
-        }
+        }   
+        
+        System.out.println(result.getCreateSearchSuccessData().toString());
+        
+        return result.getCreateSearchSuccessData();
     }
 
     /**
      * Searches for equipment, specifying origin by postal code and destination by city/state.
+     * @return 
      * 
      * @throws Exception
      */
-    protected void equipmentSearchPostalCode2CityState(final SessionToken sessionToken)
+    protected CreateSearchSuccessData equipmentSearchPostalCode2CityState(final SessionToken sessionToken)
             throws RemoteException {
 
         final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory
@@ -353,20 +365,23 @@ public class Search extends BaseSampleClient {
             throw new RemoteException("Search Request Failed: " + result.getServiceError().getMessage()
                     + " : " + result.getServiceError().getDetailedMessage());
         }
+        
+        return result.getCreateSearchSuccessData();
 
         // Output match count and summaries
-        System.out.println(result.getCreateSearchSuccessData().getTotalMatches() + " matches found");
-        for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
-            System.out.println(summaryString(match));
-        }
+//        System.out.println(result.getCreateSearchSuccessData().getTotalMatches() + " matches found");
+//        for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
+//            System.out.println(summaryString(match));
+//        }
     }
 
     /**
      * Searches for equipment, specifying origin by state and destination by zone.
+     * @return 
      * 
      * @throws RemoteException
      */
-    protected void equipmentSearchState2Zone(final SessionToken sessionToken) throws RemoteException {
+    protected CreateSearchSuccessData equipmentSearchState2Zone(final SessionToken sessionToken) throws RemoteException {
 
         final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory
                 .newInstance();
@@ -429,12 +444,14 @@ public class Search extends BaseSampleClient {
             throw new RemoteException("Search Request Failed: " + result.getServiceError().getMessage()
                     + " : " + result.getServiceError().getDetailedMessage());
         }
+        
+        return result.getCreateSearchSuccessData();
 
         // Output match count and summaries
-        System.out.println(result.getCreateSearchSuccessData().getTotalMatches() + " matches found");
-        for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
-            System.out.println(summaryString(match));
-        }
+//        System.out.println(result.getCreateSearchSuccessData().getTotalMatches() + " matches found");
+//        for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
+//            System.out.println(summaryString(match));
+//        }
     }
 
     public static void main(final String[] args) {
