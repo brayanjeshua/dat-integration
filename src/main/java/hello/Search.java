@@ -18,7 +18,6 @@ import com.tcore.tfmiFreightMatching.CreateSearchOperation;
 import com.tcore.tfmiFreightMatching.CreateSearchRequestDocument;
 import com.tcore.tfmiFreightMatching.CreateSearchResponseDocument;
 import com.tcore.tfmiFreightMatching.CreateSearchResult;
-import com.tcore.tfmiFreightMatching.CreateSearchSuccessData;
 import com.tcore.tfmiFreightMatching.Dimensions;
 import com.tcore.tfmiFreightMatching.FmPostalCode;
 import com.tcore.tfmiFreightMatching.MatchingAsset;
@@ -50,6 +49,7 @@ public class Search extends BaseSampleClient {
 
         @Override
         public void run() throws RemoteException {
+
                 try {
                         // Login two users
                         final SessionToken sessionToken1 = loginUser1();
@@ -110,12 +110,10 @@ public class Search extends BaseSampleClient {
          * Searches for shipments, specifying origin by postal code and destination by
          * city/state.
          * 
-         * @return
-         * 
          * @throws RemoteException
          */
-        protected CreateSearchSuccessData shipmentSearchPostalCode2CityState(final SessionToken sessionToken)
-                        throws RemoteException {
+        protected void LookupAsset(final SessionToken sessionToken) throws RemoteException {
+
                 final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory.newInstance();
                 final CreateSearchOperation operation = searchRequestDoc.addNewCreateSearchRequest()
                                 .addNewCreateSearchOperation();
@@ -198,9 +196,98 @@ public class Search extends BaseSampleClient {
                 for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
                         System.out.println(summaryString(match));
                 }
+        }
 
-                return result.getCreateSearchSuccessData();
+        /**
+         * Searches for shipments, specifying origin by postal code and destination by
+         * city/state.
+         * 
+         * @throws RemoteException
+         */
+        protected void shipmentSearchPostalCode2CityState(final SessionToken sessionToken) throws RemoteException {
 
+                final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory.newInstance();
+                final CreateSearchOperation operation = searchRequestDoc.addNewCreateSearchRequest()
+                                .addNewCreateSearchOperation();
+
+                final SearchCriteria criteria = operation.addNewCriteria();
+
+                criteria.setAssetType(AssetType.SHIPMENT);
+
+                // We posted EquipmentType.AUTO_CARRIER, which is in the class
+                // EquipmentClass.OTHER_EQUIPMENT
+                criteria.addEquipmentClasses(EquipmentClass.OTHER_EQUIPMENT);
+                // Searches can specify arbitrarily many equipment classes. We'll add
+                // one additional class.
+                criteria.addEquipmentClasses(EquipmentClass.DRY_BULK);
+
+                // Age limit is normally 120 (2 hours back), 240 (4 hours back), or
+                // more, but we just posted the assets we expect to see, so we'll
+                // specify a very short age limit (2 minutes).
+                criteria.setAgeLimitMinutes(2);
+
+                // Origin - by postal code
+                final SearchRadius origin = criteria.addNewOrigin().addNewRadius();
+                final FmPostalCode originPlace = origin.addNewPlace().addNewPostalCode();
+                originPlace.setCode("67401");
+                originPlace.setCountry(CountryCode.US);
+
+                // Origin radius
+                final Mileage originRadius = origin.addNewRadius();
+                originRadius.setMiles(200);
+                originRadius.setMethod(MileageType.ROAD);
+
+                // Destination - by city/state
+                final SearchRadius destination = criteria.addNewDestination().addNewRadius();
+                final CityAndState destinationPlace = destination.addNewPlace().addNewCityAndState();
+                destinationPlace.setCity("Nome");
+                destinationPlace.setStateProvince(StateProvince.AK);
+                // Specifying county is optional, but ensures precise location
+                // resolution in case a state contains multiple cities of the same name.
+                destinationPlace.setCounty("Nome");
+
+                // Destination radius
+                final Mileage destinationRadius = destination.addNewRadius();
+                destinationRadius.setMiles(100);
+                destinationRadius.setMethod(MileageType.ROAD);
+
+                // Length and weight (optional)
+                final Dimensions d = criteria.addNewLimits();
+                d.setLengthFeet(55);
+                d.setWeightPounds(55000);
+
+                // Availability (optional). We're interested in assets available from 4
+                // hours from now until 48 hours from now.
+                final Availability availability = criteria.addNewAvailability();
+                final Calendar earliest = Calendar.getInstance();
+                earliest.add(Calendar.HOUR_OF_DAY, 4);
+                availability.setEarliest(earliest);
+
+                final Calendar latest = Calendar.getInstance();
+                latest.add(Calendar.DATE, 2);
+                availability.setLatest(latest);
+
+                // Validate the request document before executing the operation
+                validate(searchRequestDoc);
+
+                // Execute the search
+                final TfmiFreightMatchingServiceStub stub = new TfmiFreightMatchingServiceStub(endpointUrl);
+                final CreateSearchResponseDocument responseDoc = stub.createSearch(searchRequestDoc, null, null,
+                                sessionHeaderDocument(sessionToken));
+                final CreateSearchResult result = responseDoc.getCreateSearchResponse().getCreateSearchResult();
+
+                // Check for errors (note - some more severe errors will result in an AxisFault
+                // instead)
+                if (!result.isSetCreateSearchSuccessData()) {
+                        throw new RemoteException("Search Request Failed: " + result.getServiceError().getMessage()
+                                        + " : " + result.getServiceError().getDetailedMessage());
+                }
+
+                // Output match count and summaries
+                System.out.println(result.getCreateSearchSuccessData().getTotalMatches() + " matches found");
+                for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
+                        System.out.println(summaryString(match));
+                }
         }
 
         /**
@@ -208,8 +295,7 @@ public class Search extends BaseSampleClient {
          * 
          * @throws Exception
          */
-        protected CreateSearchSuccessData shipmentSearchState2Zone(final SessionToken sessionToken)
-                        throws RemoteException {
+        protected void shipmentSearchState2Zone(final SessionToken sessionToken) throws RemoteException {
 
                 final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory.newInstance();
                 final CreateSearchOperation operation = searchRequestDoc.addNewCreateSearchRequest()
@@ -278,7 +364,6 @@ public class Search extends BaseSampleClient {
                 for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
                         System.out.println(summaryString(match));
                 }
-                return result.getCreateSearchSuccessData();
         }
 
         /**
@@ -287,8 +372,7 @@ public class Search extends BaseSampleClient {
          * 
          * @throws Exception
          */
-        protected CreateSearchSuccessData equipmentSearchPostalCode2CityState(final SessionToken sessionToken)
-                        throws RemoteException {
+        protected void equipmentSearchPostalCode2CityState(final SessionToken sessionToken) throws RemoteException {
 
                 final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory.newInstance();
                 final CreateSearchOperation operation = searchRequestDoc.addNewCreateSearchRequest()
@@ -372,8 +456,6 @@ public class Search extends BaseSampleClient {
                 for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
                         System.out.println(summaryString(match));
                 }
-
-                return result.getCreateSearchSuccessData();
         }
 
         /**
@@ -381,8 +463,7 @@ public class Search extends BaseSampleClient {
          * 
          * @throws RemoteException
          */
-        protected CreateSearchSuccessData equipmentSearchState2Zone(final SessionToken sessionToken)
-                        throws RemoteException {
+        protected void equipmentSearchState2Zone(final SessionToken sessionToken) throws RemoteException {
 
                 final CreateSearchRequestDocument searchRequestDoc = CreateSearchRequestDocument.Factory.newInstance();
                 final CreateSearchOperation operation = searchRequestDoc.addNewCreateSearchRequest()
@@ -451,8 +532,6 @@ public class Search extends BaseSampleClient {
                 for (final MatchingAsset match : result.getCreateSearchSuccessData().getMatchesArray()) {
                         System.out.println(summaryString(match));
                 }
-
-                return result.getCreateSearchSuccessData();
         }
 
         public static void main(final String[] args) {
