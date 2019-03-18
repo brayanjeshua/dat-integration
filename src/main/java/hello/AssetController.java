@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -105,6 +106,12 @@ public class AssetController {
                 includeAsset
 
         ).process();
+    }
+
+    @PatchMapping(value = "/asset")
+    public String updateAsset(@RequestBody AssetUpdateModel model) throws RemoteException {
+
+        return new AssetUpdate(model).process();
     }
 
     @DeleteMapping(value = "/asset")
