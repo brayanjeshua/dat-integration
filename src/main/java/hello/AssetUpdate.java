@@ -33,6 +33,7 @@ import com.tcore.tfmiFreightMatching.ShipmentUpdate;
 import com.tcore.tfmiFreightMatching.TfmiFreightMatchingServiceStub;
 import com.tcore.tfmiFreightMatching.UpdateAssetOperation;
 import com.tcore.tfmiFreightMatching.UpdateAssetOperationDocument;
+import com.tcore.tfmiFreightMatching.UpdateAssetResponseDocument;
 
 public class AssetUpdate extends BaseSampleClient {
 
@@ -151,6 +152,14 @@ public class AssetUpdate extends BaseSampleClient {
         default:
             throw new RemoteException("Not a valid update type.");
         }
+
+        // Validate the request document before executing the operation
+        validate(updateAssetOpDoc);
+
+        // Post
+        final TfmiFreightMatchingServiceStub stub = new TfmiFreightMatchingServiceStub(endpointUrl);
+        final UpdateAssetResponseDocument responseDoc = stub.updateAsset(updateAssetOpDoc, null, null,
+                sessionHeaderDocument(Login.sessionToken));
 
         return "";
     }
