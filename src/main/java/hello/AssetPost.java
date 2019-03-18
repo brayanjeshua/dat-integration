@@ -1,13 +1,21 @@
 package hello;
 
 import java.rmi.RemoteException;
+import java.util.Set;
+import java.util.Arrays;
+import java.util.HashSet;
 
+import com.tcore.tcoreTypes.Area;
 import com.tcore.tcoreTypes.CountryCode;
 import com.tcore.tcoreTypes.EquipmentType;
+import com.tcore.tcoreTypes.Open;
 import com.transcore.connexion.sample.BaseSampleClient;
 import com.tcore.tcoreTypes.StateProvince;
+import com.tcore.tcoreTypes.Zone;
 import com.tcore.tfmiFreightMatching.CityAndState;
 import com.tcore.tfmiFreightMatching.Dimensions;
+import com.tcore.tfmiFreightMatching.Equipment;
+import com.tcore.tfmiFreightMatching.EquipmentDestination;
 import com.tcore.tfmiFreightMatching.FmPostalCode;
 import com.tcore.tfmiFreightMatching.LatLon;
 import com.tcore.tfmiFreightMatching.NamedLatLon;
@@ -17,7 +25,9 @@ import com.tcore.tfmiFreightMatching.PostAssetOperation;
 import com.tcore.tfmiFreightMatching.PostAssetRequestDocument;
 import com.tcore.tfmiFreightMatching.PostAssetResponseDocument;
 import com.tcore.tfmiFreightMatching.PostAssetResult;
+import com.tcore.tfmiFreightMatching.RateBasedOnType;
 import com.tcore.tfmiFreightMatching.Shipment;
+import com.tcore.tfmiFreightMatching.ShipmentRate;
 import com.tcore.tfmiFreightMatching.TfmiFreightMatchingServiceStub;
 
 public class AssetPost extends BaseSampleClient {
@@ -37,6 +47,7 @@ public class AssetPost extends BaseSampleClient {
     private Float originLongitude;
 
     private String destinationType; // [place,]
+
     private String secondaryDestinationType;
     private String destinationCountry;
     private String destinationCode;
@@ -45,6 +56,13 @@ public class AssetPost extends BaseSampleClient {
     private String destinationCounty;
     private Float destinationLatitude;
     private Float destinationLongitude;
+
+    private Float baseRateDollars;
+    private String rateBasedOn;
+    private Integer rateMiles;
+
+    private String[] destAreaStateProvinces;
+    private String[] destAreaZones;
 
     //
 
@@ -69,6 +87,11 @@ public class AssetPost extends BaseSampleClient {
     // private Boolean alarm;
     private Boolean includeAsset = false;
 
+    private static final Set<String> PLACE_TYPES = new HashSet<String>(
+            Arrays.asList(new String[] { "place", "area", "open" }));
+    private static final Set<String> RATE_BASE_TYPES = new HashSet<String>(
+            Arrays.asList(new String[] { "Flat", "PerMile" }));
+
     public AssetPost(final String assetType, final String equipmentType,
 
             final String originType, final String secondaryOriginType, final String originCountry,
@@ -78,6 +101,10 @@ public class AssetPost extends BaseSampleClient {
             final String destinationType, final String secondaryDestinationType, final String destinationCountry,
             final String destinationCode, final String destinationCity, final String destinationStateProvince,
             final String destinationCounty, final Float destinationLatitude, final Float destinationLongitude,
+
+            final Float baseRateDollars, final String rateBasedOn, final Integer rateMiles,
+
+            final String[] destAreaStateProvinces, final String[] destAreaZones,
 
             // ** Optional parameters **
             final String postersReferenceId, final Boolean ltl, final String[] comments, final Integer count,
@@ -119,6 +146,13 @@ public class AssetPost extends BaseSampleClient {
         this.destinationLatitude = destinationLatitude;
         this.destinationLongitude = destinationLongitude;
 
+        this.baseRateDollars = baseRateDollars;
+        this.rateBasedOn = rateBasedOn;
+        this.rateMiles = rateMiles;
+
+        this.destAreaStateProvinces = destAreaStateProvinces;
+        this.destAreaZones = destAreaZones;
+
         //
 
         // ** Optional parameters **
@@ -156,7 +190,8 @@ public class AssetPost extends BaseSampleClient {
             final Shipment shipment = operation.addNewShipment();
             this.builShipment(shipment);
         } else if (this.assetType.equals("equipment")) {
-            // uwu
+            final Equipment equipment = operation.addNewEquipment();
+            this.builEquipment(equipment);
         } else
             throw new RemoteException("Asset Type: \"" + this.assetType + "\" is not valid. Request Failed.");
 
@@ -229,6 +264,56 @@ public class AssetPost extends BaseSampleClient {
         this.buildPlace(destinationPlace, this.secondaryDestinationType, this.destinationCountry, this.destinationCode,
                 this.destinationCity, this.destinationStateProvince, this.destinationCounty, this.destinationLatitude,
                 this.destinationLongitude);
+
+        if (!this.baseRateDollars.equals(-1.0f) || RATE_BASE_TYPES.contains(this.rateBasedOn)) {
+            ShipmentRate rate = shipment.addNewRate();
+
+            rate.setBaseRateDollars(this.baseRateDollars);
+            rate.setRateBasedOn(RateBasedOnType.Enum.forString(this.rateBasedOn));
+
+            if (!this.rateMiles.equals(-1)) {
+                rate.setRateMiles(this.rateMiles);
+            }
+        }
+    }
+
+    public void builEquipment(Equipment equipment) throws RemoteException {
+        equipment.setEquipmentType(EquipmentType.Enum.forString(this.equipmentType));
+
+        if (!this.originType.equals("place") || !PLACE_TYPES.contains(this.destinationType)) {
+            throw new RemoteException("Origin and Destination must be given. Request Failed.");
+        }
+
+        Place originPlace = equipment.addNewOrigin();
+        this.buildPlace(originPlace, this.secondaryOriginType, this.originCountry, this.originCode, this.originCity,
+                this.originStateProvince, this.originCounty, this.originLatitude, this.originLongitude);
+
+        EquipmentDestination destination = equipment.addNewDestination();
+
+        switch (this.destinationType) {
+
+        case "place":
+            Place destinationPlace = destination.addNewPlace();
+            this.buildPlace(destinationPlace, this.secondaryDestinationType, this.destinationCountry,
+                    this.destinationCode, this.destinationCity, this.destinationStateProvince, this.destinationCounty,
+                    this.destinationLatitude, this.destinationLongitude);
+            break;
+
+        case "area":
+            Area destinationArea = destination.addNewArea();
+            for (String province : this.destAreaStateProvinces)
+                destinationArea.addStateProvinces(StateProvince.Enum.forString(province));
+            for (String zone : this.destAreaZones)
+                destinationArea.addZones(Zone.Enum.forString(zone));
+            break;
+
+        case "open":
+            Open a = destination.addNewOpen(); // ??
+            break;
+
+        default:
+            throw new RemoteException("Destination must be given.");
+        }
     }
 
     public void buildPlace(final Place place, final String placeType, final String country, final String code,

@@ -20,13 +20,14 @@ public class LoginController {
     private SessionRepository repository;
 
     @RequestMapping(value = "/login")
-    public Session login(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password)
+    public String login(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password)
             throws RemoteException {
         SessionToken token = new Login(email, password).sessionToken;
 
         Session session = repository.findBy_id(new ObjectId("5c7c7b01030b7432c5b23e9b"));
         session.setToken(token.toString());
-
-        return repository.save(session);
+        repository.save(session);
+        
+        return token.toString();
     }
 }
