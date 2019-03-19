@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tcore.tfmiFreightMatching.CreateSearchSuccessData;
 
+import hello.models.AssetDeleteModel;
 import hello.models.AssetPostModel;
 
 class User {
@@ -57,8 +58,7 @@ public class AssetController {
     }
 
     @DeleteMapping(value = "/asset")
-    public String deleteAsset(@RequestParam(value = "type") String type,
-            @RequestParam(value = "ids") Optional<String[]> ids) throws RemoteException {
-        return new AssetDelete(type, ids).process();
+    public String deleteAsset(@RequestBody AssetDeleteModel props) throws RemoteException {
+        return new AssetDelete(props).process();
     }
 }
