@@ -26,7 +26,9 @@ class User {
 public class AssetController {
     @GetMapping(value = "/asset/shipment/postalcode2citystate")
     public String shipmentSearchPostalCode2CityState() throws RemoteException {
-        new Search().shipmentSearchPostalCode2CityState(Login.sessionToken).toString();
+        new Search().shipmentSearchPostalCode2CityState(Login.sessionToken);
+
+        return "";
     }
     /*
      * @GetMapping(value = "/asset/shipment/searchstate2zone") public String
