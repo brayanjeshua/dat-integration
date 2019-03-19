@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "044f5ca7-66f2-4edf-8311-2934a1d76c9e",
+		"name": "dat api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/login?email=tradexcnx&password=logistics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "tradexcnx"
+						},
+						{
+							"key": "password",
+							"value": "logistics"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post shipment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"shipment\": {\n\t\t\"equipmentType\": \"Double Drop\",\n\t\t\"origin\": {\n\t\t\t\"cityAndState\": {\n\t\t\t\t\"city\": \"Salina\",\n\t\t\t\t\"stateProvince\": \"KS\"\n\t\t\t}\n\t\t},\n\t\t\"destination\": {\n\t\t\t\"coordinates\": {\n\t\t\t\t\"latitude\": 38.3,\n\t\t\t\t\"longitude\": -97.5\n\t\t\t}\n\t\t},\n\t\t\"rate\": {\n\t\t\t\"baseRateDollars\": 3.5,\n\t\t\t\"rateBasedOn\": \"Flat\"\n\t\t}\n\t},\n\t\"dimensions\": {\n\t\t\"lengthFeet\": 42,\n\t\t\"weightPounds\": 43000\n\t},\n\t\"stops\": 5,\n\t\"includeAsset\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/asset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post equipment with open destination",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"equipment\": {\n\t\t\"equipmentType\": \"Auto Carrier\",\n\t\t\"origin\": {\n\t\t\t\"cityAndState\": {\n\t\t\t\t\"city\": \"Salina\",\n\t\t\t\t\"stateProvince\": \"KS\"\n\t\t\t}\n\t\t},\n\t\t\"destination\": {\n\t\t\t\"open\": true\n\t\t}\n\t},\n\t\"dimensions\": {\n\t\t\"lengthFeet\": 42,\n\t\t\"weightPounds\": 43000\n\t},\n\t\"includeAsset\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/asset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post equipment with place on dest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"equipment\": {\n\t\t\"equipmentType\": \"Auto Carrier\",\n\t\t\"origin\": {\n\t\t\t\"cityAndState\": {\n\t\t\t\t\"city\": \"Salina\",\n\t\t\t\t\"stateProvince\": \"KS\"\n\t\t\t}\n\t\t},\n\t\t\"destination\": {\n\t\t\t\"place\": {\n\t\t\t\t\"namedCoordinates\": {\n\t\t\t\t\t\"stateProvince\": \"AK\",\n\t\t\t\t\t\"latitude\": 38.8398,\n\t\t\t\t\t\"longitude\": -97.6095,\n\t\t\t\t\t\"city\": \"Nome\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t},\n\t\"dimensions\": {\n\t\t\"lengthFeet\": 42,\n\t\t\"weightPounds\": 43000\n\t},\n\t\"includeAsset\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/asset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all assets",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"deleteAllMyAssets\": true \n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/asset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update asset",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"assetId\": \"TS0PdCpq\",\n\t\"shipmentUpdate\": {\n\t\t\"rate\": {\n\t\t\t\"baseRateDollars\": 61.21,\n\t\t\t\"rateBasedOn\": \"Flat\"\t\n\t\t}\n\t}\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/asset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"asset"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
