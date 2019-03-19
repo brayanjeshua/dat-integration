@@ -4,6 +4,7 @@ class DeleteAssetsByAssetIdsModel extends AbstractModel<com.tcore.tfmiFreightMat
 
     public String[] ids;
 
+    @Override
     public com.tcore.tfmiFreightMatching.DeleteAssetsByAssetIds fill(
             com.tcore.tfmiFreightMatching.DeleteAssetsByAssetIds instance) throws java.rmi.RemoteException {
 
@@ -19,6 +20,7 @@ class DeleteAssetByPostersReferenceIdModel
 
     public String id;
 
+    @Override
     public com.tcore.tfmiFreightMatching.DeleteAssetByPostersReferenceId fill(
             com.tcore.tfmiFreightMatching.DeleteAssetByPostersReferenceId instance) throws java.rmi.RemoteException {
 
@@ -36,6 +38,7 @@ public class AssetDeleteModel extends AbstractModel<com.tcore.tfmiFreightMatchin
     public Boolean deleteAllMyAssets = null;
     public Boolean deleteAllMyGroupsAssets = null;
 
+    @Override
     public com.tcore.tfmiFreightMatching.DeleteAssetOperation fill(
             com.tcore.tfmiFreightMatching.DeleteAssetOperation instance) throws java.rmi.RemoteException {
 

@@ -33,12 +33,12 @@ class AlternateClosestModel extends AbstractModel<com.tcore.tfmiFreightMatching.
 
 class TruckStopsModel extends AbstractModel<com.tcore.tfmiFreightMatching.TruckStops> {
 
-    public TruckStopIdsModel truckStopIds = null;
     public Boolean closest = null;
-    public AlternateClosestModel alternateClosest = null;
-
     public String[] enhancements = null;
     public String posterDisplayName = null;
+
+    public TruckStopIdsModel truckStopIds = null;
+    public AlternateClosestModel alternateClosest = null;
 
     @Override
     public com.tcore.tfmiFreightMatching.TruckStops fill(com.tcore.tfmiFreightMatching.TruckStops instance)
@@ -64,6 +64,7 @@ class TruckStopsModel extends AbstractModel<com.tcore.tfmiFreightMatching.TruckS
 }
 
 class RateModel extends AbstractModel<com.tcore.tfmiFreightMatching.ShipmentRate> {
+
     public Float baseRateDollars;
     public String rateBasedOn;
     public Integer rateMiles = null;
@@ -74,7 +75,6 @@ class RateModel extends AbstractModel<com.tcore.tfmiFreightMatching.ShipmentRate
 
         instance.setBaseRateDollars(baseRateDollars.floatValue());
         instance.setRateBasedOn(com.tcore.tfmiFreightMatching.RateBasedOnType.Enum.forString(rateBasedOn));
-
         if (rateMiles != null)
             instance.setRateMiles(rateMiles.intValue());
 
@@ -85,6 +85,7 @@ class RateModel extends AbstractModel<com.tcore.tfmiFreightMatching.ShipmentRate
 class ShipmentModel extends AbstractModel<com.tcore.tfmiFreightMatching.Shipment> {
 
     public String equipmentType;
+
     public PlaceModel origin;
     public PlaceModel destination;
     public TruckStopsModel truckStops = null;
@@ -93,14 +94,13 @@ class ShipmentModel extends AbstractModel<com.tcore.tfmiFreightMatching.Shipment
     @Override
     public com.tcore.tfmiFreightMatching.Shipment fill(com.tcore.tfmiFreightMatching.Shipment instance)
             throws java.rmi.RemoteException {
+
         instance.setEquipmentType(com.tcore.tcoreTypes.EquipmentType.Enum.forString(equipmentType));
 
         origin.fill(instance.addNewOrigin());
         destination.fill(instance.addNewDestination());
-
         if (truckStops != null)
             truckStops.fill(instance.addNewTruckStops());
-
         if (rate != null)
             rate.fill(instance.addNewRate());
 
@@ -118,23 +118,22 @@ class AreaModel extends AbstractModel<com.tcore.tcoreTypes.Area> {
     @Override
     public com.tcore.tcoreTypes.Area fill(com.tcore.tcoreTypes.Area instance) throws java.rmi.RemoteException {
 
-        if (stateProvinces != null) {
+        if (stateProvinces != null)
             for (String state : stateProvinces)
                 instance.addStateProvinces(com.tcore.tcoreTypes.StateProvince.Enum.forString(state));
-        }
-
-        if (zones != null) {
+        if (zones != null)
             for (String zone : zones)
                 instance.addZones(com.tcore.tcoreTypes.Zone.Enum.forString(zone));
-        }
 
         return instance;
     }
 }
 
-class EquipmentDestination extends AbstractModel<com.tcore.tfmiFreightMatching.EquipmentDestination> {
+class EquipmentDestinationModel extends AbstractModel<com.tcore.tfmiFreightMatching.EquipmentDestination> {
+
     public PlaceModel place = null;
     public AreaModel area = null;
+
     public Boolean open = null;
 
     @Override
@@ -154,12 +153,14 @@ class EquipmentDestination extends AbstractModel<com.tcore.tfmiFreightMatching.E
 class EquipmentModel extends AbstractModel<com.tcore.tfmiFreightMatching.Equipment> {
 
     public String equipmentType;
+
     public PlaceModel origin;
-    public EquipmentDestination destination;
+    public EquipmentDestinationModel destination;
 
     @Override
     public com.tcore.tfmiFreightMatching.Equipment fill(com.tcore.tfmiFreightMatching.Equipment instance)
             throws java.rmi.RemoteException {
+
         instance.setEquipmentType(com.tcore.tcoreTypes.EquipmentType.Enum.forString(equipmentType));
 
         origin.fill(instance.addNewOrigin());
@@ -173,17 +174,19 @@ public class AssetPostModel extends AbstractModel<com.tcore.tfmiFreightMatching.
 
     public ShipmentModel shipment = null;
     public EquipmentModel equipment = null;
+    public DimensionsModel dimensions = null;
 
     public String postersReferenceId = null;
     public Boolean ltl = null;
-    public String[] comments = null;
     public Integer count = null;
-    public DimensionsModel dimensions = null;
     public Integer stops = null;
     // public Availability
     // public Boolean alarm;
     public Boolean includeAsset = null;
 
+    public String[] comments = null;
+
+    @Override
     public com.tcore.tfmiFreightMatching.PostAssetOperation fill(
             com.tcore.tfmiFreightMatching.PostAssetOperation instance) throws java.rmi.RemoteException {
 
@@ -191,28 +194,23 @@ public class AssetPostModel extends AbstractModel<com.tcore.tfmiFreightMatching.
             shipment.fill(instance.addNewShipment());
         else if (equipment != null)
             equipment.fill(instance.addNewEquipment());
+        if (dimensions != null)
+            dimensions.fill(instance.addNewDimensions());
 
         if (postersReferenceId != null)
             instance.setPostersReferenceId(postersReferenceId);
-
         if (ltl != null)
             instance.setLtl(ltl);
+        if (count != null)
+            instance.setCount(count);
+        if (stops != null)
+            instance.setStops(stops);
+        if (includeAsset != null)
+            instance.setIncludeAsset(includeAsset);
 
         if (comments != null)
             for (String comment : comments)
                 instance.addComments(comment);
-
-        if (count != null)
-            instance.setCount(count);
-
-        if (dimensions != null)
-            dimensions.fill(instance.addNewDimensions());
-
-        if (stops != null)
-            instance.setStops(stops);
-
-        if (includeAsset != null)
-            instance.setIncludeAsset(includeAsset);
 
         return instance;
     }

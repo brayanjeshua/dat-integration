@@ -15,6 +15,7 @@ import com.tcore.tfmiFreightMatching.CreateSearchSuccessData;
 
 import hello.models.AssetDeleteModel;
 import hello.models.AssetPostModel;
+import hello.models.AssetUpdateModel;
 
 class User {
     public String firstName;

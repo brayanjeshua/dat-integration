@@ -1,12 +1,14 @@
 package hello.models;
 
 class PostalCode extends AbstractModel<com.tcore.tcoreTypes.PostalCode> {
+
     public String country;
     public String code;
 
     @Override
     public com.tcore.tcoreTypes.PostalCode fill(com.tcore.tcoreTypes.PostalCode instance)
             throws java.rmi.RemoteException {
+
         instance.setCountry(com.tcore.tcoreTypes.CountryCode.Enum.forString(country));
         instance.setCode(code);
 
@@ -15,12 +17,14 @@ class PostalCode extends AbstractModel<com.tcore.tcoreTypes.PostalCode> {
 }
 
 class FmPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.FmPostalCode> {
+
     public String country;
     public String code;
 
     @Override
     public com.tcore.tfmiFreightMatching.FmPostalCode fill(com.tcore.tfmiFreightMatching.FmPostalCode instance)
             throws java.rmi.RemoteException {
+
         instance.setCountry(com.tcore.tcoreTypes.CountryCode.Enum.forString(country));
         instance.setCode(code);
 
@@ -29,6 +33,7 @@ class FmPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.FmPostalC
 }
 
 class CityAndState extends AbstractModel<com.tcore.tfmiFreightMatching.CityAndState> {
+
     public String city;
     public String stateProvince;
     public String county = null;
@@ -47,17 +52,21 @@ class CityAndState extends AbstractModel<com.tcore.tfmiFreightMatching.CityAndSt
 }
 
 class NamedPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.NamedPostalCode> {
+
     public String city;
     public String stateProvince;
     public String county = null;
+
     public PostalCode postalCode;
 
     @Override
     public com.tcore.tfmiFreightMatching.NamedPostalCode fill(com.tcore.tfmiFreightMatching.NamedPostalCode instance)
             throws java.rmi.RemoteException {
+
         instance.setCity(city);
         instance.setStateProvince(com.tcore.tcoreTypes.StateProvince.Enum.forString(stateProvince));
         instance.setCounty(county);
+
         postalCode.fill(instance.addNewPostalCode());
 
         return instance;
@@ -66,12 +75,14 @@ class NamedPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.NamedP
 }
 
 class Coordinates extends AbstractModel<com.tcore.tfmiFreightMatching.LatLon> {
+
     public Float latitude;
     public Float longitude;
 
     @Override
     public com.tcore.tfmiFreightMatching.LatLon fill(com.tcore.tfmiFreightMatching.LatLon instance)
             throws java.rmi.RemoteException {
+
         instance.setLatitude(latitude);
         instance.setLongitude(longitude);
 
@@ -80,6 +91,7 @@ class Coordinates extends AbstractModel<com.tcore.tfmiFreightMatching.LatLon> {
 }
 
 class NamedCoordinates extends AbstractModel<com.tcore.tfmiFreightMatching.NamedLatLon> {
+
     public Float latitude;
     public Float longitude;
     public String city;
@@ -88,6 +100,7 @@ class NamedCoordinates extends AbstractModel<com.tcore.tfmiFreightMatching.Named
     @Override
     public com.tcore.tfmiFreightMatching.NamedLatLon fill(com.tcore.tfmiFreightMatching.NamedLatLon instance)
             throws java.rmi.RemoteException {
+
         instance.setLatitude(latitude);
         instance.setLongitude(longitude);
         instance.setCity(city);
@@ -98,6 +111,7 @@ class NamedCoordinates extends AbstractModel<com.tcore.tfmiFreightMatching.Named
 }
 
 class PlaceModel extends AbstractModel<com.tcore.tfmiFreightMatching.Place> {
+
     public FmPostalCode postalCode = null;
     public CityAndState cityAndState = null;
     public NamedPostalCode namedPostalCode = null;
@@ -107,6 +121,7 @@ class PlaceModel extends AbstractModel<com.tcore.tfmiFreightMatching.Place> {
     @Override
     public com.tcore.tfmiFreightMatching.Place fill(com.tcore.tfmiFreightMatching.Place instance)
             throws java.rmi.RemoteException {
+
         if (postalCode != null)
             postalCode.fill(instance.addNewPostalCode());
         else if (cityAndState != null)
@@ -123,6 +138,7 @@ class PlaceModel extends AbstractModel<com.tcore.tfmiFreightMatching.Place> {
 }
 
 class DimensionsModel extends AbstractModel<com.tcore.tfmiFreightMatching.Dimensions> {
+
     public Integer lengthFeet = null;
     public Integer weightPounds = null;
     public Integer heightInches = null;
@@ -140,6 +156,7 @@ class DimensionsModel extends AbstractModel<com.tcore.tfmiFreightMatching.Dimens
             instance.setHeightInches(heightInches);
         if (volumeCubicFeet != null)
             instance.setVolumeCubicFeet(volumeCubicFeet);
+
         return instance;
     }
 }
