@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tcore.tfmiFreightMatching.CreateSearchSuccessData;
 
 import hello.models.AssetDeleteModel;
+import hello.models.AssetLookupModel;
 import hello.models.AssetPostModel;
 import hello.models.AssetUpdateModel;
 
@@ -24,27 +25,10 @@ class User {
 
 @RestController
 public class AssetController {
-    @GetMapping(value = "/asset/shipment/postalcode2citystate")
-    public String shipmentSearchPostalCode2CityState() throws RemoteException {
-        new Search().shipmentSearchPostalCode2CityState(Login.sessionToken);
-
-        return "";
+    @GetMapping(value = "/asset")
+    public String LookupById(@RequestBody AssetLookupModel props) throws RemoteException {
+        return new AssetLookup(props).process();
     }
-    /*
-     * @GetMapping(value = "/asset/shipment/searchstate2zone") public String
-     * shipmentSearchState2Zone() throws RemoteException { return new
-     * Search().shipmentSearchState2Zone(Login.sessionToken).toString(); }
-     * 
-     * @GetMapping(value = "/asset/equipment/searchpostalcode2citystate") public
-     * String equipmentSearchPostalCode2CityState() throws RemoteException { return
-     * new
-     * Search().equipmentSearchPostalCode2CityState(Login.sessionToken).toString();
-     * }
-     * 
-     * @GetMapping(value = "/asset/equipment/searchstate2zone") public String
-     * equipmentSearchState2Zone() throws RemoteException { return new
-     * Search().equipmentSearchState2Zone(Login.sessionToken).toString(); }
-     */
 
     @PostMapping(value = "/asset")
     public String postAsset(@RequestBody AssetPostModel props) throws RemoteException {

@@ -52,8 +52,8 @@ public class Search extends BaseSampleClient {
 
                 try {
                         // Login two users
-                        final SessionToken sessionToken1 = loginUser1();
-                        final SessionToken sessionToken2 = loginUser2();
+                        final SessionToken sessionToken1 = loginUser2();
+                        final SessionToken sessionToken2 = Login.sessionToken;
 
                         // Clean up any assets left over from previous runs
                         deleteAllAssets(sessionToken1);
@@ -71,7 +71,7 @@ public class Search extends BaseSampleClient {
 
                         System.out.println("\n======= Searching for shipments (postal code -> city/state) =======");
                         shipmentSearchPostalCode2CityState(sessionToken2);
-
+                        /*
                         System.out.println("\n======= Searching for shipments (state -> zone =======");
                         shipmentSearchState2Zone(sessionToken2);
 
@@ -90,7 +90,7 @@ public class Search extends BaseSampleClient {
                         equipmentSearchPostalCode2CityState(sessionToken2);
 
                         System.out.println("\n======= Searching for equipment (state -> zone =======");
-                        equipmentSearchState2Zone(sessionToken2);
+                        equipmentSearchState2Zone(sessionToken2); */
 
                         // Clean up - delete all assets.
                         //
@@ -98,7 +98,7 @@ public class Search extends BaseSampleClient {
                         // advantage to deleting them unless we plan to look up recent
                         // searches later and want to eliminate certain searches from the
                         // list returned from that lookup.
-                        deleteAllAssets(sessionToken1);
+                        //deleteAllAssets(sessionToken1);
 
                 } catch (final AxisFault fault) {
                         System.err.println(fault.getMessage() + " : " + fault.getDetail().getText());
