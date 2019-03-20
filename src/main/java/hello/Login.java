@@ -14,9 +14,9 @@ public class Login extends BaseSampleClient {
 	public static SessionToken sessionToken;
 
 	public Login(String email, String password) throws RemoteException {
-		this.email = email;
+  		this.email = email;
 		this.password = password;
-		this.sessionToken = login(this.email, this.password);
+		Login.sessionToken = login(this.email, this.password);
 	}
 
 	@Override
