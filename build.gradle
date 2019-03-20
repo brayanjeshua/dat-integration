@@ -29,5 +29,6 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.apache.httpcomponents:httpclient")
     compile fileTree(dir: 'lib', include: ['*.jar'])
+    compile group: 'javax.activation', name: 'activation', version: '1.1'
 }
 
