@@ -31,4 +31,3 @@ dependencies {
     compile fileTree(dir: 'lib', include: ['*.jar'])
     compile group: 'javax.activation', name: 'activation', version: '1.1'
 }
-
