@@ -32,23 +32,23 @@ class LookupAssetByPostersReferenceIdModel
 
 public class AssetLookupModel extends AbstractModel<com.tcore.tfmiFreightMatching.LookupAssetOperation> {
 
-    public LookupAssetsByAssetIdsModel lookupAssetsByAssetIds = null;
-    public LookupAssetByPostersReferenceIdModel lookupAssetByPostersReferenceId = null;
+    public LookupAssetsByAssetIdsModel queryAssetsByAssetIds = null;
+    public LookupAssetByPostersReferenceIdModel queryAssetByPostersReferenceId = null;
 
-    public Boolean lookupAllMyAssets = null;
-    public Boolean lookupAllMyGroupsAssets = null;
+    public Boolean queryAllMyAssets = null;
+    public Boolean queryAllMyGroupsAssets = null;
 
     @Override
     public com.tcore.tfmiFreightMatching.LookupAssetOperation fill(
             com.tcore.tfmiFreightMatching.LookupAssetOperation instance) throws java.rmi.RemoteException {
 
-        if (lookupAssetsByAssetIds != null)
-            lookupAssetsByAssetIds.fill(instance.addNewQueryAssetsByAssetIds());
-        else if (lookupAssetByPostersReferenceId != null)
-            lookupAssetByPostersReferenceId.fill(instance.addNewQueryAssetByPostersReferenceId());
-        else if (lookupAllMyAssets != null)
+        if (queryAssetsByAssetIds != null)
+            queryAssetsByAssetIds.fill(instance.addNewQueryAssetsByAssetIds());
+        else if (queryAssetByPostersReferenceId != null)
+            queryAssetByPostersReferenceId.fill(instance.addNewQueryAssetByPostersReferenceId());
+        else if (queryAllMyAssets != null)
             instance.addNewQueryAllMyAssets();
-        else if (lookupAllMyGroupsAssets != null)
+        else if (queryAllMyGroupsAssets != null)
             instance.addNewQueryAllMyGroupsAssets();
 
         return instance;
