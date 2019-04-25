@@ -175,12 +175,13 @@ public class AssetPostModel extends AbstractModel<com.tcore.tfmiFreightMatching.
     public ShipmentModel shipment = null;
     public EquipmentModel equipment = null;
     public DimensionsModel dimensions = null;
+    public AvailabilityModel availability = null;
 
     public String postersReferenceId = null;
     public Boolean ltl = null;
     public Integer count = null;
     public Integer stops = null;
-    // public Availability
+
     // public Boolean alarm;
     public Boolean includeAsset = null;
 
@@ -196,6 +197,8 @@ public class AssetPostModel extends AbstractModel<com.tcore.tfmiFreightMatching.
             equipment.fill(instance.addNewEquipment());
         if (dimensions != null)
             dimensions.fill(instance.addNewDimensions());
+        if (availability != null)
+            availability.fill(instance.addNewAvailability());
 
         if (postersReferenceId != null)
             instance.setPostersReferenceId(postersReferenceId);
@@ -208,9 +211,9 @@ public class AssetPostModel extends AbstractModel<com.tcore.tfmiFreightMatching.
         if (includeAsset != null)
             instance.setIncludeAsset(includeAsset);
 
-        if (comments != null)
-            for (String comment : comments)
-                instance.addComments(comment);
+        if (comments != null) {
+            instance.setCommentsArray(comments);
+        }
 
         return instance;
     }

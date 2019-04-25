@@ -1,5 +1,7 @@
 package hello.models;
 
+import java.util.Calendar;
+
 class PostalCode extends AbstractModel<com.tcore.tcoreTypes.PostalCode> {
 
     public String country;
@@ -156,6 +158,25 @@ class DimensionsModel extends AbstractModel<com.tcore.tfmiFreightMatching.Dimens
             instance.setHeightInches(heightInches);
         if (volumeCubicFeet != null)
             instance.setVolumeCubicFeet(volumeCubicFeet);
+
+        return instance;
+    }
+}
+
+class AvailabilityModel extends AbstractModel<com.tcore.tfmiFreightMatching.Availability> {
+
+    public Calendar earliest = null;
+    public Calendar latest = null;
+
+    @Override
+    public com.tcore.tfmiFreightMatching.Availability fill(com.tcore.tfmiFreightMatching.Availability instance)
+            throws java.rmi.RemoteException {
+
+        if (earliest != null)
+            instance.setEarliest(earliest);
+
+        if (latest != null)
+            instance.setLatest(latest);
 
         return instance;
     }
