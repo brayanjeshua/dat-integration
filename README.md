@@ -36,6 +36,15 @@ On the root folder, run:
 ./gradlew task
 ./gradlew bootrun
 ```
+then you should see the localserver working http://localhost:5000/
+
+## Download Postman and Import the Collection
+
+On the root folder, you can found this file:
+
+```bash
+dat api.postman_collection.json
+```
 
 ## Test API
 

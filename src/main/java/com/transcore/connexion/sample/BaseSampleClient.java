@@ -43,11 +43,11 @@ import com.tcore.tfmiFreightMatching.TfmiFreightMatchingServiceStub;
 /**
  * This class provides functionality that is common to all sample clients,
  * including login and cleanup (deleting assets).
- * 
+ *
  * For clarity, this sample code does minimal error handling. When developing a
  * production application, we strongly recommend implementing full error
  * handling as demonstrated in {@link ErrorHandling}.
- * 
+ *
  * Note that all sample applications make use of the cltool4j command-line
  * framework available at http://code.google.com/p/cltool4j/.
  */
@@ -68,7 +68,7 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
         final LoginOperation operation = loginRequestDoc.addNewLoginRequest().addNewLoginOperation();
         operation.setLoginId(loginId);
         operation.setPassword(password);
-        operation.setThirdPartyId("SampleClient");
+        operation.setThirdPartyId("TRADEXUSA");
 
         // Validate the request document before executing the operation
         validate(loginRequestDoc);
@@ -105,7 +105,7 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
     /**
      * Validates an XMLBeans object (generally a request document) and throws an
      * AxisFault if validation fails
-     * 
+     *
      * @param xmlObject
      * @throws AxisFault
      */
@@ -135,7 +135,7 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
      * Deletes all assets owned by the user. Note that deleting an asset also
      * deletes the alarm associated with that asset (if any) and that searches do
      * not need to be deleted.
-     * 
+     *
      * @throws Exception
      */
     protected void deleteAllAssets(final SessionToken sessionToken) throws RemoteException {
@@ -175,7 +175,7 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
 
     /**
      * Returns a simple summary of the asset.
-     * 
+     *
      * @param asset
      * @return Simple summary of the asset
      */
@@ -218,7 +218,7 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
 
     /**
      * Returns a simple summary of the match.
-     * 
+     *
      * @param match
      * @return Simple summary of the match
      */
