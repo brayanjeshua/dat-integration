@@ -54,47 +54,54 @@ package hello.models;
 /**
  * @apiDefine AssetQueryModel
  * @apiVersion 1.1.0
- * @apiDescription Query asset by specific criteria, you chan choose just one of
- *                 the specified as parameters. The first criteria to match will
- *                 be used.
+ * @apiDescription Lookup currently-booked assets.
  * 
- * @apiParam {AssetId[]} [queryAssetsByAssetIds] Query one or more assets by
- *           their AssetId.
- * @apiParamExample {json} AssetId
+ * @apiParam (ByAssetId) {AssetId[]} queryAssetsByAssetIds Lookup one or more
+ *           assets by AssetId.
+ * @apiParamExample {json} queryAssetsByAssetIds
  * 
  *                  [ "TS0PdTDs", "TS0PdTDt"]
  * 
- * @apiParam {string{0..8}} [queryAssetByPostersReferenceId] Query one or more
- *           assets by a Poster reference id associated with it.
- * @apiParamExample {json} PostersReferenceId
+ * @apiParam (ByPostersId) {string{0..8}} queryAssetByPostersReferenceId Lookup
+ *           one or more assets by PostersReferenceId.
+ * @apiParamExample {json} queryAssetByPostersReferenceId
  * 
  *                  "customId"
  * 
- * @apiParam {Boolean} [queryAllMyAssets] Lookup all assets belonging to the
- *           requester.
+ * @apiParam (ByAllMyAssets) {Boolean} queryAllMyAssets Lookup all assets
+ *           belonging to the requester.
  * @apiParamExample {json} queryAllMyAssets
  * 
  *                  true
  * 
- * @apiParam {Boolean} [queryAllMyGroupsAssets] Lookup all assets belonging to
- *           the requester or to other members of the requester’s sharing group.
+ * @apiParam (ByAllMyGroupsAssets) {Boolean} queryAllMyGroupsAssets Lookup all
+ *           assets belonging to the requester or to other members of the
+ *           requester’s sharing group.
  * @apiParamExample {json} queryAllMyGroupsAssets
  * 
  *                  false
  * 
- * @apiExample {json} Asset ids
+ * @apiExample {json} ByAssetId
+ * 
+ *             body:
  * 
  *             { "queryAssetsByAssetIds": [ "TS0PdTDs", "TS0PdTDt"] }
  * 
- * @apiExample {json} Posters reference id
+ * @apiExample {json} ByPostersId
+ * 
+ *             body:
  * 
  *             { "queryAssetByPostersReferenceId": "customId" }
  * 
- * @apiExample {json} My assets
+ * @apiExample {json} ByAllMyAssets
+ * 
+ *             body:
  * 
  *             { "queryAllMyAssets": true }
  * 
- * @apiExample {json} My groups assets
+ * @apiExample {json} ByAllMyGroupsAssets
+ * 
+ *             body:
  * 
  *             { "queryAllMyGroupsAssets": true }
  * 

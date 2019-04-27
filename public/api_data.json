@@ -11,33 +11,39 @@
     "description": "<p>Deletes one or more posted assets.</p>",
     "parameter": {
       "fields": {
-        "Parameter": [
+        "ByAssetId": [
           {
-            "group": "Parameter",
+            "group": "ByAssetId",
             "type": "AssetId[]",
-            "optional": true,
+            "optional": false,
             "field": "deleteAssetsByAssetIds",
             "description": "<p>Delete one or more assets by AssetId.</p>"
-          },
+          }
+        ],
+        "ByPostersId": [
           {
-            "group": "Parameter",
+            "group": "ByPostersId",
             "type": "string",
             "size": "0..8",
-            "optional": true,
+            "optional": false,
             "field": "deleteAssetByPostersReferenceId",
             "description": "<p>Delete an asset by PostersReferenceId.</p>"
-          },
+          }
+        ],
+        "ByAllMyAssets": [
           {
-            "group": "Parameter",
+            "group": "ByAllMyAssets",
             "type": "Boolean",
-            "optional": true,
+            "optional": false,
             "field": "deleteAllMyAssets",
             "description": "<p>Delete all assets owned by the requester.</p>"
-          },
+          }
+        ],
+        "ByAllMyGroupsAssets": [
           {
-            "group": "Parameter",
+            "group": "ByAllMyGroupsAssets",
             "type": "Boolean",
-            "optional": true,
+            "optional": false,
             "field": "deleteAllMyGroupsAssets",
             "description": "<p>Delete all assets belonging by the requester or to other member’s of the requester’s sharing group.</p>"
           }
@@ -45,12 +51,12 @@
       },
       "examples": [
         {
-          "title": "AssetId",
+          "title": "deleteAssetsByAssetIds",
           "content": "\n[ \"TS0PdTDs\", \"TS0PdTDt\"]",
           "type": "json"
         },
         {
-          "title": "PostersReferenceId",
+          "title": "deleteAssetByPostersReferenceId",
           "content": "\n\"customId\"",
           "type": "json"
         },
@@ -68,23 +74,23 @@
     },
     "examples": [
       {
-        "title": "Asset ids",
-        "content": "\n{ \"deleteAssetsByAssetIds\": [ \"TS0PdTDs\", \"TS0PdTDt\"] }",
+        "title": "ByAssetId",
+        "content": "\nbody:\n\n{ \"deleteAssetsByAssetIds\": [ \"TS0PdTDs\", \"TS0PdTDt\"] }",
         "type": "json"
       },
       {
-        "title": "Posters reference id",
-        "content": "\n{ \"deleteAssetByPostersReferenceId\": \"customId\" }",
+        "title": "ByPostersId",
+        "content": "\nbody:\n\n{ \"deleteAssetByPostersReferenceId\": \"customId\" }",
         "type": "json"
       },
       {
-        "title": "My assets",
-        "content": "\n{ \"deleteAllMyAssets\": true }",
+        "title": "ByAllMyAssets",
+        "content": "\nbody:\n\n{ \"deleteAllMyAssets\": true }",
         "type": "json"
       },
       {
-        "title": "My groups assets",
-        "content": "\n{ \"deleteAllMyGroupsAssets\": true }",
+        "title": "ByAllMyGroupsAssets",
+        "content": "\nbody:\n\n{ \"deleteAllMyGroupsAssets\": true }",
         "type": "json"
       }
     ]
@@ -202,36 +208,42 @@
     "group": "Assets",
     "filename": "./src/main/java/hello/AssetController.java",
     "groupTitle": "Assets",
-    "description": "<p>Query asset by specific criteria, you chan choose just one of the specified as parameters. The first criteria to match will be used.</p>",
+    "description": "<p>Lookup currently-booked assets.</p>",
     "parameter": {
       "fields": {
-        "Parameter": [
+        "ByAssetId": [
           {
-            "group": "Parameter",
+            "group": "ByAssetId",
             "type": "AssetId[]",
-            "optional": true,
+            "optional": false,
             "field": "queryAssetsByAssetIds",
-            "description": "<p>Query one or more assets by their AssetId.</p>"
-          },
+            "description": "<p>Lookup one or more assets by AssetId.</p>"
+          }
+        ],
+        "ByPostersId": [
           {
-            "group": "Parameter",
+            "group": "ByPostersId",
             "type": "string",
             "size": "0..8",
-            "optional": true,
+            "optional": false,
             "field": "queryAssetByPostersReferenceId",
-            "description": "<p>Query one or more assets by a Poster reference id associated with it.</p>"
-          },
+            "description": "<p>Lookup one or more assets by PostersReferenceId.</p>"
+          }
+        ],
+        "ByAllMyAssets": [
           {
-            "group": "Parameter",
+            "group": "ByAllMyAssets",
             "type": "Boolean",
-            "optional": true,
+            "optional": false,
             "field": "queryAllMyAssets",
             "description": "<p>Lookup all assets belonging to the requester.</p>"
-          },
+          }
+        ],
+        "ByAllMyGroupsAssets": [
           {
-            "group": "Parameter",
+            "group": "ByAllMyGroupsAssets",
             "type": "Boolean",
-            "optional": true,
+            "optional": false,
             "field": "queryAllMyGroupsAssets",
             "description": "<p>Lookup all assets belonging to the requester or to other members of the requester’s sharing group.</p>"
           }
@@ -239,12 +251,12 @@
       },
       "examples": [
         {
-          "title": "AssetId",
+          "title": "queryAssetsByAssetIds",
           "content": "\n[ \"TS0PdTDs\", \"TS0PdTDt\"]",
           "type": "json"
         },
         {
-          "title": "PostersReferenceId",
+          "title": "queryAssetByPostersReferenceId",
           "content": "\n\"customId\"",
           "type": "json"
         },
@@ -262,23 +274,23 @@
     },
     "examples": [
       {
-        "title": "Asset ids",
-        "content": "\n{ \"queryAssetsByAssetIds\": [ \"TS0PdTDs\", \"TS0PdTDt\"] }",
+        "title": "ByAssetId",
+        "content": "\nbody:\n\n{ \"queryAssetsByAssetIds\": [ \"TS0PdTDs\", \"TS0PdTDt\"] }",
         "type": "json"
       },
       {
-        "title": "Posters reference id",
-        "content": "\n{ \"queryAssetByPostersReferenceId\": \"customId\" }",
+        "title": "ByPostersId",
+        "content": "\nbody:\n\n{ \"queryAssetByPostersReferenceId\": \"customId\" }",
         "type": "json"
       },
       {
-        "title": "My assets",
-        "content": "\n{ \"queryAllMyAssets\": true }",
+        "title": "ByAllMyAssets",
+        "content": "\nbody:\n\n{ \"queryAllMyAssets\": true }",
         "type": "json"
       },
       {
-        "title": "My groups assets",
-        "content": "\n{ \"queryAllMyGroupsAssets\": true }",
+        "title": "ByAllMyGroupsAssets",
+        "content": "\nbody:\n\n{ \"queryAllMyGroupsAssets\": true }",
         "type": "json"
       }
     ]
