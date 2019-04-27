@@ -23,7 +23,7 @@ class User {
 public class AssetController {
 
     /**
-     * @api {post} /asset Create asset.
+     * @api {post} /asset Create asset
      * @apiVersion 1.0.0
      * @apiName CreateAsset
      * @apiGroup Assets
@@ -54,6 +54,13 @@ public class AssetController {
         return new AssetQuery(props).process();
     }
 
+    /**
+     * @api {patch} /asset Update asset
+     * @apiVersion 1.0.0
+     * @apiName UpdateAsset
+     * @apiGroup Assets
+     * @apiUse AssetUpdateModel
+     */
     @PatchMapping(value = "/asset")
     public String updateAsset(@RequestBody AssetUpdateModel props) throws RemoteException {
 

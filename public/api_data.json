@@ -2,37 +2,32 @@
   {
     "type": "post",
     "url": "/asset",
-    "title": "Create asset.",
+    "title": "Create asset",
     "version": "1.0.0",
     "name": "CreateAsset",
     "group": "Assets",
     "filename": "./src/main/java/hello/AssetController.java",
     "groupTitle": "Assets",
-    "description": "<p>Post one Asset.</p>",
+    "description": "<p>Post an Asset.</p>",
     "parameter": {
       "fields": {
-        "Parameter": [
+        "OneOf": [
           {
-            "group": "Parameter",
-            "type": "NotAParam",
-            "optional": false,
-            "field": "OneOf",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectShipment\">Shipment</a>",
             "optional": false,
-            "field": "OneOf.shipment",
+            "field": "shipment",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectEquipment\">Equipment</a>",
             "optional": false,
-            "field": "OneOf.equipment",
+            "field": "equipment",
             "description": ""
-          },
+          }
+        ],
+        "Parameter": [
           {
             "group": "Parameter",
             "type": "String[0..8]",
@@ -107,37 +102,32 @@
     "description": "<p>Deletes one or more posted assets.</p>",
     "parameter": {
       "fields": {
-        "ByAssetId": [
+        "OneOf": [
           {
-            "group": "ByAssetId",
+            "group": "OneOf",
             "type": "AssetId[]",
+            "size": "0..8",
             "optional": false,
             "field": "deleteAssetsByAssetIds",
             "description": "<p>Delete one or more assets by AssetId.</p>"
-          }
-        ],
-        "ByPostersId": [
+          },
           {
-            "group": "ByPostersId",
+            "group": "OneOf",
             "type": "String",
             "size": "0..8",
             "optional": false,
             "field": "deleteAssetByPostersReferenceId",
             "description": "<p>Delete an asset by PostersReferenceId.</p>"
-          }
-        ],
-        "ByAllMyAssets": [
+          },
           {
-            "group": "ByAllMyAssets",
+            "group": "OneOf",
             "type": "Boolean",
             "optional": false,
             "field": "deleteAllMyAssets",
             "description": "<p>Delete all assets owned by the requester.</p>"
-          }
-        ],
-        "ByAllMyGroupsAssets": [
+          },
           {
-            "group": "ByAllMyGroupsAssets",
+            "group": "OneOf",
             "type": "Boolean",
             "optional": false,
             "field": "deleteAllMyGroupsAssets",
@@ -307,37 +297,32 @@
     "description": "<p>Lookup currently-booked assets.</p>",
     "parameter": {
       "fields": {
-        "ByAssetId": [
+        "OneOf": [
           {
-            "group": "ByAssetId",
+            "group": "OneOf",
             "type": "AssetId[]",
+            "size": "0..8",
             "optional": false,
             "field": "queryAssetsByAssetIds",
             "description": "<p>Lookup one or more assets by AssetId.</p>"
-          }
-        ],
-        "ByPostersId": [
+          },
           {
-            "group": "ByPostersId",
+            "group": "OneOf",
             "type": "String",
             "size": "0..8",
             "optional": false,
             "field": "queryAssetByPostersReferenceId",
             "description": "<p>Lookup one or more assets by PostersReferenceId.</p>"
-          }
-        ],
-        "ByAllMyAssets": [
+          },
           {
-            "group": "ByAllMyAssets",
+            "group": "OneOf",
             "type": "Boolean",
             "optional": false,
             "field": "queryAllMyAssets",
             "description": "<p>Lookup all assets belonging to the requester.</p>"
-          }
-        ],
-        "ByAllMyGroupsAssets": [
+          },
           {
-            "group": "ByAllMyGroupsAssets",
+            "group": "OneOf",
             "type": "Boolean",
             "optional": false,
             "field": "queryAllMyGroupsAssets",
@@ -494,6 +479,55 @@
         "type": "json"
       }
     ]
+  },
+  {
+    "type": "patch",
+    "url": "/asset",
+    "title": "Update asset",
+    "version": "1.0.0",
+    "name": "UpdateAsset",
+    "group": "Assets",
+    "filename": "./src/main/java/hello/AssetController.java",
+    "groupTitle": "Assets",
+    "description": "<p>Update an Asset.</p>",
+    "parameter": {
+      "fields": {
+        "OneOfId": [
+          {
+            "group": "OneOfId",
+            "type": "assetId",
+            "size": "0..8",
+            "optional": false,
+            "field": "assetId",
+            "description": ""
+          },
+          {
+            "group": "OneOfId",
+            "type": "assetId",
+            "size": "0..8",
+            "optional": false,
+            "field": "postersReferenceId",
+            "description": ""
+          }
+        ],
+        "OneOf": [
+          {
+            "group": "OneOf",
+            "type": "<a href=\"#api-Custom_types-ObjectShipmentupdate\">ShipmentUpdate</a>",
+            "optional": false,
+            "field": "shipmentUpdate",
+            "description": ""
+          },
+          {
+            "group": "OneOf",
+            "type": "<a href=\"#api-Custom_types-ObjectEquipmentupdate\">EquipmentUpdate</a>",
+            "optional": false,
+            "field": "equipmentUpdate",
+            "description": ""
+          }
+        ]
+      }
+    }
   },
   {
     "type": "OBJECT",
@@ -725,33 +759,26 @@
     "version": "1.0.0",
     "parameter": {
       "fields": {
-        "Parameter": [
+        "OneOf": [
           {
-            "group": "Parameter",
-            "type": "NotAParam",
-            "optional": false,
-            "field": "OneOf",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectPlace\">Place</a>",
             "optional": false,
-            "field": "OneOf.place",
+            "field": "place",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectArea\">Area</a>",
             "optional": false,
-            "field": "OneOf.area",
+            "field": "area",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "Boolean",
             "optional": false,
-            "field": "OneOf.open",
+            "field": "open",
             "description": ""
           }
         ]
@@ -760,6 +787,59 @@
     "filename": "./src/main/java/hello/models/AssetPostModel.java",
     "groupTitle": "Custom_types",
     "name": "ObjectEquipmentdestination"
+  },
+  {
+    "type": "OBJECT",
+    "url": "EquipmentUpdate",
+    "title": "EquipmentUpdate",
+    "group": "Custom_types",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": true,
+            "field": "ltl",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "size": "0.70",
+            "optional": true,
+            "field": "comments",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "size": "1 – 99",
+            "optional": true,
+            "field": "count",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<a href=\"#api-Custom_types-ObjectDimensions\">Dimensions</a>",
+            "optional": true,
+            "field": "dimensions",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "stops",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/hello/models/AssetUpdateModel.java",
+    "groupTitle": "Custom_types",
+    "name": "ObjectEquipmentupdate"
   },
   {
     "type": "OBJECT",
@@ -891,47 +971,40 @@
     "version": "1.0.0",
     "parameter": {
       "fields": {
-        "Parameter": [
+        "OneOf": [
           {
-            "group": "Parameter",
-            "type": "NotAParam",
-            "optional": false,
-            "field": "OneOf",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectFmpostalcode\">FmPostalCode</a>",
             "optional": false,
-            "field": "OneOf.postalCode",
+            "field": "postalCode",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectCityandstate\">CityAndState</a>",
             "optional": false,
-            "field": "OneOf.cityAndState",
+            "field": "cityAndState",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectNamedpostalcode\">NamedPostalCode</a>",
             "optional": false,
-            "field": "OneOf.namedPostalCode",
+            "field": "namedPostalCode",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectCoordinates\">Coordinates</a>",
             "optional": false,
-            "field": "OneOf.coordinates",
+            "field": "coordinates",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectNamedcoordinates\">NamedCoordinates</a>",
             "optional": false,
-            "field": "OneOf.namedCoordinates",
+            "field": "namedCoordinates",
             "description": ""
           }
         ]
@@ -1067,8 +1140,8 @@
   },
   {
     "type": "OBJECT",
-    "url": "TruckStops",
-    "title": "TruckStops",
+    "url": "ShipmentUpdate",
+    "title": "ShipmentUpdate",
     "group": "Custom_types",
     "version": "1.0.0",
     "parameter": {
@@ -1076,47 +1149,109 @@
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "NotAParam",
-            "optional": false,
-            "field": "OneOf",
+            "type": "Boolean",
+            "optional": true,
+            "field": "ltl",
             "description": ""
           },
           {
             "group": "Parameter",
+            "type": "String[]",
+            "size": "0.70",
+            "optional": true,
+            "field": "comments",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "size": "1 – 99",
+            "optional": true,
+            "field": "count",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<a href=\"#api-Custom_types-ObjectDimensions\">Dimensions</a>",
+            "optional": true,
+            "field": "dimensions",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "stops",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<a href=\"#api-Custom_types-ObjectTruckstops\">truckStops</a>",
+            "optional": true,
+            "field": "truckStops",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "<a href=\"#api-Custom_types-ObjectRate\">Rate</a>",
+            "optional": true,
+            "field": "rate",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/hello/models/AssetUpdateModel.java",
+    "groupTitle": "Custom_types",
+    "name": "ObjectShipmentupdate"
+  },
+  {
+    "type": "OBJECT",
+    "url": "TruckStops",
+    "title": "TruckStops",
+    "group": "Custom_types",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "OneOf": [
+          {
+            "group": "OneOf",
             "type": "Object",
             "optional": false,
-            "field": "OneOf.truckStopIds",
+            "field": "truckStopIds",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "Number[]",
             "size": "0 – 9999",
             "optional": false,
-            "field": "OneOf.truckStopIds.ids",
+            "field": "truckStopIds.ids",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "Boolean",
             "optional": false,
-            "field": "OneOf.closest",
+            "field": "closest",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "Object",
             "optional": false,
-            "field": "OneOf.alternateClosest",
+            "field": "alternateClosest",
             "description": ""
           },
           {
-            "group": "Parameter",
+            "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectPlace\">Place</a>",
             "optional": false,
-            "field": "OneOf.alternateClosest.alternateOrigin",
+            "field": "alternateClosest.alternateOrigin",
             "description": ""
-          },
+          }
+        ],
+        "Parameter": [
           {
             "group": "Parameter",
             "type": "String",

@@ -163,12 +163,11 @@ class NamedCoordinates extends AbstractModel<com.tcore.tfmiFreightMatching.Named
  * @api {OBJECT} Place Place
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {NotAParam} OneOf
- * @apiParam {[FmPostalCode](#api-Custom_types-ObjectFmpostalcode)} OneOf.postalCode
- * @apiParam {[CityAndState](#api-Custom_types-ObjectCityandstate)} OneOf.cityAndState
- * @apiParam {[NamedPostalCode](#api-Custom_types-ObjectNamedpostalcode)} OneOf.namedPostalCode
- * @apiParam {[Coordinates](#api-Custom_types-ObjectCoordinates)} OneOf.coordinates
- * @apiParam {[NamedCoordinates](#api-Custom_types-ObjectNamedcoordinates)} OneOf.namedCoordinates
+ * @apiParam (OneOf) {[FmPostalCode](#api-Custom_types-ObjectFmpostalcode)} postalCode
+ * @apiParam (OneOf) {[CityAndState](#api-Custom_types-ObjectCityandstate)} cityAndState
+ * @apiParam (OneOf) {[NamedPostalCode](#api-Custom_types-ObjectNamedpostalcode)} namedPostalCode
+ * @apiParam (OneOf) {[Coordinates](#api-Custom_types-ObjectCoordinates)} coordinates
+ * @apiParam (OneOf) {[NamedCoordinates](#api-Custom_types-ObjectNamedcoordinates)} namedCoordinates
  */
 class PlaceModel extends AbstractModel<com.tcore.tfmiFreightMatching.Place> {
 

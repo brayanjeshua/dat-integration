@@ -56,24 +56,23 @@ package hello.models;
  * @apiVersion 1.1.0
  * @apiDescription Lookup currently-booked assets.
  * 
- * @apiParam (ByAssetId) {AssetId[]} queryAssetsByAssetIds Lookup one or more assets by AssetId.
+ * @apiParam (OneOf) {AssetId[]{0..8}} queryAssetsByAssetIds Lookup one or more assets by AssetId.
  * @apiParamExample {json} queryAssetsByAssetIds
  * 
  *                  [ "TS0PdTDs", "TS0PdTDt"]
  * 
- * @apiParam (ByPostersId) {String{0..8}} queryAssetByPostersReferenceId Lookup one or more assets by
- *           PostersReferenceId.
+ * @apiParam (OneOf) {String{0..8}} queryAssetByPostersReferenceId Lookup one or more assets by PostersReferenceId.
  * @apiParamExample {json} queryAssetByPostersReferenceId
  * 
  *                  "customId"
  * 
- * @apiParam (ByAllMyAssets) {Boolean} queryAllMyAssets Lookup all assets belonging to the requester.
+ * @apiParam (OneOf) {Boolean} queryAllMyAssets Lookup all assets belonging to the requester.
  * @apiParamExample {json} queryAllMyAssets
  * 
  *                  true
  * 
- * @apiParam (ByAllMyGroupsAssets) {Boolean} queryAllMyGroupsAssets Lookup all assets belonging to the requester or to
- *           other members of the requester’s sharing group.
+ * @apiParam (OneOf) {Boolean} queryAllMyGroupsAssets Lookup all assets belonging to the requester or to other members
+ *           of the requester’s sharing group.
  * @apiParamExample {json} queryAllMyGroupsAssets
  * 
  *                  false

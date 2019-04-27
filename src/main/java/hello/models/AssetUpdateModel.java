@@ -1,5 +1,18 @@
 package hello.models;
 
+/**
+ * @api {OBJECT} ShipmentUpdate ShipmentUpdate
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {Boolean} [ltl]
+ * @apiParam {String[]{0.70}} [comments]
+ * @apiParam {Number{1 – 99}} [count]
+ * @apiParam {[Dimensions](#api-Custom_types-ObjectDimensions)} [dimensions]
+ * @apiParam {Number} [stops]
+ * 
+ * @apiParam {[truckStops](#api-Custom_types-ObjectTruckstops)} [truckStops]
+ * @apiParam {[Rate](#api-Custom_types-ObjectRate)} [rate]
+ */
 class ShipmentUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.ShipmentUpdate> {
 
     public Boolean ltl = null;
@@ -38,6 +51,16 @@ class ShipmentUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.Sh
     }
 }
 
+/**
+ * @api {OBJECT} EquipmentUpdate EquipmentUpdate
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {Boolean} [ltl]
+ * @apiParam {String[]{0.70}} [comments]
+ * @apiParam {Number{1 – 99}} [count]
+ * @apiParam {[Dimensions](#api-Custom_types-ObjectDimensions)} [dimensions]
+ * @apiParam {Number} [stops]
+ */
 class EquipmentUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.EquipmentUpdate> {
 
     public Boolean ltl = null;
@@ -70,6 +93,17 @@ class EquipmentUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.E
     }
 }
 
+/**
+ * @apiDefine AssetUpdateModel
+ * @apiVersion 1.0.0
+ * @apiDescription Update an Asset.
+ * 
+ * @apiParam (OneOfId) {assetId{0..8}} assetId
+ * @apiParam (OneOfId) {assetId{0..8}} postersReferenceId
+ * 
+ * @apiParam (OneOf) {[ShipmentUpdate](#api-Custom_types-ObjectShipmentupdate)} shipmentUpdate
+ * @apiParam (OneOf) {[EquipmentUpdate](#api-Custom_types-ObjectEquipmentupdate)} equipmentUpdate
+ */
 public class AssetUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.UpdateAssetOperation> {
 
     public String assetId = null;

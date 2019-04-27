@@ -35,12 +35,11 @@ class AlternateClosestModel extends AbstractModel<com.tcore.tfmiFreightMatching.
  * @api {OBJECT} TruckStops TruckStops
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {NotAParam} OneOf
- * @apiParam {Object} OneOf.truckStopIds
- * @apiParam {Number[]{0 – 9999}} OneOf.truckStopIds.ids
- * @apiParam {Boolean} OneOf.closest
- * @apiParam {Object} OneOf.alternateClosest
- * @apiParam {[Place](#api-Custom_types-ObjectPlace)} OneOf.alternateClosest.alternateOrigin
+ * @apiParam (OneOf) {Object} truckStopIds
+ * @apiParam (OneOf) {Number[]{0 – 9999}} truckStopIds.ids
+ * @apiParam (OneOf) {Boolean} closest
+ * @apiParam (OneOf) {Object} alternateClosest
+ * @apiParam (OneOf) {[Place](#api-Custom_types-ObjectPlace)} alternateClosest.alternateOrigin
  * @apiParam {String="Flash","Highlight"} [enhancements]
  * @apiParam {String{0..8}} [posterDisplayName]
  */
@@ -172,10 +171,9 @@ class AreaModel extends AbstractModel<com.tcore.tcoreTypes.Area> {
  * @api {OBJECT} EquipmentDestination EquipmentDestination
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {NotAParam} OneOf
- * @apiParam {[Place](#api-Custom_types-ObjectPlace)} OneOf.place
- * @apiParam {[Area](#api-Custom_types-ObjectArea)} OneOf.area
- * @apiParam {Boolean} OneOf.open
+ * @apiParam (OneOf) {[Place](#api-Custom_types-ObjectPlace)} place
+ * @apiParam (OneOf) {[Area](#api-Custom_types-ObjectArea)} area
+ * @apiParam (OneOf) {Boolean} open
  */
 class EquipmentDestinationModel extends AbstractModel<com.tcore.tfmiFreightMatching.EquipmentDestination> {
 
@@ -229,17 +227,18 @@ class EquipmentModel extends AbstractModel<com.tcore.tfmiFreightMatching.Equipme
 /**
  * @apiDefine AssetPostModel
  * @apiVersion 1.0.0
- * @apiDescription Post one Asset.
+ * @apiDescription Post an Asset.
  * 
- * @apiParam {NotAParam} OneOf
- * @apiParam {[Shipment](#api-Custom_types-ObjectShipment)} OneOf.shipment
- * @apiParam {[Equipment](#api-Custom_types-ObjectEquipment)} OneOf.equipment
+ * @apiParam (OneOf) {[Shipment](#api-Custom_types-ObjectShipment)} shipment
+ * @apiParam (OneOf) {[Equipment](#api-Custom_types-ObjectEquipment)} equipment
  * @apiParam {String[0..8]} [postersReferenceId]
+ * 
  * @apiParam {Boolean} [ltl]
  * @apiParam {String[]{0.70}} [comments]
  * @apiParam {Number{1 – 99}} [count]
  * @apiParam {[Dimensions](#api-Custom_types-ObjectDimensions)} [dimensions]
  * @apiParam {Number} [stops]
+ * 
  * @apiParam {[Availability](#api-Custom_types-ObjectAvailability)} [availability]
  * @apiParam {Boolean} [includeAsset]
  */
