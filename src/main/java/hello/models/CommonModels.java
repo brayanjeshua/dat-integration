@@ -2,6 +2,13 @@ package hello.models;
 
 import java.util.Calendar;
 
+/**
+ * @api {OBJECT} PostalCode PostalCode
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {String} country
+ * @apiParam {String} code
+ */
 class PostalCode extends AbstractModel<com.tcore.tcoreTypes.PostalCode> {
 
     public String country;
@@ -18,6 +25,13 @@ class PostalCode extends AbstractModel<com.tcore.tcoreTypes.PostalCode> {
     }
 }
 
+/**
+ * @api {OBJECT} FmPostalCode FmPostalCode
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {String} country
+ * @apiParam {String} code
+ */
 class FmPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.FmPostalCode> {
 
     public String country;
@@ -34,6 +48,14 @@ class FmPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.FmPostalC
     }
 }
 
+/**
+ * @api {OBJECT} CityAndState CityAndState
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {String{0..30}} city
+ * @apiParam {String} stateProvince
+ * @apiParam {String} [county]
+ */
 class CityAndState extends AbstractModel<com.tcore.tfmiFreightMatching.CityAndState> {
 
     public String city;
@@ -53,6 +75,15 @@ class CityAndState extends AbstractModel<com.tcore.tfmiFreightMatching.CityAndSt
     }
 }
 
+/**
+ * @api {OBJECT} NamedPostalCode NamedPostalCode
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {String{0..30}} city
+ * @apiParam {String} stateProvince
+ * @apiParam {String} [county]
+ * @apiParam {[PostalCode](#api-Custom_types-ObjectPostalcode)} postalCode
+ */
 class NamedPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.NamedPostalCode> {
 
     public String city;
@@ -76,6 +107,13 @@ class NamedPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.NamedP
 
 }
 
+/**
+ * @api {OBJECT} Coordinates Coordinates
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {Number{13.00 - 86.00}} latitude
+ * @apiParam {Number{-177.00 – -52.00}} longitude
+ */
 class Coordinates extends AbstractModel<com.tcore.tfmiFreightMatching.LatLon> {
 
     public Float latitude;
@@ -92,6 +130,15 @@ class Coordinates extends AbstractModel<com.tcore.tfmiFreightMatching.LatLon> {
     }
 }
 
+/**
+ * @api {OBJECT} NamedCoordinates NamedCoordinates
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {Number{13.00 - 86.00}} latitude
+ * @apiParam {Number{-177.00 – -52.00}} longitude
+ * @apiParam {String{0..30}} city
+ * @apiParam {String} stateProvince
+ */
 class NamedCoordinates extends AbstractModel<com.tcore.tfmiFreightMatching.NamedLatLon> {
 
     public Float latitude;
@@ -112,6 +159,17 @@ class NamedCoordinates extends AbstractModel<com.tcore.tfmiFreightMatching.Named
     }
 }
 
+/**
+ * @api {OBJECT} Place Place
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {NotAParam} OneOf
+ * @apiParam {[PostalCode](#api-Custom_types-ObjectPostalcode)} OneOf.postalCode
+ * @apiParam {[CityAndState](#api-Custom_types-ObjectCityandstate)} OneOf.cityAndState
+ * @apiParam {[NamedPostalCode](#api-Custom_types-ObjectNamedpostalcode)} OneOf.namedPostalCode
+ * @apiParam {[Coordinates](#api-Custom_types-ObjectCoordinates)} OneOf.coordinates
+ * @apiParam {[NamedCoordinates](#api-Custom_types-ObjectNamedcoordinates)} OneOf.namedCoordinates
+ */
 class PlaceModel extends AbstractModel<com.tcore.tfmiFreightMatching.Place> {
 
     public FmPostalCode postalCode = null;
@@ -139,6 +197,15 @@ class PlaceModel extends AbstractModel<com.tcore.tfmiFreightMatching.Place> {
     }
 }
 
+/**
+ * @api {OBJECT} Dimensions Dimensions
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {Number{1 – 199}} [lengthFeet]
+ * @apiParam {Number{1 – 199999}} [weightPounds]
+ * @apiParam {Number{1 – 299}} [heightInches]
+ * @apiParam {Number{1 – 9999}} [volumeCubicFeet]
+ */
 class DimensionsModel extends AbstractModel<com.tcore.tfmiFreightMatching.Dimensions> {
 
     public Integer lengthFeet = null;
@@ -163,6 +230,16 @@ class DimensionsModel extends AbstractModel<com.tcore.tfmiFreightMatching.Dimens
     }
 }
 
+/**
+ * @api {OBJECT} Availability Availability
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {Date} [earliest]
+ * @apiParamExample {Date} Date
+ * 
+ *                  2019-05-28T06:30:14.000Z
+ * @apiParam {Date} [latest]
+ */
 class AvailabilityModel extends AbstractModel<com.tcore.tfmiFreightMatching.Availability> {
 
     public Calendar earliest = null;

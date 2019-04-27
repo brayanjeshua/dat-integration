@@ -44,7 +44,7 @@ class DeleteAssetByPostersReferenceIdModel
  * 
  * @apiParam {Object} [deleteAssetByPostersReferenceId] Delete an asset by
  *           PostersReferenceId.
- * @apiParam {string{0..8}} deleteAssetByPostersReferenceId.id poster id.
+ * @apiParam {String{0..8}} deleteAssetByPostersReferenceId.id poster id.
  * @apiParamExample {json} PostersReferenceId
  * 
  *                  { "id": "customId" }
@@ -91,7 +91,7 @@ class DeleteAssetByPostersReferenceIdModel
  * 
  *                  [ "TS0PdTDs", "TS0PdTDt"]
  * 
- * @apiParam (ByPostersId) {string{0..8}} deleteAssetByPostersReferenceId Delete
+ * @apiParam (ByPostersId) {String{0..8}} deleteAssetByPostersReferenceId Delete
  *           an asset by PostersReferenceId.
  * @apiParamExample {json} deleteAssetByPostersReferenceId
  * 

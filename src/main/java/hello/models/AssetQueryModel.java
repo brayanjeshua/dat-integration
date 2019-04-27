@@ -16,7 +16,7 @@ package hello.models;
  * 
  * @apiParam {Object} [queryAssetByPostersReferenceId] Query one or more assets
  *           by a Poster reference id associated with it.
- * @apiParam {string{0..8}} queryAssetByPostersReferenceId.id poster id.
+ * @apiParam {String{0..8}} queryAssetByPostersReferenceId.id poster id.
  * @apiParamExample {json} PostersReferenceId
  * 
  *                  { "id": "customId" }
@@ -62,7 +62,7 @@ package hello.models;
  * 
  *                  [ "TS0PdTDs", "TS0PdTDt"]
  * 
- * @apiParam (ByPostersId) {string{0..8}} queryAssetByPostersReferenceId Lookup
+ * @apiParam (ByPostersId) {String{0..8}} queryAssetByPostersReferenceId Lookup
  *           one or more assets by PostersReferenceId.
  * @apiParamExample {json} queryAssetByPostersReferenceId
  * 

@@ -22,6 +22,13 @@ class User {
 @RestController
 public class AssetController {
 
+    /**
+     * @api {post} /asset Create asset.
+     * @apiVersion 1.0.0
+     * @apiName CreateAsset
+     * @apiGroup Assets
+     * @apiUse AssetPostModel
+     */
     @PostMapping(value = "/asset")
     public String postAsset(@RequestBody AssetPostModel props) throws RemoteException {
         return new AssetPost(props).process();

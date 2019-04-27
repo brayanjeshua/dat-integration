@@ -31,6 +31,20 @@ class AlternateClosestModel extends AbstractModel<com.tcore.tfmiFreightMatching.
     }
 }
 
+/**
+ * @api {OBJECT} TruckStops TruckStops
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {NotAParam} OneOf
+ * @apiParam {Object} OneOf.truckStopIds
+ * @apiParam {Number[]{0 – 9999}} OneOf.truckStopIds.ids
+ * @apiParam {Boolean} OneOf.closest
+ * @apiParam {Object} OneOf.alternateClosest
+ * @apiParam {[Place](#api-Custom_types-ObjectPlace)} OneOf.alternateClosest.alternateOrigin
+ * @apiParam {String="Flash","Highlight"} [enhancements]
+ * @apiParam {String{0..8}} [posterDisplayName]
+ */
+
 class TruckStopsModel extends AbstractModel<com.tcore.tfmiFreightMatching.TruckStops> {
 
     public Boolean closest = null;
@@ -63,6 +77,14 @@ class TruckStopsModel extends AbstractModel<com.tcore.tfmiFreightMatching.TruckS
     }
 }
 
+/**
+ * @api {OBJECT} Rate Rate
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {Number{0.0 – 99999.99}} baseRateDollars
+ * @apiParam {String="Flat","PerMile"} rateBasedOn
+ * @apiParam {Number{0 – 9999}} [rateMiles]
+ */
 class RateModel extends AbstractModel<com.tcore.tfmiFreightMatching.ShipmentRate> {
 
     public Float baseRateDollars;
@@ -82,6 +104,16 @@ class RateModel extends AbstractModel<com.tcore.tfmiFreightMatching.ShipmentRate
     }
 }
 
+/**
+ * @api {OBJECT} Shipment Shipment
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {String} equipmentType
+ * @apiParam {[Place](#api-Custom_types-ObjectPlace)} origin
+ * @apiParam {[Place](#api-Custom_types-ObjectPlace)} destination
+ * @apiParam {[truckStops](#api-Custom_types-ObjectTruckstops)} [truckStops]
+ * @apiParam {[Rate](#api-Custom_types-ObjectRate)} [rate]
+ */
 class ShipmentModel extends AbstractModel<com.tcore.tfmiFreightMatching.Shipment> {
 
     public String equipmentType;
@@ -110,6 +142,13 @@ class ShipmentModel extends AbstractModel<com.tcore.tfmiFreightMatching.Shipment
 
 // EQUIPMENT SPECIFIC MODELS
 
+/**
+ * @api {OBJECT} Area Area
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {stateProvince[]} [stateProvinces]
+ * @apiParam {zone[]} [zones]
+ */
 class AreaModel extends AbstractModel<com.tcore.tcoreTypes.Area> {
 
     public String[] stateProvinces = null;
@@ -129,6 +168,15 @@ class AreaModel extends AbstractModel<com.tcore.tcoreTypes.Area> {
     }
 }
 
+/**
+ * @api {OBJECT} EquipmentDestination EquipmentDestination
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {NotAParam} OneOf
+ * @apiParam {[Place](#api-Custom_types-ObjectPlace)} OneOf.place
+ * @apiParam {[Area](#api-Custom_types-ObjectArea)} OneOf.area
+ * @apiParam {Boolean} OneOf.open
+ */
 class EquipmentDestinationModel extends AbstractModel<com.tcore.tfmiFreightMatching.EquipmentDestination> {
 
     public PlaceModel place = null;
@@ -150,6 +198,14 @@ class EquipmentDestinationModel extends AbstractModel<com.tcore.tfmiFreightMatch
     }
 }
 
+/**
+ * @api {OBJECT} Equipment Equipment
+ * @apiGroup Custom types
+ * @apiVersion 1.0.0
+ * @apiParam {String} equipmentType
+ * @apiParam {[Place](#api-Custom_types-ObjectPlace)} origin
+ * @apiParam {[EquipmentDestination](#api-Custom_types-ObjectEquipmentdestination)} destination
+ */
 class EquipmentModel extends AbstractModel<com.tcore.tfmiFreightMatching.Equipment> {
 
     public String equipmentType;
@@ -170,6 +226,23 @@ class EquipmentModel extends AbstractModel<com.tcore.tfmiFreightMatching.Equipme
     }
 }
 
+/**
+ * @apiDefine AssetPostModel
+ * @apiVersion 1.0.0
+ * @apiDescription Post one Asset.
+ * 
+ * @apiParam {NotAParam} OneOf
+ * @apiParam {[Shipment](#api-Custom_types-ObjectShipment)} OneOf.shipment
+ * @apiParam {[Equipment](#api-Custom_types-ObjectEquipment)} OneOf.equipment
+ * @apiParam {String[0..8]} [postersReferenceId]
+ * @apiParam {Boolean} [ltl]
+ * @apiParam {String[]{0.70}} [comments]
+ * @apiParam {Number{1 – 99}} [count]
+ * @apiParam {[Dimensions](#api-Custom_types-ObjectDimensions)} [dimensions]
+ * @apiParam {Number} [stops]
+ * @apiParam {[Availability](#api-Custom_types-ObjectAvailability)} [availability]
+ * @apiParam {Boolean} [includeAsset]
+ */
 public class AssetPostModel extends AbstractModel<com.tcore.tfmiFreightMatching.PostAssetOperation> {
 
     public ShipmentModel shipment = null;
