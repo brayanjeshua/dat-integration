@@ -23,7 +23,7 @@ class User {
 public class AssetController {
 
     /**
-     * @api {post} /asset Create asset
+     * @api {post} /asset Create
      * @apiVersion 1.0.0
      * @apiName CreateAsset
      * @apiGroup Assets
@@ -35,27 +35,19 @@ public class AssetController {
     }
 
     /**
-     * @api {get} /asset Get assets by criteria
-     * @apiVersion 1.0.0
-     * @apiName GetAsset
-     * @apiGroup Assets
-     * @apiUse AssetQueryModel
-     */
-
-    /**
-     * @api {get} /asset Get assets by criteria
+     * @api {get} /asset Get
      * @apiVersion 1.1.0
      * @apiName GetAsset
      * @apiGroup Assets
      * @apiUse AssetQueryModel
      */
     @GetMapping(value = "/asset")
-    public String LookupById(@RequestBody AssetQueryModel props) throws RemoteException {
+    public String getAsset(@RequestBody AssetQueryModel props) throws RemoteException {
         return new AssetQuery(props).process();
     }
 
     /**
-     * @api {patch} /asset Update asset
+     * @api {patch} /asset Update
      * @apiVersion 1.0.0
      * @apiName UpdateAsset
      * @apiGroup Assets
@@ -68,15 +60,7 @@ public class AssetController {
     }
 
     /**
-     * @api {delete} /asset delete assets by criteria
-     * @apiVersion 1.0.0
-     * @apiName DeleteAsset
-     * @apiGroup Assets
-     * @apiUse AssetDeleteModel
-     */
-
-    /**
-     * @api {delete} /asset delete assets by criteria
+     * @api {delete} /asset Delete
      * @apiVersion 1.1.0
      * @apiName DeleteAsset
      * @apiGroup Assets
@@ -87,3 +71,19 @@ public class AssetController {
         return new AssetDelete(props).process();
     }
 }
+
+/**
+ * @api {get} /asset Get
+ * @apiVersion 1.0.0
+ * @apiName GetAsset
+ * @apiGroup Assets
+ * @apiUse AssetQueryModel
+ */
+
+/**
+ * @api {delete} /asset Delete
+ * @apiVersion 1.0.0
+ * @apiName DeleteAsset
+ * @apiGroup Assets
+ * @apiUse AssetDeleteModel
+ */

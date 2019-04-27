@@ -1,6 +1,6 @@
 define({
   "name": "Task API documentation",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "API task list manager",
   "template": {
     "forceLanguage": "en"
@@ -10,7 +10,7 @@ define({
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2019-04-27T23:35:00.209Z",
+    "time": "2019-04-27T23:47:50.000Z",
     "url": "http://apidocjs.com",
     "version": "0.17.7"
   }

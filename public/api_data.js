@@ -2,7 +2,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/asset",
-    "title": "Create asset",
+    "title": "Create",
     "version": "1.0.0",
     "name": "CreateAsset",
     "group": "Assets",
@@ -93,7 +93,7 @@ define({ "api": [
   {
     "type": "delete",
     "url": "/asset",
-    "title": "delete assets by criteria",
+    "title": "Delete",
     "version": "1.1.0",
     "name": "DeleteAsset",
     "group": "Assets",
@@ -184,7 +184,7 @@ define({ "api": [
   {
     "type": "delete",
     "url": "/asset",
-    "title": "delete assets by criteria",
+    "title": "Delete",
     "version": "1.0.0",
     "name": "DeleteAsset",
     "group": "Assets",
@@ -288,7 +288,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/asset",
-    "title": "Get assets by criteria",
+    "title": "Get",
     "version": "1.1.0",
     "name": "GetAsset",
     "group": "Assets",
@@ -356,7 +356,7 @@ define({ "api": [
     "examples": [
       {
         "title": "ByAssetId",
-        "content": "\nbody:\n\n{ \"queryAssetsByAssetIds\": [ \"TS0PdTDs\", \"TS0PdTDt\"] }",
+        "content": "\nbody:\n\n{ \"queryAssetsByAssetIds\": [ \"TS0PdTDs\", \"TS0PdTDt\" ] }",
         "type": "json"
       },
       {
@@ -379,7 +379,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/asset",
-    "title": "Get assets by criteria",
+    "title": "Get",
     "version": "1.0.0",
     "name": "GetAsset",
     "group": "Assets",
@@ -483,7 +483,7 @@ define({ "api": [
   {
     "type": "patch",
     "url": "/asset",
-    "title": "Update asset",
+    "title": "Update",
     "version": "1.0.0",
     "name": "UpdateAsset",
     "group": "Assets",

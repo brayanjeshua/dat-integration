@@ -81,7 +81,7 @@ package hello.models;
  * 
  *             body:
  * 
- *             { "queryAssetsByAssetIds": [ "TS0PdTDs", "TS0PdTDt"] }
+ *             { "queryAssetsByAssetIds": [ "TS0PdTDs", "TS0PdTDt" ] }
  * 
  * @apiExample {json} ByPostersId
  * 
