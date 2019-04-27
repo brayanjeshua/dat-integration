@@ -98,7 +98,7 @@ define({ "api": [
   {
     "type": "delete",
     "url": "/asset",
-    "title": "delete assets by criteria.",
+    "title": "delete assets by criteria",
     "version": "1.1.0",
     "name": "DeleteAsset",
     "group": "Assets",
@@ -194,7 +194,7 @@ define({ "api": [
   {
     "type": "delete",
     "url": "/asset",
-    "title": "delete assets by criteria.",
+    "title": "delete assets by criteria",
     "version": "1.0.0",
     "name": "DeleteAsset",
     "group": "Assets",
@@ -274,22 +274,22 @@ define({ "api": [
     },
     "examples": [
       {
-        "title": "Asset ids",
+        "title": "ByAssetId",
         "content": "\n{ \"deleteAssetsByAssetIds\": { \"ids\": [\"TS0PdTDs\", \"TS0PdTDt\"] } }",
         "type": "json"
       },
       {
-        "title": "Posters reference id",
+        "title": "ByPostersId",
         "content": "\n{ \"deleteAssetByPostersReferenceId\": { \"id\": \"customId\" } }",
         "type": "json"
       },
       {
-        "title": "My assets",
+        "title": "ByAllMyAssets",
         "content": "\n{ \"deleteAllMyAssets\": true }",
         "type": "json"
       },
       {
-        "title": "My groups assets",
+        "title": "ByAllMyGroupsAssets",
         "content": "\n{ \"deleteAllMyGroupsAssets\": true }",
         "type": "json"
       }
@@ -298,7 +298,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/asset",
-    "title": "Get assets by criteria.",
+    "title": "Get assets by criteria",
     "version": "1.1.0",
     "name": "GetAsset",
     "group": "Assets",
@@ -394,7 +394,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/asset",
-    "title": "Get assets by criteria.",
+    "title": "Get assets by criteria",
     "version": "1.0.0",
     "name": "GetAsset",
     "group": "Assets",
@@ -474,22 +474,22 @@ define({ "api": [
     },
     "examples": [
       {
-        "title": "Asset ids",
+        "title": "ByAssetId",
         "content": "\n{ \"queryAssetsByAssetIds\": { \"ids\": [ \"TS0PdTDs\", \"TS0PdTDt\"] } }",
         "type": "json"
       },
       {
-        "title": "Posters reference id",
+        "title": "ByPostersId",
         "content": "\n{ \"queryAssetByPostersReferenceId\": { \"id\": \"customId\" } }",
         "type": "json"
       },
       {
-        "title": "My assets",
+        "title": "ByAllMyAssets",
         "content": "\n{ \"queryAllMyAssets\": true }",
         "type": "json"
       },
       {
-        "title": "My groups assets",
+        "title": "ByAllMyGroupsAssets",
         "content": "\n{ \"queryAllMyGroupsAssets\": true }",
         "type": "json"
       }
@@ -901,7 +901,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "<a href=\"#api-Custom_types-ObjectPostalcode\">PostalCode</a>",
+            "type": "<a href=\"#api-Custom_types-ObjectFmpostalcode\">FmPostalCode</a>",
             "optional": false,
             "field": "OneOf.postalCode",
             "description": ""

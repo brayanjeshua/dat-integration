@@ -35,7 +35,7 @@ public class AssetController {
     }
 
     /**
-     * @api {get} /asset Get assets by criteria.
+     * @api {get} /asset Get assets by criteria
      * @apiVersion 1.0.0
      * @apiName GetAsset
      * @apiGroup Assets
@@ -43,7 +43,7 @@ public class AssetController {
      */
 
     /**
-     * @api {get} /asset Get assets by criteria.
+     * @api {get} /asset Get assets by criteria
      * @apiVersion 1.1.0
      * @apiName GetAsset
      * @apiGroup Assets
@@ -61,7 +61,7 @@ public class AssetController {
     }
 
     /**
-     * @api {delete} /asset delete assets by criteria.
+     * @api {delete} /asset delete assets by criteria
      * @apiVersion 1.0.0
      * @apiName DeleteAsset
      * @apiGroup Assets
@@ -69,7 +69,7 @@ public class AssetController {
      */
 
     /**
-     * @api {delete} /asset delete assets by criteria.
+     * @api {delete} /asset delete assets by criteria
      * @apiVersion 1.1.0
      * @apiName DeleteAsset
      * @apiGroup Assets

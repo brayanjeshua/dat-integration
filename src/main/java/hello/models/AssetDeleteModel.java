@@ -35,46 +35,42 @@ class DeleteAssetByPostersReferenceIdModel
  * @apiVersion 1.0.0
  * @apiDescription Deletes one or more posted assets.
  * 
- * @apiParam {Object} [deleteAssetsByAssetIds] Delete one or more assets by
- *           AssetId.
+ * @apiParam {Object} [deleteAssetsByAssetIds] Delete one or more assets by AssetId.
  * @apiParam {AssetId[]} deleteAssetsByAssetIds.ids Asset ids to delete.
  * @apiParamExample {json} AssetId
  * 
  *                  { "ids": [ "TS0PdTDs", "TS0PdTDt"] }
  * 
- * @apiParam {Object} [deleteAssetByPostersReferenceId] Delete an asset by
- *           PostersReferenceId.
+ * @apiParam {Object} [deleteAssetByPostersReferenceId] Delete an asset by PostersReferenceId.
  * @apiParam {String{0..8}} deleteAssetByPostersReferenceId.id poster id.
  * @apiParamExample {json} PostersReferenceId
  * 
  *                  { "id": "customId" }
  * 
- * @apiParam {Boolean} [deleteAllMyAssets] Delete all assets owned by the
- *           requester.
+ * @apiParam {Boolean} [deleteAllMyAssets] Delete all assets owned by the requester.
  * @apiParamExample {json} deleteAllMyAssets
  * 
  *                  true
  * 
- * @apiParam {Boolean} [deleteAllMyGroupsAssets] Delete all assets belonging by
- *           the requester or to other member’s of the requester’s sharing
- *           group.
+ * @apiParam {Boolean} [deleteAllMyGroupsAssets] Delete all assets belonging by the requester or to other member’s of
+ *           the requester’s sharing group.
  * @apiParamExample {json} deleteAllMyGroupsAssets
  * 
  *                  false
  * 
- * @apiExample {json} Asset ids
+ * @apiExample {json} ByAssetId
  * 
  *             { "deleteAssetsByAssetIds": { "ids": ["TS0PdTDs", "TS0PdTDt"] } }
  * 
- * @apiExample {json} Posters reference id
+ * @apiExample {json} ByPostersId
  * 
  *             { "deleteAssetByPostersReferenceId": { "id": "customId" } }
  * 
- * @apiExample {json} My assets
+ * @apiExample {json} ByAllMyAssets
  * 
  *             { "deleteAllMyAssets": true }
  * 
- * @apiExample {json} My groups assets
+ * @apiExample {json} ByAllMyGroupsAssets
  * 
  *             { "deleteAllMyGroupsAssets": true }
  * 
@@ -85,27 +81,23 @@ class DeleteAssetByPostersReferenceIdModel
  * @apiVersion 1.1.0
  * @apiDescription Deletes one or more posted assets.
  * 
- * @apiParam (ByAssetId) {AssetId[]} deleteAssetsByAssetIds Delete one or more
- *           assets by AssetId.
+ * @apiParam (ByAssetId) {AssetId[]} deleteAssetsByAssetIds Delete one or more assets by AssetId.
  * @apiParamExample {json} deleteAssetsByAssetIds
  * 
  *                  [ "TS0PdTDs", "TS0PdTDt"]
  * 
- * @apiParam (ByPostersId) {String{0..8}} deleteAssetByPostersReferenceId Delete
- *           an asset by PostersReferenceId.
+ * @apiParam (ByPostersId) {String{0..8}} deleteAssetByPostersReferenceId Delete an asset by PostersReferenceId.
  * @apiParamExample {json} deleteAssetByPostersReferenceId
  * 
  *                  "customId"
  * 
- * @apiParam (ByAllMyAssets) {Boolean} deleteAllMyAssets Delete all assets owned
- *           by the requester.
+ * @apiParam (ByAllMyAssets) {Boolean} deleteAllMyAssets Delete all assets owned by the requester.
  * @apiParamExample {json} deleteAllMyAssets
  * 
  *                  true
  * 
- * @apiParam (ByAllMyGroupsAssets) {Boolean} deleteAllMyGroupsAssets Delete all
- *           assets belonging by the requester or to other member’s of the
- *           requester’s sharing group.
+ * @apiParam (ByAllMyGroupsAssets) {Boolean} deleteAllMyGroupsAssets Delete all assets belonging by the requester or to
+ *           other member’s of the requester’s sharing group.
  * @apiParamExample {json} deleteAllMyGroupsAssets
  * 
  *                  false

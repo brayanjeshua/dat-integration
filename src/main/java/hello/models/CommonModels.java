@@ -164,7 +164,7 @@ class NamedCoordinates extends AbstractModel<com.tcore.tfmiFreightMatching.Named
  * @apiGroup Custom types
  * @apiVersion 1.0.0
  * @apiParam {NotAParam} OneOf
- * @apiParam {[PostalCode](#api-Custom_types-ObjectPostalcode)} OneOf.postalCode
+ * @apiParam {[FmPostalCode](#api-Custom_types-ObjectFmpostalcode)} OneOf.postalCode
  * @apiParam {[CityAndState](#api-Custom_types-ObjectCityandstate)} OneOf.cityAndState
  * @apiParam {[NamedPostalCode](#api-Custom_types-ObjectNamedpostalcode)} OneOf.namedPostalCode
  * @apiParam {[Coordinates](#api-Custom_types-ObjectCoordinates)} OneOf.coordinates

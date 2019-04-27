@@ -33,19 +33,19 @@ package hello.models;
  * 
  *                  false
  * 
- * @apiExample {json} Asset ids
+ * @apiExample {json} ByAssetId
  * 
  *             { "queryAssetsByAssetIds": { "ids": [ "TS0PdTDs", "TS0PdTDt"] } }
  * 
- * @apiExample {json} Posters reference id
+ * @apiExample {json} ByPostersId
  * 
  *             { "queryAssetByPostersReferenceId": { "id": "customId" } }
  * 
- * @apiExample {json} My assets
+ * @apiExample {json} ByAllMyAssets
  * 
  *             { "queryAllMyAssets": true }
  * 
- * @apiExample {json} My groups assets
+ * @apiExample {json} ByAllMyGroupsAssets
  * 
  *             { "queryAllMyGroupsAssets": true }
  * 
@@ -56,27 +56,24 @@ package hello.models;
  * @apiVersion 1.1.0
  * @apiDescription Lookup currently-booked assets.
  * 
- * @apiParam (ByAssetId) {AssetId[]} queryAssetsByAssetIds Lookup one or more
- *           assets by AssetId.
+ * @apiParam (ByAssetId) {AssetId[]} queryAssetsByAssetIds Lookup one or more assets by AssetId.
  * @apiParamExample {json} queryAssetsByAssetIds
  * 
  *                  [ "TS0PdTDs", "TS0PdTDt"]
  * 
- * @apiParam (ByPostersId) {String{0..8}} queryAssetByPostersReferenceId Lookup
- *           one or more assets by PostersReferenceId.
+ * @apiParam (ByPostersId) {String{0..8}} queryAssetByPostersReferenceId Lookup one or more assets by
+ *           PostersReferenceId.
  * @apiParamExample {json} queryAssetByPostersReferenceId
  * 
  *                  "customId"
  * 
- * @apiParam (ByAllMyAssets) {Boolean} queryAllMyAssets Lookup all assets
- *           belonging to the requester.
+ * @apiParam (ByAllMyAssets) {Boolean} queryAllMyAssets Lookup all assets belonging to the requester.
  * @apiParamExample {json} queryAllMyAssets
  * 
  *                  true
  * 
- * @apiParam (ByAllMyGroupsAssets) {Boolean} queryAllMyGroupsAssets Lookup all
- *           assets belonging to the requester or to other members of the
- *           requester’s sharing group.
+ * @apiParam (ByAllMyGroupsAssets) {Boolean} queryAllMyGroupsAssets Lookup all assets belonging to the requester or to
+ *           other members of the requester’s sharing group.
  * @apiParamExample {json} queryAllMyGroupsAssets
  * 
  *                  false
