@@ -30,10 +30,107 @@ class DeleteAssetByPostersReferenceIdModel
     }
 }
 
+/**
+ * @apiDefine AssetDeleteModel
+ * @apiVersion 1.0.0
+ * @apiDescription Deletes one or more posted assets.
+ * 
+ * @apiParam {Object} [deleteAssetsByAssetIds] Delete one or more assets by
+ *           AssetId.
+ * @apiParam {AssetId[]} deleteAssetsByAssetIds.ids Asset ids to delete.
+ * @apiParamExample {json} AssetId
+ * 
+ *                  { "ids": [ "TS0PdTDs", "TS0PdTDt"] }
+ * 
+ * @apiParam {Object} [deleteAssetByPostersReferenceId] Delete an asset by
+ *           PostersReferenceId.
+ * @apiParam {string{0..8}} deleteAssetByPostersReferenceId.id poster id.
+ * @apiParamExample {json} PostersReferenceId
+ * 
+ *                  { "id": "customId" }
+ * 
+ * @apiParam {Boolean} [deleteAllMyAssets] Delete all assets owned by the
+ *           requester.
+ * @apiParamExample {json} deleteAllMyAssets
+ * 
+ *                  true
+ * 
+ * @apiParam {Boolean} [deleteAllMyGroupsAssets] Delete all assets belonging by
+ *           the requester or to other member’s of the requester’s sharing
+ *           group.
+ * @apiParamExample {json} deleteAllMyGroupsAssets
+ * 
+ *                  false
+ * 
+ * @apiExample {json} Asset ids
+ * 
+ *             { "deleteAssetsByAssetIds": { "ids": ["TS0PdTDs", "TS0PdTDt"] } }
+ * 
+ * @apiExample {json} Posters reference id
+ * 
+ *             { "deleteAssetByPostersReferenceId": { "id": "customId" } }
+ * 
+ * @apiExample {json} My assets
+ * 
+ *             { "deleteAllMyAssets": true }
+ * 
+ * @apiExample {json} My groups assets
+ * 
+ *             { "deleteAllMyGroupsAssets": true }
+ * 
+ */
+
+/**
+ * @apiDefine AssetDeleteModel
+ * @apiVersion 1.1.0
+ * @apiDescription Deletes one or more posted assets.
+ * 
+ * @apiParam {AssetId[]} [deleteAssetsByAssetIds] Delete one or more assets by
+ *           AssetId.
+ * @apiParamExample {json} AssetId
+ * 
+ *                  [ "TS0PdTDs", "TS0PdTDt"]
+ * 
+ * @apiParam {string{0..8}} [deleteAssetByPostersReferenceId] Delete an asset by
+ *           PostersReferenceId.
+ * @apiParamExample {json} PostersReferenceId
+ * 
+ *                  "customId"
+ * 
+ * @apiParam {Boolean} [deleteAllMyAssets] Delete all assets owned by the
+ *           requester.
+ * @apiParamExample {json} deleteAllMyAssets
+ * 
+ *                  true
+ * 
+ * @apiParam {Boolean} [deleteAllMyGroupsAssets] Delete all assets belonging by
+ *           the requester or to other member’s of the requester’s sharing
+ *           group.
+ * @apiParamExample {json} deleteAllMyGroupsAssets
+ * 
+ *                  false
+ * 
+ * @apiExample {json} Asset ids
+ * 
+ *             { "deleteAssetsByAssetIds": [ "TS0PdTDs", "TS0PdTDt"] }
+ * 
+ * @apiExample {json} Posters reference id
+ * 
+ *             { "deleteAssetByPostersReferenceId": "customId" }
+ * 
+ * @apiExample {json} My assets
+ * 
+ *             { "deleteAllMyAssets": true }
+ * 
+ * @apiExample {json} My groups assets
+ * 
+ *             { "deleteAllMyGroupsAssets": true }
+ * 
+ */
 public class AssetDeleteModel extends AbstractModel<com.tcore.tfmiFreightMatching.DeleteAssetOperation> {
 
-    public DeleteAssetsByAssetIdsModel deleteAssetsByAssetIds = null;
-    public DeleteAssetByPostersReferenceIdModel deleteAssetByPostersReferenceId = null;
+    public String[] deleteAssetsByAssetIds = null;
+    public String deleteAssetByPostersReferenceId = null;
 
     public Boolean deleteAllMyAssets = null;
     public Boolean deleteAllMyGroupsAssets = null;
@@ -42,10 +139,14 @@ public class AssetDeleteModel extends AbstractModel<com.tcore.tfmiFreightMatchin
     public com.tcore.tfmiFreightMatching.DeleteAssetOperation fill(
             com.tcore.tfmiFreightMatching.DeleteAssetOperation instance) throws java.rmi.RemoteException {
 
-        if (deleteAssetsByAssetIds != null)
-            deleteAssetsByAssetIds.fill(instance.addNewDeleteAssetsByAssetIds());
-        else if (deleteAssetByPostersReferenceId != null)
-            deleteAssetByPostersReferenceId.fill(instance.addNewDeleteAssetByPostersReferenceId());
+        if (deleteAssetsByAssetIds != null) {
+            com.tcore.tfmiFreightMatching.DeleteAssetsByAssetIds instanceAssetIds = instance
+                    .addNewDeleteAssetsByAssetIds();
+
+            for (String id : deleteAssetsByAssetIds)
+                instanceAssetIds.addAssetIds(id);
+        } else if (deleteAssetByPostersReferenceId != null)
+            instance.addNewDeleteAssetByPostersReferenceId().setPostersReferenceId(deleteAssetByPostersReferenceId);
         else if (deleteAllMyAssets != null)
             instance.addNewDeleteAllMyAssets();
         else if (deleteAllMyGroupsAssets != null)
