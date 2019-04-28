@@ -1049,6 +1049,7 @@ define({ "api": [
     "url": "Rate",
     "title": "Rate",
     "group": "Custom_types",
+    "description": "<p>Payment rate in USD (flat-rate or per-mile).</p>",
     "version": "1.0.0",
     "parameter": {
       "fields": {
@@ -1059,7 +1060,7 @@ define({ "api": [
             "size": "0.0 – 99999.99",
             "optional": false,
             "field": "baseRateDollars",
-            "description": ""
+            "description": "<p>Rate in US Dollars.</p>"
           },
           {
             "group": "Parameter",
@@ -1070,7 +1071,7 @@ define({ "api": [
             ],
             "optional": false,
             "field": "rateBasedOn",
-            "description": ""
+            "description": "<p>Per-mile or flat-rate.</p>"
           },
           {
             "group": "Parameter",
@@ -1078,11 +1079,28 @@ define({ "api": [
             "size": "0 – 9999",
             "optional": true,
             "field": "rateMiles",
-            "description": ""
+            "description": "<p>If the rate is based on per-mile, or flat-rate for a trip, this is the mileage used by the poster.</p>"
           }
         ]
       }
     },
+    "examples": [
+      {
+        "title": "Flat Rate",
+        "content": "\nbody:\n\n{ \"baseRateDollars\": 55.0, rateBasedOn: \"Flat\", rateMiles: 550 }",
+        "type": "json"
+      },
+      {
+        "title": "Per Mile Rate",
+        "content": "\nbody:\n\n{ \"baseRateDollars\": 70.0, rateBasedOn: \"PerMile\", rateMiles: 50 }",
+        "type": "json"
+      },
+      {
+        "title": "Valid Rate",
+        "content": "\nbody:\n\n{ \"baseRateDollars\": 70.0, rateBasedOn: \"PerMile\" }",
+        "type": "json"
+      }
+    ],
     "filename": "./src/main/java/hello/models/AssetPostModel.java",
     "groupTitle": "Custom_types",
     "name": "ObjectRate"

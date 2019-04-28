@@ -79,10 +79,30 @@ class TruckStopsModel extends AbstractModel<com.tcore.tfmiFreightMatching.TruckS
 /**
  * @api {OBJECT} Rate Rate
  * @apiGroup Custom types
+ * @apiDescription Payment rate in USD (flat-rate or per-mile).
  * @apiVersion 1.0.0
- * @apiParam {Number{0.0 – 99999.99}} baseRateDollars
- * @apiParam {String="Flat","PerMile"} rateBasedOn
- * @apiParam {Number{0 – 9999}} [rateMiles]
+ * @apiParam {Number{0.0 – 99999.99}} baseRateDollars Rate in US Dollars.
+ * @apiParam {String="Flat","PerMile"} rateBasedOn Per-mile or flat-rate.
+ * @apiParam {Number{0 – 9999}} [rateMiles] If the rate is based on per-mile, or flat-rate for a trip, this is the
+ *           mileage used by the poster.
+ * 
+ * @apiExample {json} Flat Rate
+ * 
+ *             body:
+ * 
+ *             { "baseRateDollars": 55.0, rateBasedOn: "Flat", rateMiles: 550 }
+ * 
+ * @apiExample {json} Per Mile Rate
+ * 
+ *             body:
+ * 
+ *             { "baseRateDollars": 70.0, rateBasedOn: "PerMile", rateMiles: 50 }
+ * 
+ * @apiExample {json} Valid Rate
+ * 
+ *             body:
+ * 
+ *             { "baseRateDollars": 70.0, rateBasedOn: "PerMile" }
  */
 class RateModel extends AbstractModel<com.tcore.tfmiFreightMatching.ShipmentRate> {
 
