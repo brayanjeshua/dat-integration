@@ -161,22 +161,22 @@
     "examples": [
       {
         "title": "ByAssetId",
-        "content": "\nbody:\n\n{ \"deleteAssetsByAssetIds\": [ \"TS0PdTDs\", \"TS0PdTDt\"] }",
+        "content": "\nbody:\n\n{ deleteAssetsByAssetIds: [ \"TS0PdTDs\", \"TS0PdTDt\"] }",
         "type": "json"
       },
       {
         "title": "ByPostersId",
-        "content": "\nbody:\n\n{ \"deleteAssetByPostersReferenceId\": \"customId\" }",
+        "content": "\nbody:\n\n{ deleteAssetByPostersReferenceId: \"customId\" }",
         "type": "json"
       },
       {
         "title": "ByAllMyAssets",
-        "content": "\nbody:\n\n{ \"deleteAllMyAssets\": true }",
+        "content": "\nbody:\n\n{ deleteAllMyAssets: true }",
         "type": "json"
       },
       {
         "title": "ByAllMyGroupsAssets",
-        "content": "\nbody:\n\n{ \"deleteAllMyGroupsAssets\": true }",
+        "content": "\nbody:\n\n{ deleteAllMyGroupsAssets: true }",
         "type": "json"
       }
     ]
@@ -356,22 +356,22 @@
     "examples": [
       {
         "title": "ByAssetId",
-        "content": "\nbody:\n\n{ \"queryAssetsByAssetIds\": [ \"TS0PdTDs\", \"TS0PdTDt\" ] }",
+        "content": "\nbody:\n\n{ queryAssetsByAssetIds: [ \"TS0PdTDs\", \"TS0PdTDt\" ] }",
         "type": "json"
       },
       {
         "title": "ByPostersId",
-        "content": "\nbody:\n\n{ \"queryAssetByPostersReferenceId\": \"customId\" }",
+        "content": "\nbody:\n\n{ queryAssetByPostersReferenceId: \"customId\" }",
         "type": "json"
       },
       {
         "title": "ByAllMyAssets",
-        "content": "\nbody:\n\n{ \"queryAllMyAssets\": true }",
+        "content": "\nbody:\n\n{ queryAllMyAssets: true }",
         "type": "json"
       },
       {
         "title": "ByAllMyGroupsAssets",
-        "content": "\nbody:\n\n{ \"queryAllMyGroupsAssets\": true }",
+        "content": "\nbody:\n\n{ queryAllMyGroupsAssets: true }",
         "type": "json"
       }
     ]
@@ -602,6 +602,7 @@
     "title": "CityAndState",
     "group": "Custom_types",
     "version": "1.0.0",
+    "description": "<p>City + state/province. If multiple cities of the same name exist in the state/province, it will use the optional county to disambiguate.</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -611,25 +612,135 @@
             "size": "0..30",
             "optional": false,
             "field": "city",
-            "description": ""
+            "description": "<p>City name.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
-            "field": "stateProvince",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
+            "size": "0..30",
             "optional": true,
             "field": "county",
-            "description": ""
+            "description": "<p>County. If present, the county is used to disambiguate between multiple similarly named cities in the state or province.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"AB\"",
+              "\"AG\"",
+              "\"AK\"",
+              "\"AL\"",
+              "\"AS\"",
+              "\"AZ\"",
+              "\"AR\"",
+              "\"BC\"",
+              "\"BJ\"",
+              "\"BS\"",
+              "\"CA\"",
+              "\"CH\"",
+              "\"CI\"",
+              "\"CL\"",
+              "\"CO\"",
+              "\"CP\"",
+              "\"CT\"",
+              "\"CU\"",
+              "\"DC\"",
+              "\"DE\"",
+              "\"DF\"",
+              "\"DG\"",
+              "\"EM\"",
+              "\"FL\"",
+              "\"GA\"",
+              "\"GJ\"",
+              "\"GR\"",
+              "\"GU\"",
+              "\"HG\"",
+              "\"HI\"",
+              "\"IA\"",
+              "\"ID\"",
+              "\"IL\"",
+              "\"IN\"",
+              "\"JA\"",
+              "\"KS\"",
+              "\"KY\"",
+              "\"LA\"",
+              "\"MA\"",
+              "\"MB\"",
+              "\"MD\"",
+              "\"ME\"",
+              "\"MH\"",
+              "\"MI\"",
+              "\"MN\"",
+              "\"MO\"",
+              "\"MR\"",
+              "\"MS\"",
+              "\"MT\"",
+              "\"NA\"",
+              "\"NE\"",
+              "\"NL\"",
+              "\"NV\"",
+              "\"NB\"",
+              "\"NH\"",
+              "\"NJ\"",
+              "\"NM\"",
+              "\"NY\"",
+              "\"NF\"",
+              "\"NC\"",
+              "\"ND\"",
+              "\"NT\"",
+              "\"NS\"",
+              "\"NU\"",
+              "\"OA\"",
+              "\"OH\"",
+              "\"OK\"",
+              "\"ON\"",
+              "\"OR\"",
+              "\"PA\"",
+              "\"PE\"",
+              "\"PQ\"",
+              "\"PR\"",
+              "\"PU\"",
+              "\"QA\"",
+              "\"QR\"",
+              "\"RI\"",
+              "\"SC\"",
+              "\"SD\"",
+              "\"SI\"",
+              "\"SK\"",
+              "\"SL\"",
+              "\"SO\"",
+              "\"TA\"",
+              "\"TL\"",
+              "\"TM\"",
+              "\"TN\"",
+              "\"TX\"",
+              "\"UT\"",
+              "\"VA\"",
+              "\"VI\"",
+              "\"VL\"",
+              "\"VT\"",
+              "\"WA\"",
+              "\"WV\"",
+              "\"WI\"",
+              "\"WY\"",
+              "\"YC\"",
+              "\"YT\"",
+              "\"ZT\""
+            ],
+            "optional": false,
+            "field": "stateProvince",
+            "description": "<p>State or province.</p>"
           }
         ]
       }
     },
+    "examples": [
+      {
+        "title": "City And State",
+        "content": "\nbody:\n\n{ city: \"San Luis\", stateProvince: \"CO\" }",
+        "type": "json"
+      }
+    ],
     "filename": "./src/main/java/hello/models/CommonModels.java",
     "groupTitle": "Custom_types",
     "name": "ObjectCityandstate"
@@ -640,6 +751,7 @@
     "title": "Coordinates",
     "group": "Custom_types",
     "version": "1.0.0",
+    "description": "<p>Latitude/longitude coordinates. The Freight Matching Service will internally assign the closest known city to those coordinates. Note that this could result in a city being selected that is not in the same state/province as the coordinates.</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -649,7 +761,7 @@
             "size": "13.00 - 86.00",
             "optional": false,
             "field": "latitude",
-            "description": ""
+            "description": "<p>Latitude of the desired point.</p>"
           },
           {
             "group": "Parameter",
@@ -657,11 +769,18 @@
             "size": "-177.00 – -52.00",
             "optional": false,
             "field": "longitude",
-            "description": ""
+            "description": "<p>Longitude of the desired point.</p>"
           }
         ]
       }
     },
+    "examples": [
+      {
+        "title": "Coordinates",
+        "content": "\nbody:\n\n{ latitude: 38.3, longitude: -97.5 }",
+        "type": "json"
+      }
+    ],
     "filename": "./src/main/java/hello/models/CommonModels.java",
     "groupTitle": "Custom_types",
     "name": "ObjectCoordinates"
@@ -847,29 +966,48 @@
     "title": "FmPostalCode",
     "group": "Custom_types",
     "version": "1.0.0",
+    "filename": "./src/main/java/hello/models/CommonModels.java",
+    "groupTitle": "Custom_types",
+    "name": "ObjectFmpostalcode",
+    "description": "<p>USPS or Canada Post postal code. The Freight Match- ing Service will use the city+state/province assigned to this postal code.</p>",
     "parameter": {
       "fields": {
         "Parameter": [
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "\"US\"",
+              "\"CA\"",
+              "\"MX\""
+            ],
             "optional": false,
             "field": "country",
-            "description": ""
+            "description": "<p>Country code.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
+            "size": "5-10",
             "optional": false,
             "field": "code",
-            "description": ""
+            "description": "<p>ZIP or postal code. The hyphen in 9-digit US ZIP codes and the space in Canadian postal codes are optional.</p>"
           }
         ]
       }
     },
-    "filename": "./src/main/java/hello/models/CommonModels.java",
-    "groupTitle": "Custom_types",
-    "name": "ObjectFmpostalcode"
+    "examples": [
+      {
+        "title": "US postal Code",
+        "content": "\nbody:\n\n{ country: \"US\", code: \"99501\" }",
+        "type": "json"
+      },
+      {
+        "title": "Canada postal Code",
+        "content": "\nbody:\n\n{ country: \"CA\", code: \"K1A 0B1\" }",
+        "type": "json"
+      }
+    ]
   },
   {
     "type": "OBJECT",
@@ -877,6 +1015,7 @@
     "title": "NamedCoordinates",
     "group": "Custom_types",
     "version": "1.0.0",
+    "description": "<p>City + state/province + coordinates. DAT Connexion will use the city, state/province, and coordinates to resolve to a known place. If an exact match is not found, Connexion will use variations in the city spelling and proximity to the coordinates to resolve. If no resolution is found, Connexion will accept the specified city spelling as-is, and use the specified coordinates and state/province (although road mileages based on this city will not be possible).</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -886,7 +1025,7 @@
             "size": "13.00 - 86.00",
             "optional": false,
             "field": "latitude",
-            "description": ""
+            "description": "<p>Latitude of the desired point.</p>"
           },
           {
             "group": "Parameter",
@@ -894,7 +1033,7 @@
             "size": "-177.00 – -52.00",
             "optional": false,
             "field": "longitude",
-            "description": ""
+            "description": "<p>Longitude of the desired point.</p>"
           },
           {
             "group": "Parameter",
@@ -902,18 +1041,127 @@
             "size": "0..30",
             "optional": false,
             "field": "city",
-            "description": ""
+            "description": "<p>City name.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "\"AB\"",
+              "\"AG\"",
+              "\"AK\"",
+              "\"AL\"",
+              "\"AS\"",
+              "\"AZ\"",
+              "\"AR\"",
+              "\"BC\"",
+              "\"BJ\"",
+              "\"BS\"",
+              "\"CA\"",
+              "\"CH\"",
+              "\"CI\"",
+              "\"CL\"",
+              "\"CO\"",
+              "\"CP\"",
+              "\"CT\"",
+              "\"CU\"",
+              "\"DC\"",
+              "\"DE\"",
+              "\"DF\"",
+              "\"DG\"",
+              "\"EM\"",
+              "\"FL\"",
+              "\"GA\"",
+              "\"GJ\"",
+              "\"GR\"",
+              "\"GU\"",
+              "\"HG\"",
+              "\"HI\"",
+              "\"IA\"",
+              "\"ID\"",
+              "\"IL\"",
+              "\"IN\"",
+              "\"JA\"",
+              "\"KS\"",
+              "\"KY\"",
+              "\"LA\"",
+              "\"MA\"",
+              "\"MB\"",
+              "\"MD\"",
+              "\"ME\"",
+              "\"MH\"",
+              "\"MI\"",
+              "\"MN\"",
+              "\"MO\"",
+              "\"MR\"",
+              "\"MS\"",
+              "\"MT\"",
+              "\"NA\"",
+              "\"NE\"",
+              "\"NL\"",
+              "\"NV\"",
+              "\"NB\"",
+              "\"NH\"",
+              "\"NJ\"",
+              "\"NM\"",
+              "\"NY\"",
+              "\"NF\"",
+              "\"NC\"",
+              "\"ND\"",
+              "\"NT\"",
+              "\"NS\"",
+              "\"NU\"",
+              "\"OA\"",
+              "\"OH\"",
+              "\"OK\"",
+              "\"ON\"",
+              "\"OR\"",
+              "\"PA\"",
+              "\"PE\"",
+              "\"PQ\"",
+              "\"PR\"",
+              "\"PU\"",
+              "\"QA\"",
+              "\"QR\"",
+              "\"RI\"",
+              "\"SC\"",
+              "\"SD\"",
+              "\"SI\"",
+              "\"SK\"",
+              "\"SL\"",
+              "\"SO\"",
+              "\"TA\"",
+              "\"TL\"",
+              "\"TM\"",
+              "\"TN\"",
+              "\"TX\"",
+              "\"UT\"",
+              "\"VA\"",
+              "\"VI\"",
+              "\"VL\"",
+              "\"VT\"",
+              "\"WA\"",
+              "\"WV\"",
+              "\"WI\"",
+              "\"WY\"",
+              "\"YC\"",
+              "\"YT\"",
+              "\"ZT\""
+            ],
             "optional": false,
             "field": "stateProvince",
-            "description": ""
+            "description": "<p>State or province.</p>"
           }
         ]
       }
     },
+    "examples": [
+      {
+        "title": "Named Coordinates",
+        "content": "\nbody:\n\n{ latitude: 38.3, longitude: -97.5, city: \"Galva\", stateProvince: \"KS\" }",
+        "type": "json"
+      }
+    ],
     "filename": "./src/main/java/hello/models/CommonModels.java",
     "groupTitle": "Custom_types",
     "name": "ObjectNamedcoordinates"
@@ -924,6 +1172,7 @@
     "title": "NamedPostalCode",
     "group": "Custom_types",
     "version": "1.0.0",
+    "description": "<p>Postal code + city + state/province. The Freight Matching Service will internally use the latitude/longitude coordinates of the city assigned to the postal code, but will list the specified city + state/province on assets/searches. This option is useful when the popularly named city is not what USPS/CP assigns to that postal code code (e.g., 97222 is officially Portland, Oregon, but residents of that ZIP refer to their locale as Milwaukie.</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -933,32 +1182,142 @@
             "size": "0..30",
             "optional": false,
             "field": "city",
-            "description": ""
+            "description": "<p>City name.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
-            "field": "stateProvince",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
+            "size": "0..30",
             "optional": true,
             "field": "county",
-            "description": ""
+            "description": "<p>County. If present, the county is used to disambiguate between multiple similarly named cities in the state or province.</p>"
           },
           {
             "group": "Parameter",
             "type": "<a href=\"#api-Custom_types-ObjectPostalcode\">PostalCode</a>",
             "optional": false,
             "field": "postalCode",
-            "description": ""
+            "description": "<p>USPS or Canada Post postal code.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"AB\"",
+              "\"AG\"",
+              "\"AK\"",
+              "\"AL\"",
+              "\"AS\"",
+              "\"AZ\"",
+              "\"AR\"",
+              "\"BC\"",
+              "\"BJ\"",
+              "\"BS\"",
+              "\"CA\"",
+              "\"CH\"",
+              "\"CI\"",
+              "\"CL\"",
+              "\"CO\"",
+              "\"CP\"",
+              "\"CT\"",
+              "\"CU\"",
+              "\"DC\"",
+              "\"DE\"",
+              "\"DF\"",
+              "\"DG\"",
+              "\"EM\"",
+              "\"FL\"",
+              "\"GA\"",
+              "\"GJ\"",
+              "\"GR\"",
+              "\"GU\"",
+              "\"HG\"",
+              "\"HI\"",
+              "\"IA\"",
+              "\"ID\"",
+              "\"IL\"",
+              "\"IN\"",
+              "\"JA\"",
+              "\"KS\"",
+              "\"KY\"",
+              "\"LA\"",
+              "\"MA\"",
+              "\"MB\"",
+              "\"MD\"",
+              "\"ME\"",
+              "\"MH\"",
+              "\"MI\"",
+              "\"MN\"",
+              "\"MO\"",
+              "\"MR\"",
+              "\"MS\"",
+              "\"MT\"",
+              "\"NA\"",
+              "\"NE\"",
+              "\"NL\"",
+              "\"NV\"",
+              "\"NB\"",
+              "\"NH\"",
+              "\"NJ\"",
+              "\"NM\"",
+              "\"NY\"",
+              "\"NF\"",
+              "\"NC\"",
+              "\"ND\"",
+              "\"NT\"",
+              "\"NS\"",
+              "\"NU\"",
+              "\"OA\"",
+              "\"OH\"",
+              "\"OK\"",
+              "\"ON\"",
+              "\"OR\"",
+              "\"PA\"",
+              "\"PE\"",
+              "\"PQ\"",
+              "\"PR\"",
+              "\"PU\"",
+              "\"QA\"",
+              "\"QR\"",
+              "\"RI\"",
+              "\"SC\"",
+              "\"SD\"",
+              "\"SI\"",
+              "\"SK\"",
+              "\"SL\"",
+              "\"SO\"",
+              "\"TA\"",
+              "\"TL\"",
+              "\"TM\"",
+              "\"TN\"",
+              "\"TX\"",
+              "\"UT\"",
+              "\"VA\"",
+              "\"VI\"",
+              "\"VL\"",
+              "\"VT\"",
+              "\"WA\"",
+              "\"WV\"",
+              "\"WI\"",
+              "\"WY\"",
+              "\"YC\"",
+              "\"YT\"",
+              "\"ZT\""
+            ],
+            "optional": false,
+            "field": "stateProvince",
+            "description": "<p>State or province.</p>"
           }
         ]
       }
     },
+    "examples": [
+      {
+        "title": "Named Postal Code",
+        "content": "\nbody:\n\n{ city: \"San Luis\", stateProvince: \"CO\", postalCode: { country: \"US\", code: \"81152\" } }",
+        "type": "json"
+      }
+    ],
     "filename": "./src/main/java/hello/models/CommonModels.java",
     "groupTitle": "Custom_types",
     "name": "ObjectNamedpostalcode"
@@ -977,39 +1336,71 @@
             "type": "<a href=\"#api-Custom_types-ObjectFmpostalcode\">FmPostalCode</a>",
             "optional": false,
             "field": "postalCode",
-            "description": ""
+            "description": "<p>USPS or Canada Post postal code.</p>"
           },
           {
             "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectCityandstate\">CityAndState</a>",
             "optional": false,
             "field": "cityAndState",
-            "description": ""
+            "description": "<p>City + state/province.</p>"
           },
           {
             "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectNamedpostalcode\">NamedPostalCode</a>",
             "optional": false,
             "field": "namedPostalCode",
-            "description": ""
+            "description": "<p>Postal code + city + state/province.</p>"
           },
           {
             "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectCoordinates\">Coordinates</a>",
             "optional": false,
             "field": "coordinates",
-            "description": ""
+            "description": "<p>Latitude/longitude coordinates.</p>"
           },
           {
             "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectNamedcoordinates\">NamedCoordinates</a>",
             "optional": false,
             "field": "namedCoordinates",
-            "description": ""
+            "description": "<p>City + state/province + coordinates.</p>"
           }
         ]
       }
     },
+    "examples": [
+      {
+        "title": "Postal Code US",
+        "content": "\nbody:\n\n{ postalCode: { country: \"US\", code: \"99501\" } }",
+        "type": "json"
+      },
+      {
+        "title": "postal Code Canada",
+        "content": "\nbody:\n\n{ postalCode: { country: \"CA\", code: \"K1A 0B1\" } }",
+        "type": "json"
+      },
+      {
+        "title": "City And State",
+        "content": "\nbody:\n\n{ cityAndState: { city: \"San Luis\", stateProvince: \"CO\" } }",
+        "type": "json"
+      },
+      {
+        "title": "Named Postal Code",
+        "content": "\nbody:\n\n{ namedPostalCode: { city: \"San Luis\", stateProvince: \"CO\", postalCode: { country: \"US\", code: \"81152\" }\n} }",
+        "type": "json"
+      },
+      {
+        "title": "Coordinates",
+        "content": "\nbody:\n\n{ coordinates: { latitude: 38.3, longitude: -97.5 } }",
+        "type": "json"
+      },
+      {
+        "title": "Named Coordinates",
+        "content": "\nbody:\n\n{ namedCoordinates: { latitude: 38.3, longitude: -97.5, city: \"Galva\", stateProvince: \"KS\" } }",
+        "type": "json"
+      }
+    ],
     "filename": "./src/main/java/hello/models/CommonModels.java",
     "groupTitle": "Custom_types",
     "name": "ObjectPlace"
@@ -1020,29 +1411,48 @@
     "title": "PostalCode",
     "group": "Custom_types",
     "version": "1.0.0",
+    "filename": "./src/main/java/hello/models/CommonModels.java",
+    "groupTitle": "Custom_types",
+    "name": "ObjectPostalcode",
+    "description": "<p>USPS or Canada Post postal code. The Freight Match- ing Service will use the city+state/province assigned to this postal code.</p>",
     "parameter": {
       "fields": {
         "Parameter": [
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "\"US\"",
+              "\"CA\"",
+              "\"MX\""
+            ],
             "optional": false,
             "field": "country",
-            "description": ""
+            "description": "<p>Country code.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
+            "size": "5-10",
             "optional": false,
             "field": "code",
-            "description": ""
+            "description": "<p>ZIP or postal code. The hyphen in 9-digit US ZIP codes and the space in Canadian postal codes are optional.</p>"
           }
         ]
       }
     },
-    "filename": "./src/main/java/hello/models/CommonModels.java",
-    "groupTitle": "Custom_types",
-    "name": "ObjectPostalcode"
+    "examples": [
+      {
+        "title": "US postal Code",
+        "content": "\nbody:\n\n{ country: \"US\", code: \"99501\" }",
+        "type": "json"
+      },
+      {
+        "title": "Canada postal Code",
+        "content": "\nbody:\n\n{ country: \"CA\", code: \"K1A 0B1\" }",
+        "type": "json"
+      }
+    ]
   },
   {
     "type": "OBJECT",
@@ -1087,17 +1497,17 @@
     "examples": [
       {
         "title": "Flat Rate",
-        "content": "\nbody:\n\n{ \"baseRateDollars\": 55.0, rateBasedOn: \"Flat\", rateMiles: 550 }",
+        "content": "\nbody:\n\n{ baseRateDollars: 55.0, rateBasedOn: \"Flat\", rateMiles: 550 }",
         "type": "json"
       },
       {
         "title": "Per Mile Rate",
-        "content": "\nbody:\n\n{ \"baseRateDollars\": 70.0, rateBasedOn: \"PerMile\", rateMiles: 50 }",
+        "content": "\nbody:\n\n{ baseRateDollars: 70.0, rateBasedOn: \"PerMile\", rateMiles: 50 }",
         "type": "json"
       },
       {
         "title": "Valid Rate",
-        "content": "\nbody:\n\n{ \"baseRateDollars\": 70.0, rateBasedOn: \"PerMile\" }",
+        "content": "\nbody:\n\n{ baseRateDollars: 70.0, rateBasedOn: \"PerMile\" }",
         "type": "json"
       }
     ],

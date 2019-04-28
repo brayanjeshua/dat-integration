@@ -6,8 +6,7 @@ import java.util.Calendar;
  * @api {OBJECT} PostalCode PostalCode
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {String} country
- * @apiParam {String} code
+ * @apiUse PostalCodeBase
  */
 class PostalCode extends AbstractModel<com.tcore.tcoreTypes.PostalCode> {
 
@@ -29,8 +28,7 @@ class PostalCode extends AbstractModel<com.tcore.tcoreTypes.PostalCode> {
  * @api {OBJECT} FmPostalCode FmPostalCode
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {String} country
- * @apiParam {String} code
+ * @apiUse PostalCodeBase
  */
 class FmPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.FmPostalCode> {
 
@@ -49,12 +47,55 @@ class FmPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.FmPostalC
 }
 
 /**
+ * @apiDefine PostalCodeBase
+ * @apiVersion 1.0.0
+ *
+ * @apiDescription USPS or Canada Post postal code. The Freight Match- ing Service will use the city+state/province
+ *                 assigned to this postal code.
+ *
+ * @apiParam {String="US","CA","MX"} country Country code.
+ * @apiParam {String{5-10}} code ZIP or postal code. The hyphen in 9-digit US ZIP codes and the space in Canadian postal
+ *           codes are optional.
+ * 
+ * @apiExample {json} US postal Code
+ * 
+ *             body:
+ * 
+ *             { country: "US", code: "99501" }
+ * 
+ * @apiExample {json} Canada postal Code
+ * 
+ *             body:
+ * 
+ *             { country: "CA", code: "K1A 0B1" }
+ */
+
+/**
+ * @apiDefine stateProvinceParam
+ * @apiParam {String= "AB", "AG", "AK", "AL", "AS", "AZ", "AR", "BC", "BJ", "BS", "CA", "CH", "CI", "CL", "CO", "CP",
+ *           "CT", "CU", "DC", "DE", "DF", "DG", "EM", "FL", "GA", "GJ", "GR", "GU", "HG", "HI", "IA", "ID", "IL", "IN",
+ *           "JA", "KS", "KY", "LA", "MA", "MB", "MD", "ME", "MH", "MI", "MN", "MO", "MR", "MS", "MT", "NA", "NE", "NL",
+ *           "NV", "NB", "NH", "NJ", "NM", "NY", "NF", "NC", "ND", "NT", "NS", "NU", "OA", "OH", "OK", "ON", "OR", "PA",
+ *           "PE", "PQ", "PR", "PU", "QA", "QR", "RI", "SC", "SD", "SI", "SK", "SL", "SO", "TA", "TL", "TM", "TN", "TX",
+ *           "UT", "VA", "VI", "VL", "VT", "WA", "WV", "WI", "WY", "YC", "YT", "ZT"} stateProvince State or province.
+ */
+/**
  * @api {OBJECT} CityAndState CityAndState
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {String{0..30}} city
- * @apiParam {String} stateProvince
- * @apiParam {String} [county]
+ * @apiDescription City + state/province. If multiple cities of the same name exist in the state/province, it will use
+ *                 the optional county to disambiguate.
+ * 
+ * @apiParam {String{0..30}} city City name.
+ * @apiUse stateProvinceParam
+ * @apiParam {String{0..30}} [county] County. If present, the county is used to disambiguate between multiple similarly
+ *           named cities in the state or province.
+ * 
+ * @apiExample {json} City And State
+ * 
+ *             body:
+ * 
+ *             { city: "San Luis", stateProvince: "CO" }
  */
 class CityAndState extends AbstractModel<com.tcore.tfmiFreightMatching.CityAndState> {
 
@@ -79,10 +120,23 @@ class CityAndState extends AbstractModel<com.tcore.tfmiFreightMatching.CityAndSt
  * @api {OBJECT} NamedPostalCode NamedPostalCode
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {String{0..30}} city
- * @apiParam {String} stateProvince
- * @apiParam {String} [county]
- * @apiParam {[PostalCode](#api-Custom_types-ObjectPostalcode)} postalCode
+ * @apiDescription Postal code + city + state/province. The Freight Matching Service will internally use the
+ *                 latitude/longitude coordinates of the city assigned to the postal code, but will list the specified
+ *                 city + state/province on assets/searches. This option is useful when the popularly named city is not
+ *                 what USPS/CP assigns to that postal code code (e.g., 97222 is officially Portland, Oregon, but
+ *                 residents of that ZIP refer to their locale as Milwaukie.
+ * 
+ * @apiParam {String{0..30}} city City name.
+ * @apiUse stateProvinceParam
+ * @apiParam {String{0..30}} [county] County. If present, the county is used to disambiguate between multiple similarly
+ *           named cities in the state or province.
+ * @apiParam {[PostalCode](#api-Custom_types-ObjectPostalcode)} postalCode USPS or Canada Post postal code.
+ * 
+ * @apiExample {json} Named Postal Code
+ * 
+ *             body:
+ * 
+ *             { city: "San Luis", stateProvince: "CO", postalCode: { country: "US", code: "81152" } }
  */
 class NamedPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.NamedPostalCode> {
 
@@ -98,7 +152,8 @@ class NamedPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.NamedP
 
         instance.setCity(city);
         instance.setStateProvince(com.tcore.tcoreTypes.StateProvince.Enum.forString(stateProvince));
-        instance.setCounty(county);
+        if (county != null)
+            instance.setCounty(county);
 
         postalCode.fill(instance.addNewPostalCode());
 
@@ -111,8 +166,20 @@ class NamedPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.NamedP
  * @api {OBJECT} Coordinates Coordinates
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {Number{13.00 - 86.00}} latitude
- * @apiParam {Number{-177.00 – -52.00}} longitude
+ * 
+ * @apiDescription Latitude/longitude coordinates. The Freight Matching Service will internally assign the closest known
+ *                 city to those coordinates. Note that this could result in a city being selected that is not in the
+ *                 same state/province as the coordinates.
+ * 
+ * @apiParam {Number{13.00 - 86.00}} latitude Latitude of the desired point.
+ * @apiParam {Number{-177.00 – -52.00}} longitude Longitude of the desired point.
+ * 
+ * 
+ * @apiExample {json} Coordinates
+ * 
+ *             body:
+ * 
+ *             { latitude: 38.3, longitude: -97.5 }
  */
 class Coordinates extends AbstractModel<com.tcore.tfmiFreightMatching.LatLon> {
 
@@ -134,10 +201,23 @@ class Coordinates extends AbstractModel<com.tcore.tfmiFreightMatching.LatLon> {
  * @api {OBJECT} NamedCoordinates NamedCoordinates
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {Number{13.00 - 86.00}} latitude
- * @apiParam {Number{-177.00 – -52.00}} longitude
- * @apiParam {String{0..30}} city
- * @apiParam {String} stateProvince
+ * 
+ * @apiDescription City + state/province + coordinates. DAT Connexion will use the city, state/province, and coordinates
+ *                 to resolve to a known place. If an exact match is not found, Connexion will use variations in the
+ *                 city spelling and proximity to the coordinates to resolve. If no resolution is found, Connexion will
+ *                 accept the specified city spelling as-is, and use the specified coordinates and state/province
+ *                 (although road mileages based on this city will not be possible).
+ * 
+ * @apiParam {Number{13.00 - 86.00}} latitude Latitude of the desired point.
+ * @apiParam {Number{-177.00 – -52.00}} longitude Longitude of the desired point.
+ * @apiParam {String{0..30}} city City name.
+ * @apiUse stateProvinceParam
+ * 
+ * @apiExample {json} Named Coordinates
+ * 
+ *             body:
+ * 
+ *             { latitude: 38.3, longitude: -97.5, city: "Galva", stateProvince: "KS" }
  */
 class NamedCoordinates extends AbstractModel<com.tcore.tfmiFreightMatching.NamedLatLon> {
 
@@ -163,11 +243,50 @@ class NamedCoordinates extends AbstractModel<com.tcore.tfmiFreightMatching.Named
  * @api {OBJECT} Place Place
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam (OneOf) {[FmPostalCode](#api-Custom_types-ObjectFmpostalcode)} postalCode
- * @apiParam (OneOf) {[CityAndState](#api-Custom_types-ObjectCityandstate)} cityAndState
- * @apiParam (OneOf) {[NamedPostalCode](#api-Custom_types-ObjectNamedpostalcode)} namedPostalCode
- * @apiParam (OneOf) {[Coordinates](#api-Custom_types-ObjectCoordinates)} coordinates
- * @apiParam (OneOf) {[NamedCoordinates](#api-Custom_types-ObjectNamedcoordinates)} namedCoordinates
+ * @apiParam (OneOf) {[FmPostalCode](#api-Custom_types-ObjectFmpostalcode)} postalCode USPS or Canada Post postal code.
+ * @apiParam (OneOf) {[CityAndState](#api-Custom_types-ObjectCityandstate)} cityAndState City + state/province.
+ * @apiParam (OneOf) {[NamedPostalCode](#api-Custom_types-ObjectNamedpostalcode)} namedPostalCode Postal code + city +
+ *           state/province.
+ * @apiParam (OneOf) {[Coordinates](#api-Custom_types-ObjectCoordinates)} coordinates Latitude/longitude coordinates.
+ * @apiParam (OneOf) {[NamedCoordinates](#api-Custom_types-ObjectNamedcoordinates)} namedCoordinates City +
+ *           state/province + coordinates.
+ * 
+ * @apiExample {json} Postal Code US
+ * 
+ *             body:
+ * 
+ *             { postalCode: { country: "US", code: "99501" } }
+ * 
+ * @apiExample {json} postal Code Canada
+ * 
+ *             body:
+ * 
+ *             { postalCode: { country: "CA", code: "K1A 0B1" } }
+ * 
+ * @apiExample {json} City And State
+ * 
+ *             body:
+ * 
+ *             { cityAndState: { city: "San Luis", stateProvince: "CO" } }
+ * 
+ * @apiExample {json} Named Postal Code
+ * 
+ *             body:
+ * 
+ *             { namedPostalCode: { city: "San Luis", stateProvince: "CO", postalCode: { country: "US", code: "81152" }
+ *             } }
+ * 
+ * @apiExample {json} Coordinates
+ * 
+ *             body:
+ * 
+ *             { coordinates: { latitude: 38.3, longitude: -97.5 } }
+ * 
+ * @apiExample {json} Named Coordinates
+ * 
+ *             body:
+ * 
+ *             { namedCoordinates: { latitude: 38.3, longitude: -97.5, city: "Galva", stateProvince: "KS" } }
  */
 class PlaceModel extends AbstractModel<com.tcore.tfmiFreightMatching.Place> {
 

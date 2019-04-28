@@ -81,25 +81,25 @@ package hello.models;
  * 
  *             body:
  * 
- *             { "queryAssetsByAssetIds": [ "TS0PdTDs", "TS0PdTDt" ] }
+ *             { queryAssetsByAssetIds: [ "TS0PdTDs", "TS0PdTDt" ] }
  * 
  * @apiExample {json} ByPostersId
  * 
  *             body:
  * 
- *             { "queryAssetByPostersReferenceId": "customId" }
+ *             { queryAssetByPostersReferenceId: "customId" }
  * 
  * @apiExample {json} ByAllMyAssets
  * 
  *             body:
  * 
- *             { "queryAllMyAssets": true }
+ *             { queryAllMyAssets: true }
  * 
  * @apiExample {json} ByAllMyGroupsAssets
  * 
  *             body:
  * 
- *             { "queryAllMyGroupsAssets": true }
+ *             { queryAllMyGroupsAssets: true }
  * 
  */
 public class AssetQueryModel extends AbstractModel<com.tcore.tfmiFreightMatching.LookupAssetOperation> {

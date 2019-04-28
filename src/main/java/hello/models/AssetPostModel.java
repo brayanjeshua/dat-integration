@@ -90,19 +90,19 @@ class TruckStopsModel extends AbstractModel<com.tcore.tfmiFreightMatching.TruckS
  * 
  *             body:
  * 
- *             { "baseRateDollars": 55.0, rateBasedOn: "Flat", rateMiles: 550 }
+ *             { baseRateDollars: 55.0, rateBasedOn: "Flat", rateMiles: 550 }
  * 
  * @apiExample {json} Per Mile Rate
  * 
  *             body:
  * 
- *             { "baseRateDollars": 70.0, rateBasedOn: "PerMile", rateMiles: 50 }
+ *             { baseRateDollars: 70.0, rateBasedOn: "PerMile", rateMiles: 50 }
  * 
  * @apiExample {json} Valid Rate
  * 
  *             body:
  * 
- *             { "baseRateDollars": 70.0, rateBasedOn: "PerMile" }
+ *             { baseRateDollars: 70.0, rateBasedOn: "PerMile" }
  */
 class RateModel extends AbstractModel<com.tcore.tfmiFreightMatching.ShipmentRate> {
 

@@ -60,25 +60,25 @@ class DeleteAssetByPostersReferenceIdModel
  * 
  *             body:
  * 
- *             { "deleteAssetsByAssetIds": [ "TS0PdTDs", "TS0PdTDt"] }
+ *             { deleteAssetsByAssetIds: [ "TS0PdTDs", "TS0PdTDt"] }
  * 
  * @apiExample {json} ByPostersId
  * 
  *             body:
  * 
- *             { "deleteAssetByPostersReferenceId": "customId" }
+ *             { deleteAssetByPostersReferenceId: "customId" }
  * 
  * @apiExample {json} ByAllMyAssets
  * 
  *             body:
  * 
- *             { "deleteAllMyAssets": true }
+ *             { deleteAllMyAssets: true }
  * 
  * @apiExample {json} ByAllMyGroupsAssets
  * 
  *             body:
  * 
- *             { "deleteAllMyGroupsAssets": true }
+ *             { deleteAllMyGroupsAssets: true }
  */
 public class AssetDeleteModel extends AbstractModel<com.tcore.tfmiFreightMatching.DeleteAssetOperation> {
 
