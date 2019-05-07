@@ -56,7 +56,7 @@ package hello.models;
  * @apiVersion 1.1.0
  * @apiDescription Lookup currently-booked assets.
  * 
- * @apiParam (OneOf) {AssetId[]{0-8}} queryAssetsByAssetIds Lookup one or more assets by AssetId.
+ * @apiParam (OneOf) {String[]{0-8}} queryAssetsByAssetIds Lookup one or more assets by AssetId.
  * @apiParamExample {json} queryAssetsByAssetIds
  * 
  *                  [ "TS0PdTDs", "TS0PdTDt"]

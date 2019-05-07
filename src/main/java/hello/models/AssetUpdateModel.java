@@ -4,14 +4,20 @@ package hello.models;
  * @api {OBJECT} ShipmentUpdate ShipmentUpdate
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {Boolean} [ltl]
- * @apiParam {String[]{0.70}} [comments]
- * @apiParam {Number{1 – 99}} [count]
- * @apiParam {[Dimensions](#api-Custom_types-ObjectDimensions)} [dimensions]
- * @apiParam {Number} [stops]
- * 
- * @apiParam {[truckStops](#api-Custom_types-ObjectTruckstops)} [truckStops]
- * @apiParam {[Rate](#api-Custom_types-ObjectRate)} [rate]
+ * @apiParam {Boolean} [ltl] “Less than truck load”. For shipments, if set true, then this shipment will not occupy a
+ *           full truck. For equipment, if set true, then this equipment does not have enough available capacity to
+ *           carry a full shipment. The element dimensions should be used to specify cargo/capacity size.
+ * @apiParam {String[]{0-70}} [comments] The number of comments on a posting exposed to truck- stops cannot be
+ *           decreased. Omitting comments from an update is allowable (the previous comment(s) will be left unchanged),
+ *           but including a single comment when the posting currently includes 2 will result in an error.
+ * @apiParam {Number{1 – 99}} [count] The number of assets represented by this description. This allows a requester to
+ *           easily (and cheaply) post mul- tiple identical assets.
+ * @apiParam {[Dimensions](#api-Custom_types-ObjectDimensions)} [dimensions] For shipments, this is the dimensions of
+ *           the cargo. For equipment, this is the dimensions of the available cargo space.
+ * @apiParam {Number} [stops] Number of stops this asset must make.
+ * @apiParam {[truckStops](#api-Custom_types-ObjectTruckstops)} [truckStops] Truckstop locations can be altered, but the
+ *           number of truckstops cannot be decreased.
+ * @apiParam {[Rate](#api-Custom_types-ObjectRate)} [rate] Payment rate in USD (flat-rate or per-mile).
  */
 class ShipmentUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.ShipmentUpdate> {
 
@@ -55,11 +61,17 @@ class ShipmentUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.Sh
  * @api {OBJECT} EquipmentUpdate EquipmentUpdate
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {Boolean} [ltl]
- * @apiParam {String[]{0.70}} [comments]
- * @apiParam {Number{1 – 99}} [count]
- * @apiParam {[Dimensions](#api-Custom_types-ObjectDimensions)} [dimensions]
- * @apiParam {Number} [stops]
+ * @apiParam {Boolean} [ltl] “Less than truck load”. For shipments, if set true, then this shipment will not occupy a
+ *           full truck. For equipment, if set true, then this equipment does not have enough available capacity to
+ *           carry a full shipment. The element dimensions should be used to specify cargo/capacity size.
+ * @apiParam {String[]{0-70}} [comments] The number of comments on a posting exposed to truck- stops cannot be
+ *           decreased. Omitting comments from an update is allowable (the previous comment(s) will be left unchanged),
+ *           but including a single comment when the posting currently includes 2 will result in an error.
+ * @apiParam {Number{1 – 99}} [count] The number of assets represented by this description. This allows a requester to
+ *           easily (and cheaply) post mul- tiple identical assets.
+ * @apiParam {[Dimensions](#api-Custom_types-ObjectDimensions)} [dimensions] For shipments, this is the dimensions of
+ *           the cargo. For equipment, this is the dimensions of the available cargo space.
+ * @apiParam {Number} [stops] Number of stops this asset must make.
  */
 class EquipmentUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.EquipmentUpdate> {
 
@@ -98,11 +110,13 @@ class EquipmentUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.E
  * @apiVersion 1.0.0
  * @apiDescription Update an Asset.
  * 
- * @apiParam (OneOfId) {assetId{0-8}} assetId
- * @apiParam (OneOfId) {assetId{0-8}} postersReferenceId
+ * @apiParam (OneOfId) {String{0-8}} assetId The Asset ID of the asset to be updated.
+ * @apiParam (OneOfId) {String{0-8}} postersReferenceId The Reference ID of the asset to be updated.
  * 
- * @apiParam (OneOf) {[ShipmentUpdate](#api-Custom_types-ObjectShipmentupdate)} shipmentUpdate
- * @apiParam (OneOf) {[EquipmentUpdate](#api-Custom_types-ObjectEquipmentupdate)} equipmentUpdate
+ * @apiParam (OneOf) {[ShipmentUpdate](#api-Custom_types-ObjectShipmentupdate)} shipmentUpdate Shipment-specific items
+ *           which can be updated.
+ * @apiParam (OneOf) {[EquipmentUpdate](#api-Custom_types-ObjectEquipmentupdate)} equipmentUpdate There are currently no
+ *           equipment-specific items which can be updated. This element is included for potential future expansion.
  */
 public class AssetUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.UpdateAssetOperation> {
 

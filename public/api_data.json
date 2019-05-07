@@ -111,7 +111,7 @@
         "OneOf": [
           {
             "group": "OneOf",
-            "type": "AssetId[]",
+            "type": "String[]",
             "size": "0-8",
             "optional": false,
             "field": "deleteAssetsByAssetIds",
@@ -306,7 +306,7 @@
         "OneOf": [
           {
             "group": "OneOf",
-            "type": "AssetId[]",
+            "type": "String[]",
             "size": "0-8",
             "optional": false,
             "field": "queryAssetsByAssetIds",
@@ -501,19 +501,19 @@
         "OneOfId": [
           {
             "group": "OneOfId",
-            "type": "assetId",
+            "type": "String",
             "size": "0-8",
             "optional": false,
             "field": "assetId",
-            "description": ""
+            "description": "<p>The Asset ID of the asset to be updated.</p>"
           },
           {
             "group": "OneOfId",
-            "type": "assetId",
+            "type": "String",
             "size": "0-8",
             "optional": false,
             "field": "postersReferenceId",
-            "description": ""
+            "description": "<p>The Reference ID of the asset to be updated.</p>"
           }
         ],
         "OneOf": [
@@ -522,14 +522,14 @@
             "type": "<a href=\"#api-Custom_types-ObjectShipmentupdate\">ShipmentUpdate</a>",
             "optional": false,
             "field": "shipmentUpdate",
-            "description": ""
+            "description": "<p>Shipment-specific items which can be updated.</p>"
           },
           {
             "group": "OneOf",
             "type": "<a href=\"#api-Custom_types-ObjectEquipmentupdate\">EquipmentUpdate</a>",
             "optional": false,
             "field": "equipmentUpdate",
-            "description": ""
+            "description": "<p>There are currently no equipment-specific items which can be updated. This element is included for potential future expansion.</p>"
           }
         ]
       }
@@ -1051,15 +1051,15 @@
             "type": "Boolean",
             "optional": true,
             "field": "ltl",
-            "description": ""
+            "description": "<p>“Less than truck load”. For shipments, if set true, then this shipment will not occupy a full truck. For equipment, if set true, then this equipment does not have enough available capacity to carry a full shipment. The element dimensions should be used to specify cargo/capacity size.</p>"
           },
           {
             "group": "Parameter",
             "type": "String[]",
-            "size": "0.70",
+            "size": "0-70",
             "optional": true,
             "field": "comments",
-            "description": ""
+            "description": "<p>The number of comments on a posting exposed to truck- stops cannot be decreased. Omitting comments from an update is allowable (the previous comment(s) will be left unchanged), but including a single comment when the posting currently includes 2 will result in an error.</p>"
           },
           {
             "group": "Parameter",
@@ -1067,21 +1067,21 @@
             "size": "1 – 99",
             "optional": true,
             "field": "count",
-            "description": ""
+            "description": "<p>The number of assets represented by this description. This allows a requester to easily (and cheaply) post mul- tiple identical assets.</p>"
           },
           {
             "group": "Parameter",
             "type": "<a href=\"#api-Custom_types-ObjectDimensions\">Dimensions</a>",
             "optional": true,
             "field": "dimensions",
-            "description": ""
+            "description": "<p>For shipments, this is the dimensions of the cargo. For equipment, this is the dimensions of the available cargo space.</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
             "optional": true,
             "field": "stops",
-            "description": ""
+            "description": "<p>Number of stops this asset must make.</p>"
           }
         ]
       }
@@ -1710,15 +1710,15 @@
             "type": "Boolean",
             "optional": true,
             "field": "ltl",
-            "description": ""
+            "description": "<p>“Less than truck load”. For shipments, if set true, then this shipment will not occupy a full truck. For equipment, if set true, then this equipment does not have enough available capacity to carry a full shipment. The element dimensions should be used to specify cargo/capacity size.</p>"
           },
           {
             "group": "Parameter",
             "type": "String[]",
-            "size": "0.70",
+            "size": "0-70",
             "optional": true,
             "field": "comments",
-            "description": ""
+            "description": "<p>The number of comments on a posting exposed to truck- stops cannot be decreased. Omitting comments from an update is allowable (the previous comment(s) will be left unchanged), but including a single comment when the posting currently includes 2 will result in an error.</p>"
           },
           {
             "group": "Parameter",
@@ -1726,35 +1726,35 @@
             "size": "1 – 99",
             "optional": true,
             "field": "count",
-            "description": ""
+            "description": "<p>The number of assets represented by this description. This allows a requester to easily (and cheaply) post mul- tiple identical assets.</p>"
           },
           {
             "group": "Parameter",
             "type": "<a href=\"#api-Custom_types-ObjectDimensions\">Dimensions</a>",
             "optional": true,
             "field": "dimensions",
-            "description": ""
+            "description": "<p>For shipments, this is the dimensions of the cargo. For equipment, this is the dimensions of the available cargo space.</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
             "optional": true,
             "field": "stops",
-            "description": ""
+            "description": "<p>Number of stops this asset must make.</p>"
           },
           {
             "group": "Parameter",
             "type": "<a href=\"#api-Custom_types-ObjectTruckstops\">truckStops</a>",
             "optional": true,
             "field": "truckStops",
-            "description": ""
+            "description": "<p>Truckstop locations can be altered, but the number of truckstops cannot be decreased.</p>"
           },
           {
             "group": "Parameter",
             "type": "<a href=\"#api-Custom_types-ObjectRate\">Rate</a>",
             "optional": true,
             "field": "rate",
-            "description": ""
+            "description": "<p>Payment rate in USD (flat-rate or per-mile).</p>"
           }
         ]
       }

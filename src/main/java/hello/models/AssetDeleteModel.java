@@ -35,7 +35,7 @@ class DeleteAssetByPostersReferenceIdModel
  * @apiVersion 1.1.0
  * @apiDescription Deletes one or more posted assets.
  * 
- * @apiParam (OneOf) {AssetId[]{0-8}} deleteAssetsByAssetIds Delete one or more assets by AssetId.
+ * @apiParam (OneOf) {String[]{0-8}} deleteAssetsByAssetIds Delete one or more assets by AssetId.
  * @apiParamExample {json} deleteAssetsByAssetIds
  * 
  *                  [ "TS0PdTDs", "TS0PdTDt"]
