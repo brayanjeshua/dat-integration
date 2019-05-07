@@ -86,9 +86,9 @@ class FmPostalCode extends AbstractModel<com.tcore.tfmiFreightMatching.FmPostalC
  * @apiDescription City + state/province. If multiple cities of the same name exist in the state/province, it will use
  *                 the optional county to disambiguate.
  * 
- * @apiParam {String{0..30}} city City name.
+ * @apiParam {String{0-30}} city City name.
  * @apiUse stateProvinceParam
- * @apiParam {String{0..30}} [county] County. If present, the county is used to disambiguate between multiple similarly
+ * @apiParam {String{0-30}} [county] County. If present, the county is used to disambiguate between multiple similarly
  *           named cities in the state or province.
  * 
  * @apiExample {json} City And State
@@ -126,9 +126,9 @@ class CityAndState extends AbstractModel<com.tcore.tfmiFreightMatching.CityAndSt
  *                 what USPS/CP assigns to that postal code code (e.g., 97222 is officially Portland, Oregon, but
  *                 residents of that ZIP refer to their locale as Milwaukie.
  * 
- * @apiParam {String{0..30}} city City name.
+ * @apiParam {String{0-30}} city City name.
  * @apiUse stateProvinceParam
- * @apiParam {String{0..30}} [county] County. If present, the county is used to disambiguate between multiple similarly
+ * @apiParam {String{0-30}} [county] County. If present, the county is used to disambiguate between multiple similarly
  *           named cities in the state or province.
  * @apiParam {[PostalCode](#api-Custom_types-ObjectPostalcode)} postalCode USPS or Canada Post postal code.
  * 
@@ -210,7 +210,7 @@ class Coordinates extends AbstractModel<com.tcore.tfmiFreightMatching.LatLon> {
  * 
  * @apiParam {Number{13.00 - 86.00}} latitude Latitude of the desired point.
  * @apiParam {Number{-177.00 – -52.00}} longitude Longitude of the desired point.
- * @apiParam {String{0..30}} city City name.
+ * @apiParam {String{0-30}} city City name.
  * @apiUse stateProvinceParam
  * 
  * @apiExample {json} Named Coordinates
@@ -244,12 +244,26 @@ class NamedCoordinates extends AbstractModel<com.tcore.tfmiFreightMatching.Named
  * @apiGroup Custom types
  * @apiVersion 1.0.0
  * @apiParam (OneOf) {[FmPostalCode](#api-Custom_types-ObjectFmpostalcode)} postalCode USPS or Canada Post postal code.
- * @apiParam (OneOf) {[CityAndState](#api-Custom_types-ObjectCityandstate)} cityAndState City + state/province.
+ *           The Freight Match- ing Service will use the city+state/province assigned to this postal code).
+ * @apiParam (OneOf) {[CityAndState](#api-Custom_types-ObjectCityandstate)} cityAndState City + state/province. The
+ *           Freight Matching Service will match the city + state/province against its atlas of known cities. If
+ *           multiple cities of the same name exist in the state/province, it will use the optional county to
+ *           disambiguate).
  * @apiParam (OneOf) {[NamedPostalCode](#api-Custom_types-ObjectNamedpostalcode)} namedPostalCode Postal code + city +
- *           state/province.
+ *           state/province. The Freight Match- ing Service will internally use the latitude/longitude coordinates of
+ *           the city assigned to the postal code, but will list the specified city + state/province on as-
+ *           sets/searches. This option is useful when the popularly named city is not what USPS/CP assigns to that
+ *           postal code code (e.g., 97222 is officially Portland, Oregon, but residents of that ZIP refer to their
+ *           locale as Milwaukie).
  * @apiParam (OneOf) {[Coordinates](#api-Custom_types-ObjectCoordinates)} coordinates Latitude/longitude coordinates.
+ *           The Freight Matching Service will internally assign the closest known city to those coordinates. Note that
+ *           this could result in a city being selected that is not in the same state/province as the coordinates.
  * @apiParam (OneOf) {[NamedCoordinates](#api-Custom_types-ObjectNamedcoordinates)} namedCoordinates City +
- *           state/province + coordinates.
+ *           state/province + coordinates. DAT Connex- ion will use the city, state/province, and coordinates to resolve
+ *           to a known place. If an exact match is not found, Connexion will use variations in the city spelling and
+ *           proximity to the coordinates to resolve. If no res- olution is found, Connexion will accept the specified
+ *           city spelling as-is, and use the specified coordinates and state/province (although road mileages based on
+ *           this city will not be possible).
  * 
  * @apiExample {json} Postal Code US
  * 
@@ -319,10 +333,15 @@ class PlaceModel extends AbstractModel<com.tcore.tfmiFreightMatching.Place> {
  * @api {OBJECT} Dimensions Dimensions
  * @apiGroup Custom types
  * @apiVersion 1.0.0
- * @apiParam {Number{1 – 199}} [lengthFeet]
- * @apiParam {Number{1 – 199999}} [weightPounds]
- * @apiParam {Number{1 – 299}} [heightInches]
- * @apiParam {Number{1 – 9999}} [volumeCubicFeet]
+ * 
+ * @apiDescription For shipments, this is the dimensions of the cargo. For equipment, this is the dimensions of the
+ *                 available cargo space.
+ * 
+ * 
+ * @apiParam {Number{1 – 199}} [lengthFeet] Length of the shipment or truck deck in feet.
+ * @apiParam {Number{1 – 199999}} [weightPounds] Weight of the shipment or truck carrying capacity in pounds.
+ * @apiParam {Number{1 – 299}} [heightInches] Height of the shipment or truck box in inches.
+ * @apiParam {Number{1 – 9999}} [volumeCubicFeet] Volume of the shipment or truck box in cubic feet.
  */
 class DimensionsModel extends AbstractModel<com.tcore.tfmiFreightMatching.Dimensions> {
 
@@ -351,12 +370,19 @@ class DimensionsModel extends AbstractModel<com.tcore.tfmiFreightMatching.Dimens
 /**
  * @api {OBJECT} Availability Availability
  * @apiGroup Custom types
+ * 
+ * @apiDescription For shipments, when available for pickup at its origi- nation point. For equipment, when available to
+ *                 pickup shipments. If omitted, will be automatically defaulted to now (ear- liest), and now+24 hours
+ *                 (latest).
+ * 
  * @apiVersion 1.0.0
- * @apiParam {Date} [earliest]
+ * @apiParam {Date} [earliest] For shipments, the earliest the shipment can be picked up. For equipment, the earliest
+ *           the equipment is avail- able to pick up a shipment.
  * @apiParamExample {Date} Date
  * 
  *                  2019-05-28T06:30:14.000Z
- * @apiParam {Date} [latest]
+ * @apiParam {Date} [latest] For shipments, the latest the shipment can be picked up. For equipment, the latest the
+ *           equipment is available to pick up a shipment.
  */
 class AvailabilityModel extends AbstractModel<com.tcore.tfmiFreightMatching.Availability> {
 

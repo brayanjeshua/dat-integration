@@ -35,12 +35,12 @@ class DeleteAssetByPostersReferenceIdModel
  * @apiVersion 1.1.0
  * @apiDescription Deletes one or more posted assets.
  * 
- * @apiParam (OneOf) {AssetId[]{0..8}} deleteAssetsByAssetIds Delete one or more assets by AssetId.
+ * @apiParam (OneOf) {AssetId[]{0-8}} deleteAssetsByAssetIds Delete one or more assets by AssetId.
  * @apiParamExample {json} deleteAssetsByAssetIds
  * 
  *                  [ "TS0PdTDs", "TS0PdTDt"]
  * 
- * @apiParam (OneOf) {String{0..8}} deleteAssetByPostersReferenceId Delete an asset by PostersReferenceId.
+ * @apiParam (OneOf) {String{0-8}} deleteAssetByPostersReferenceId Delete an asset by PostersReferenceId.
  * @apiParamExample {json} deleteAssetByPostersReferenceId
  * 
  *                  "customId"
@@ -122,7 +122,7 @@ public class AssetDeleteModel extends AbstractModel<com.tcore.tfmiFreightMatchin
  *                  { "ids": [ "TS0PdTDs", "TS0PdTDt"] }
  * 
  * @apiParam {Object} [deleteAssetByPostersReferenceId] Delete an asset by PostersReferenceId.
- * @apiParam {String{0..8}} deleteAssetByPostersReferenceId.id poster id.
+ * @apiParam {String{0-8}} deleteAssetByPostersReferenceId.id poster id.
  * @apiParamExample {json} PostersReferenceId
  * 
  *                  { "id": "customId" }

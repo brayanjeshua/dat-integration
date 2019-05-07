@@ -98,8 +98,8 @@ class EquipmentUpdateModel extends AbstractModel<com.tcore.tfmiFreightMatching.E
  * @apiVersion 1.0.0
  * @apiDescription Update an Asset.
  * 
- * @apiParam (OneOfId) {assetId{0..8}} assetId
- * @apiParam (OneOfId) {assetId{0..8}} postersReferenceId
+ * @apiParam (OneOfId) {assetId{0-8}} assetId
+ * @apiParam (OneOfId) {assetId{0-8}} postersReferenceId
  * 
  * @apiParam (OneOf) {[ShipmentUpdate](#api-Custom_types-ObjectShipmentupdate)} shipmentUpdate
  * @apiParam (OneOf) {[EquipmentUpdate](#api-Custom_types-ObjectEquipmentupdate)} equipmentUpdate
