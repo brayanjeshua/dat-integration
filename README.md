@@ -36,6 +36,7 @@ On the root folder, run:
 ./gradlew task
 ./gradlew bootrun
 ```
+
 then you should see the localserver working http://localhost:5000/
 
 ## Download Postman and Import the Collection
@@ -51,3 +52,9 @@ dat api.postman_collection.json
 Import collection from json file and test asset post.
 
 - IMPORTANT: Login first, server is the one taking care of session tokens.
+
+## build doc
+
+```bash
+apidoc -i src/ -o public/
+```

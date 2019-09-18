@@ -4,22 +4,22 @@ import java.rmi.RemoteException;
 
 import com.transcore.connexion.sample.BaseSampleClient;
 
-import hello.models.AssetLookupModel;
+import hello.models.AssetQueryModel;
 
 import com.tcore.tfmiFreightMatching.LookupAssetRequestDocument;
 import com.tcore.tfmiFreightMatching.LookupAssetResponseDocument;
 import com.tcore.tfmiFreightMatching.LookupAssetResult;
 import com.tcore.tfmiFreightMatching.TfmiFreightMatchingServiceStub;
 
-public class AssetLookup extends BaseSampleClient {
+public class AssetQuery extends BaseSampleClient {
     @Override
     public void run() throws RemoteException {
         System.out.println("End point: " + endpointUrl);
     }
 
-    private AssetLookupModel props;
+    private AssetQueryModel props;
 
-    public AssetLookup(final AssetLookupModel props) {
+    public AssetQuery(final AssetQueryModel props) {
         this.props = props;
     }
 
