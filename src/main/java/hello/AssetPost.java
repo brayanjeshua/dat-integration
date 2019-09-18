@@ -31,7 +31,9 @@ public class AssetPost extends BaseSampleClient {
         // Validate the request document before executing the operation
         validate(postRequestDoc);
 
-        System.out.println(postRequestDoc.toString());
+        // Hidde Request 
+	System.out.println(postRequestDoc.toString());
+	System.out.println("XML Request: \n"+postRequestDoc.xmlText());
         // Post
         final TfmiFreightMatchingServiceStub stub = new TfmiFreightMatchingServiceStub(endpointUrl);
         final PostAssetResponseDocument responseDoc = stub.postAsset(postRequestDoc, null, null,
@@ -44,7 +46,7 @@ public class AssetPost extends BaseSampleClient {
             throw new RemoteException("Post AssetShipment Request Failed: " + result.getServiceError().getMessage()
                     + " : " + result.getServiceError().getDetailedMessage());
         }
-
+	System.out.println("POST RESULT: \n"+ result.toString());
         return result.toString();
     }
 }

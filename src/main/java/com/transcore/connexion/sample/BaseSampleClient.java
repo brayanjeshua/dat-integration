@@ -53,7 +53,7 @@ import com.tcore.tfmiFreightMatching.TfmiFreightMatchingServiceStub;
  */
 public abstract class BaseSampleClient extends BaseCommandlineTool {
 
-    protected final String endpointUrl = "http://cnx.test.dat.com:9280/TfmiRequest";
+    protected final String endpointUrl = "http://www.transcoreservices.com:8000/TfmiRequest";
 
     protected final Random random = new Random();
 
@@ -85,11 +85,11 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
     }
 
     protected SessionToken loginUser1() throws RemoteException {
-        return login("tradexcnx", "logistics");
+        return login("Tradex1", "tradex@888");
     }
 
     protected SessionToken loginUser2() throws RemoteException {
-        return login("tradexcnx1", "logistics");
+        return login("tradexcnx", "logistics");
     }
 
     protected SessionToken loginDob() throws RemoteException {

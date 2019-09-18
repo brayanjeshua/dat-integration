@@ -28,7 +28,7 @@ public class LoginController {
         Session session = repository.findBy_id(new ObjectId("5c7c7b01030b7432c5b23e9b"));
         session.setToken(token.toString());
         repository.save(session);
-        
+	System.out.println("LOGIN CREDENTIALS: "+ token.toString());
         return token.toString();
     }
 }

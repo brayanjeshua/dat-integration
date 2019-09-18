@@ -40,7 +40,7 @@ public class AssetDelete extends BaseSampleClient {
             throw new RemoteException("Delete Request Failed: " + result.getServiceError().getMessage() + " : "
                     + result.getServiceError().getDetailedMessage());
         }
-
+	System.out.println("DELETE RESULT \n"+result.toString());
         return result.toString();
     }
 }

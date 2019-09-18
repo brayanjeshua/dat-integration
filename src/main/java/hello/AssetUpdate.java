@@ -24,7 +24,7 @@ public class AssetUpdate extends BaseSampleClient {
 
         // Validate the request document before executing the operation
         validate(updateAssetRequestDoc);
-
+	System.out.println(updateAssetRequestDoc.toString());
         // Update
         final TfmiFreightMatchingServiceStub stub = new TfmiFreightMatchingServiceStub(endpointUrl);
         final UpdateAssetResponseDocument responseDoc = stub.updateAsset(updateAssetRequestDoc, null, null,
@@ -35,8 +35,6 @@ public class AssetUpdate extends BaseSampleClient {
         if (!result.isSetUpdateAssetSuccessData())
             throw new RemoteException("Update Asset Request Failed: " + result.getServiceError().getMessage() + " : "
                     + result.getServiceError().getDetailedMessage());
-
-        System.out.println(updateAssetRequestDoc.toString());
 
         return result.toString();
     }
