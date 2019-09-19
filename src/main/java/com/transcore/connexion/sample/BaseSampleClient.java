@@ -68,7 +68,7 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
         final LoginOperation operation = loginRequestDoc.addNewLoginRequest().addNewLoginOperation();
         operation.setLoginId(loginId);
         operation.setPassword(password);
-        operation.setThirdPartyId("TRADEXUSA");
+        operation.setThirdPartyId("ARMSTRONG");
 
         // Validate the request document before executing the operation
         validate(loginRequestDoc);
@@ -85,7 +85,7 @@ public abstract class BaseSampleClient extends BaseCommandlineTool {
     }
 
     protected SessionToken loginUser1() throws RemoteException {
-        return login("Tradex1", "tradex@888");
+        return login("Jpgaviria", "armstrong");
     }
 
     protected SessionToken loginUser2() throws RemoteException {
